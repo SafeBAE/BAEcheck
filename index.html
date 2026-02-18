@@ -118,6 +118,14 @@
     .footer{ margin-top:12px; display:flex; justify-content:space-between; gap:10px; font-size:12px; color: var(--muted);}
     a.link{ color: var(--sb-mint); text-decoration:none; font-weight:800;}
     a.link:hover{ text-decoration:underline;}
+    /* Inline action link (reads like body text, not a button) */
+    .inlineAction{
+      color: var(--sb-mint);
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .inlineAction:hover{ text-decoration: underline; }
     .btnBack{
       width:auto;
       padding: 8px 14px;
@@ -213,42 +221,54 @@
 
 
 
-    /* Modal */
-    .modalOverlay{
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      background: rgba(0,0,0,.55);
-      backdrop-filter: blur(6px);
-      z-index: 9999;
-    }
-    .modal{
-      width: min(520px, 100%);
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      box-shadow: var(--shadow);
-      padding: 18px;
-    }
-    .modalHeader{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-    .modalTitle{ font-weight: 950; font-size: 16px; }
-    .modalClose{
-      width: auto;
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-    }
-    .modalActions{ display:flex; gap:10px; margin-top: 14px; }
-    .modalActions .btn{ width:auto; }
+/* Modal */
+.modalOverlay{
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0,0,0,.92);   /* much darker backdrop */
+  backdrop-filter: none;        /* remove blur for clarity */
+  z-index: 9999;
+}
+
+.modal{
+  width: min(520px, 100%);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--sb-deep);   /* fully solid background */
+  box-shadow: 0 25px 70px rgba(0,0,0,.7);
+  padding: 24px;
+}
+
+.modalHeader{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.modalTitle{
+  font-weight: 950;
+  font-size: 18px;              /* slightly larger for clarity */
+}
+
+.modalClose{
+  width: auto;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.modalActions{
+  display:flex;
+  gap:10px;
+  margin-top: 18px;
+}
+
   </style>
 </head>
 <body>
@@ -333,7 +353,76 @@ const actions = {
   restart: ()=>reset(),
   quickExit: ()=>window.location.replace("https://www.google.com/search?q="),
   goBack: ()=>goBack(),
+
+  // Repair page: "What if they don't forgive me?" explainer
+  openForgiveModal: ()=>openModal(
+    "What If They Don’t Forgive Me?",
+    `
+      <div class="p" style="margin:0 0 10px; color: var(--muted);">
+        They might not — and that can hurt. But forgiveness isn’t something you’re owed, and it isn’t proof that you “did accountability right.”
+      </div>
+
+      <div class="p" style="margin:0 0 10px; color: var(--muted);">
+        A solid repair attempt is about <b>responsibility</b> and <b>respecting boundaries</b>, not getting emotional relief.
+      </div>
+
+      <div class="note" style="margin:10px 0 0;">
+        <b>What accountability looks like either way:</b><br>
+        • Accept their response — including no response.<br>
+        • Don’t argue, minimize, or ask them to reassure you.<br>
+        • Change your behavior even if you never get closure.<br>
+        • Give space, and don’t keep “checking in” to see if they’re over it.
+      </div>
+
+      <div class="mutedBox" style="margin-top:10px;">
+        <b>Reality check:</b> You can’t control whether someone forgives you. You <i>can</i> control whether you repeat harm.
+      </div>
+    `
+  ),
+  closeModal: ()=>closeModal(),
 };
+
+
+// --- Simple modal helpers (uses existing .modalOverlay/.modal CSS) ---
+let __modalEl = null;
+
+function openModal(title, innerHtml){
+  closeModal(); // ensure one at a time
+  const wrap = document.createElement("div");
+  wrap.className = "modalOverlay";
+  wrap.setAttribute("role","dialog");
+  wrap.setAttribute("aria-modal","true");
+  wrap.innerHTML = `
+    <div class="modal">
+      <div class="modalHeader">
+        <div class="modalTitle">${title}</div>
+        <button class="btn btnSmall modalClose" data-action="closeModal" aria-label="Close">Close</button>
+      </div>
+      <div>${innerHtml}</div>
+      <div class="modalActions">
+        <button class="btn btnPrimary" data-action="closeModal">Done</button>
+      </div>
+    </div>
+  `;
+  // click outside closes
+  wrap.addEventListener("click", (e)=>{
+    if(e.target === wrap) closeModal();
+  });
+  document.body.appendChild(wrap);
+  __modalEl = wrap;
+}
+
+function closeModal(){
+  if(__modalEl){
+    __modalEl.remove();
+    __modalEl = null;
+  }
+}
+
+// ESC closes
+window.addEventListener("keydown", (e)=>{
+  if(e.key === "Escape") closeModal();
+});
 
 function backBtn(){ return state.history.length ? `<button class="btn btnBack" data-action="goBack">&#8592; Back</button>` : ""; }
 
@@ -1496,14 +1585,18 @@ if(state.emotion==="numb"){
   }
 
   if(id==="repair"){
-    screen.innerHTML = card(
+    screen.innerHTML = backBtn() + card(
       "Repair (if appropriate)",
       [
         "Accountability doesn’t mean getting forgiven. It means taking responsibility and respecting boundaries.",
-        "If you reach out, don’t ask them to comfort you. Keep it short, respectful, and allow space."
+        "If you reach out, don’t ask them to comfort you. Keep it short, respectful, and allow space.",
+        `<span class="inlineAction" data-action="openForgiveModal">What If They Don’t Forgive Me?</span>`
       ],
       "<b>Possible script:</b> “I’ve been thinking about what happened. I’m sorry I didn’t pause and check in. You didn’t deserve that. I’ll respect whatever space you want.”",
-      grid(btn("Back","nextSteps") + btn("Finish","closing","btn btnPrimary"))
+      grid(
+        btn("Back","nextSteps") +
+        btn("Finish","closing","btn btnPrimary")
+      )
     );
     actions.nextSteps=()=>go("nextSteps");
     actions.closing=()=>go("closing");
