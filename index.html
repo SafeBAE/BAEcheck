@@ -22,6 +22,21 @@
       --accent: var(--sb-mint);
       --danger: var(--sb-teal);
     }
+
+/* ----------- NEW ALCOHOL STYLES ----------- */
+.alcoholRow{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+}
+
+.alcoholIcon{
+  width:64px;   /* slightly larger */
+  min-width:64px;
+  height:auto;
+  margin-top:2px;
+}
+
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -1151,26 +1166,42 @@ function render(){
   }
 
   // ===== Existing Path B (Drinking) =====
-  if(id==="B_drinking_basics"){
-    screen.innerHTML = backBtn() + card(
-      "Alcohol changes consent.",
-      [
-        "Consent needs to be clear and freely given. If someone is <b>significantly impaired</b>, they can’t make informed choices.",
-        "Alcohol is also a risk factor for sexual harm — so “pause and check in” matters <b>more</b>, not less."
-      ],
-      `<details style="margin-top:4px;">
-        <summary style="cursor:pointer; font-weight:900; color: var(--sb-light);">Learn More About Why This Happens</summary>
-        <div style="margin-top:8px; color: var(--muted); line-height:1.45;">
-          Alcohol can reduce judgment, make it harder to notice discomfort cues, and increase impulsivity. It can also affect a person’s ability to freely and clearly communicate what they want.
+if(id==="B_drinking_basics"){
+  screen.innerHTML = backBtn() + card(
+    "Alcohol changes consent.",
+    [
+      `
+      <div class="alcoholRow">
+        <div style="flex:1;">
+          Consent needs to be clear and freely given. If someone is <b>significantly impaired</b>, they can’t make informed choices.
           <br><br>
-          Because intoxication blurs signals, the safest practice is to slow down, check in clearly, and treat uncertainty as a stop sign.
+          Alcohol is also a risk factor for sexual harm — so “pause and check in” matters <b>more</b>, not less.
         </div>
-      </details>`,
-      grid(btn("Continue","B1","btn btnPrimary"))
-    );
-    actions.B1=()=>go("B_drinking_rule");
-    return;
-  }
+
+        <img 
+          src="red-cup.png"
+          alt="Red solo cup"
+          class="alcoholIcon"
+        />
+      </div>
+      `
+    ],
+    `<details style="margin-top:4px;">
+      <summary style="cursor:pointer; font-weight:900; color: var(--sb-light);">
+        Learn More About Why This Happens
+      </summary>
+      <div style="margin-top:8px; color: var(--muted); line-height:1.45;">
+        Alcohol can reduce judgment, make it harder to notice discomfort cues, and increase impulsivity. It can also affect a person’s ability to freely and clearly communicate what they want.
+        <br><br>
+        Because intoxication blurs signals, the safest practice is to slow down, check in clearly, and treat uncertainty as a stop sign.
+      </div>
+    </details>`,
+    grid(btn("Continue","B1","btn btnPrimary"))
+  );
+  actions.B1=()=>go("B_drinking_rule");
+  return;
+}
+
   if(id==="B_drinking_rule"){
     screen.innerHTML = backBtn() + card(
       "A simple safety rule",
