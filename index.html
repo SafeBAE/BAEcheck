@@ -1585,23 +1585,31 @@ if(state.emotion==="numb"){
   }
 
   if(id==="repair"){
-    screen.innerHTML = backBtn() + card(
-      "Repair (if appropriate)",
-      [
-        "Accountability doesn’t mean getting forgiven. It means taking responsibility and respecting boundaries.",
-        "If you reach out, don’t ask them to comfort you. Keep it short, respectful, and allow space.",
-        `<span class="inlineAction" data-action="openForgiveModal">What If They Don’t Forgive Me?</span>`
-      ],
-      "<b>Possible script:</b> “I’ve been thinking about what happened. I’m sorry I didn’t pause and check in. You didn’t deserve that. I’ll respect whatever space you want.”",
-      grid(
-        btn("Back","nextSteps") +
-        btn("Finish","closing","btn btnPrimary")
-      )
-    );
-    actions.nextSteps=()=>go("nextSteps");
-    actions.closing=()=>go("closing");
-    return;
-  }
+  screen.innerHTML = backBtn() + card(
+    "Repair (if appropriate)",
+    [
+      "Accountability doesn’t mean getting forgiven. It means taking responsibility and respecting boundaries.",
+      "If you reach out, don’t ask them to comfort you. Keep it short, respectful, and allow space."
+    ],
+    "<b>Possible script:</b> “I’ve been thinking about what happened. I’m sorry I didn’t pause and check in. You didn’t deserve that. I’ll respect whatever space you want.”",
+    `
+      <div style="margin-top:14px;">
+        <span class="inlineAction" data-action="openForgiveModal">
+          What If They Don’t Forgive Me?
+        </span>
+      </div>
+    ` +
+    grid(
+      btn("Back","nextSteps") +
+      btn("Finish","closing","btn btnPrimary")
+    )
+  );
+
+  actions.nextSteps = () => go("nextSteps");
+  actions.closing = () => go("closing");
+  return;
+}
+
 
   if(id==="support"){
     screen.innerHTML = card(
