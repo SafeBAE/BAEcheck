@@ -162,6 +162,81 @@
       line-height:1.35;
     }
 
+    /* Expandable exercise sections (Grounding page) */
+    details.expando{
+      border: 1px solid rgba(209,254,255,.14);
+      background: rgba(0,0,0,.14);
+      border-radius: 16px;
+      overflow:hidden;
+      margin-top: 12px;
+    }
+    details.expando summary{
+      list-style:none;
+      cursor:pointer;
+      padding: 12px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      user-select:none;
+      font-weight: 950;
+      color: rgba(209,254,255,.92);
+    }
+    details.expando summary::-webkit-details-marker{ display:none; }
+    details.expando summary .expandoMeta{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      min-width:0;
+    }
+    details.expando summary .expandoTitle{
+      font-size:12px;
+      letter-spacing:.3px;
+      text-transform:uppercase;
+      font-weight: 950;
+      color: rgba(209,254,255,.70);
+      line-height:1.2;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    details.expando summary .expandoSub{
+      font-size:13px;
+      color: rgba(209,254,255,.92);
+      font-weight: 900;
+      line-height:1.2;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    details.expando summary .expandoArrow{
+      flex:0 0 auto;
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      border: 1px solid rgba(209,254,255,.18);
+      background: rgba(255,255,255,.04);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 14px;
+      color: rgba(209,254,255,.80);
+      transform: rotate(-90deg);
+      transition: transform 180ms ease, background 180ms ease;
+    }
+    details.expando[open] summary{
+      border-bottom: 1px solid rgba(209,254,255,.14);
+      background: rgba(255,255,255,.03);
+    }
+    details.expando[open] summary .expandoArrow{
+      transform: rotate(0deg);
+      background: rgba(21,255,200,.08);
+    }
+    details.expando .expandoBody{
+      padding: 14px;
+    }
+
+
 
     /* Button content (icon + label) */
     .btnContent{ display:flex; align-items:center; gap:10px; }
@@ -1144,6 +1219,72 @@
 }
 .pressurePrompt b{ color: var(--sb-light); }
 
+
+
+/* ===== Next Steps action grid ===== */
+.nextGrid { display: grid; gap: 10px; margin-top: 12px; }
+.nextBtn {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.055);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-weight: 700;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: transform .06s ease, background .16s ease, border-color .16s ease, box-shadow .16s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.nextBtn:hover {
+  background: rgba(21,255,200,.12);
+  border-color: rgba(21,255,200,.50);
+  box-shadow: 0 0 10px rgba(21,255,200,.22);
+  transform: translateY(-1px);
+}
+.nextBtn:active { transform: translateY(1px); }
+.nextBtnIcon { font-size: 22px; width: 32px; text-align: center; flex-shrink: 0; line-height: 1; }
+.nextBtnText { flex: 1; min-width: 0; }
+.nextBtnLabel { font-size: 14px; font-weight: 850; color: var(--sb-light); display: block; }
+.nextBtnSub { font-size: 12px; color: var(--muted); margin-top: 3px; display: block; line-height: 1.3; }
+
+
+
+
+/* ===== Support screen link buttons ===== */
+.supportLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(209,254,255,.16);
+  background: rgba(255,255,255,.05);
+  color: var(--sb-light);
+  font-weight: 700;
+  font-size: 14px;
+  transition: background .15s ease, border-color .15s ease, transform .08s ease, box-shadow .15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.supportLink:hover {
+  background: rgba(21,255,200,.11);
+  border-color: rgba(21,255,200,.45);
+  transform: translateY(-1px);
+  box-shadow: 0 0 8px rgba(21,255,200,.18);
+}
+.supportLink:active { transform: translateY(1px); }
+.supportLinkIcon { font-size: 22px; flex-shrink: 0; }
+.supportLinkText { flex: 1; }
+.supportLinkLabel { display: block; font-weight: 800; }
+.supportLinkSub { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.supportLinkArrow { color: rgba(21,255,200,.55); font-size: 16px; flex-shrink: 0; }
+
 </style>
 
 <style>
@@ -1496,6 +1637,42 @@
 .bsKnob:hover,.bsKnob.bsDragging{border-color:rgba(21,255,200,.9);box-shadow:0 0 0 7px rgba(21,255,200,.14),0 6px 18px rgba(0,0,0,.5);}
 .bsCardNum{position:absolute;top:7px;left:10px;font-size:9px;font-weight:800;letter-spacing:.1em;color:rgba(255,160,160,.35);pointer-events:none;}
 .bsHint{text-align:center;font-size:11px;color:rgba(209,254,255,.3);letter-spacing:.04em;margin-bottom:14px;}
+
+
+/* ===== Emotion Picker Cards (from index(12).html) ===== */
+.emotionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+.emotionCard {
+  appearance: none;
+  border: 1px solid rgba(209,254,255,.16);
+  background: rgba(255,255,255,.05);
+  color: var(--text);
+  border-radius: 16px;
+  padding: 18px 12px 14px;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: transform .08s ease, background .16s ease, border-color .16s ease, box-shadow .16s ease;
+  width: 100%;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+.emotionCard:hover {
+  background: rgba(21,255,200,.14);
+  border-color: rgba(21,255,200,.55);
+  box-shadow: 0 0 12px rgba(21,255,200,.28);
+  transform: translateY(-2px);
+}
+.emotionCard:active { transform: translateY(0); }
+.emotionEmoji { font-size: 34px; line-height: 1; display: block; }
+.emotionLabel { font-size: 13px; font-weight: 800; color: var(--sb-light); display: block; line-height: 1.3; }
 </style>
 
 </head>
@@ -1526,8 +1703,8 @@
         <div class="subtitle">Reflection & Accountability</div>
       </div>
       <div class="topActions">
-        <button class="btn btnSmall btnDanger" data-action="quickExit">Quick exit</button>
-        <button class="btn btnSmall" data-action="restart">Restart</button>
+        <button class="btn btnSmall btnDanger" data-action="quickExit" title="Leave this page immediately" style="font-weight:900; letter-spacing:.2px;">⚡ Exit</button>
+        <button class="btn btnSmall" data-action="restart">↺ Restart</button>
       </div>
     </div>
 
@@ -1859,6 +2036,18 @@ let started = false;
   const player = { x: 110, y: groundY, w: 46, h: 46, vy: 0, onGround: true };
   const obstacles = [];
 
+  // --- Cosmic background data ---
+  const STAR_COUNT = 90;
+  const stars = Array.from({length: STAR_COUNT}, () => ({
+    x: Math.random() * W,
+    y: Math.random() * groundY * 0.92,
+    r: Math.random() * 1.6 + 0.3,
+    speed: Math.random() * 0.18 + 0.02,
+    phase: Math.random() * Math.PI * 2,
+    twinkleSpeed: Math.random() * 3 + 1,
+  }));
+  const moon = { x: W * 0.83, y: H * 0.20, r: 22 };
+
   function rand(min, max){ return Math.random() * (max - min) + min; }
 
   function spawnObstacle() {
@@ -1934,6 +2123,72 @@ let started = false;
     ctx.closePath();
   }
 
+  function drawBackground() {
+    // Deep space gradient fill
+    const grad = ctx.createLinearGradient(0, 0, 0, groundY);
+    grad.addColorStop(0, "#04091a");
+    grad.addColorStop(0.55, "#080f24");
+    grad.addColorStop(1, "#0b1830");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Ground-area dark fill
+    ctx.fillStyle = "#03060f";
+    ctx.fillRect(0, groundY, W, H - groundY);
+
+    // Nebula glow (purple-blue)
+    const neb = ctx.createRadialGradient(W * 0.64, H * 0.28, 0, W * 0.64, H * 0.28, 200);
+    neb.addColorStop(0, "rgba(80, 0, 130, 0.13)");
+    neb.addColorStop(0.45, "rgba(0, 40, 120, 0.09)");
+    neb.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = neb;
+    ctx.fillRect(0, 0, W, groundY);
+
+    // Secondary nebula (teal hint, near left)
+    const neb2 = ctx.createRadialGradient(W * 0.18, H * 0.5, 0, W * 0.18, H * 0.5, 130);
+    neb2.addColorStop(0, "rgba(0, 100, 120, 0.10)");
+    neb2.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = neb2;
+    ctx.fillRect(0, 0, W, groundY);
+
+    // Moon
+    ctx.save();
+    const moonGrad = ctx.createRadialGradient(
+      moon.x - moon.r * 0.32, moon.y - moon.r * 0.32, moon.r * 0.08,
+      moon.x, moon.y, moon.r
+    );
+    moonGrad.addColorStop(0, "rgba(225, 245, 255, 0.95)");
+    moonGrad.addColorStop(0.55, "rgba(160, 200, 230, 0.75)");
+    moonGrad.addColorStop(1, "rgba(80, 140, 190, 0.35)");
+    ctx.beginPath();
+    ctx.arc(moon.x, moon.y, moon.r, 0, Math.PI * 2);
+    ctx.fillStyle = moonGrad;
+    ctx.fill();
+    // Moon outer glow
+    const moonGlow = ctx.createRadialGradient(moon.x, moon.y, moon.r * 0.9, moon.x, moon.y, moon.r * 2.8);
+    moonGlow.addColorStop(0, "rgba(150, 210, 255, 0.14)");
+    moonGlow.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = moonGlow;
+    ctx.beginPath();
+    ctx.arc(moon.x, moon.y, moon.r * 2.8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Stars with parallax scrolling + twinkling
+    ctx.save();
+    for (const s of stars) {
+      const sx = ((s.x - time * speed * s.speed) % W + W) % W;
+      const twinkle = 0.45 + 0.55 * Math.sin(time * s.twinkleSpeed + s.phase);
+      ctx.globalAlpha = twinkle;
+      ctx.fillStyle = "rgba(209, 254, 255, 1)";
+      ctx.beginPath();
+      ctx.arc(sx, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
   function drawGround() {
     ctx.save();
     ctx.strokeStyle = "rgba(209,254,255,.45)";
@@ -1981,11 +2236,13 @@ let started = false;
 
 function drawStartOverlay(){
   ctx.clearRect(0, 0, W, H);
+  drawBackground();
   drawGround();
   drawPlayer();
 
+  // Soft tint so the text reads, without wiping the background
   ctx.save();
-  ctx.fillStyle = "rgba(0,0,0,.45)";
+  ctx.fillStyle = "rgba(0,0,0,.35)";
   ctx.fillRect(0, 0, W, H);
 
   ctx.fillStyle = "rgba(209,254,255,.95)";
@@ -2087,6 +2344,10 @@ function drawStartOverlay(){
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
+
+    // Cosmic background (sky/stars/moon) — draw first, then game elements on top
+    drawBackground();
+
     drawGround();
     for (const o of obstacles) drawObstacle(o);
     drawPlayer();
@@ -2105,6 +2366,12 @@ function drawStartOverlay(){
 
   // Input (scoped + cleanup)
   const onKeyDown = (e) => {
+    // If the user is typing in a field, don't hijack keys like Space.
+    const active = document.activeElement;
+    const tag = active && active.tagName;
+    const isTypingField = tag === "INPUT" || tag === "TEXTAREA" || (active && active.isContentEditable);
+    if (isTypingField) return;
+
     if (e.code === "Space" || e.code === "ArrowUp") { e.preventDefault(); jump(); }
     if (e.code === "ArrowDown") { e.preventDefault(); fastDrop(); }
     if (e.code === "KeyR") { e.preventDefault(); resetGame(); }
@@ -3077,6 +3344,354 @@ function initOngoingConsentRoad(){
   };
 }
 
+// ===== Grounding (5-4-3-2-1 + breath/body scan) =====
+let groundingCleanup = null;
+let __groundBreathTimer = null;
+
+function groundingMarkup(){
+  return `
+    <div class="h1">Grounding (reset your body)</div>
+    <div class="p">If you feel activated, it’s okay to pause. Grounding helps pull your attention back into the present moment.</div>
+
+    <div class="note">
+      <b>What you’re doing:</b> redirecting attention to your senses + body to reduce panic, fear, or stress.
+    </div>
+
+    <details class="expando" open>
+      <summary>
+        <div class="expandoMeta">
+          <div class="expandoTitle">5-4-3-2-1</div>
+          <div class="expandoSub">Orient using your senses</div>
+        </div>
+        <div class="expandoArrow">▾</div>
+      </summary>
+      <div class="expandoBody">
+        <div id="gtSenses" style="display:grid;gap:10px;"></div>
+        <div class="mutedBox" style="margin-top:10px;">
+          Tip: keep your answers simple. “Blue chair.” “Cool air.” “My hoodie.” You’re not performing — you’re orienting.
+        </div>
+      </div>
+    </details>
+
+    <details class="expando">
+      <summary>
+        <div class="expandoMeta">
+          <div class="expandoTitle">Breathing</div>
+          <div class="expandoSub">5 slow breaths</div>
+        </div>
+        <div class="expandoArrow">▾</div>
+      </summary>
+      <div class="expandoBody">
+        ${breatheWidget()}
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:10px;">
+          <button class="btn btnSmall btnPrimary" type="button" id="gtBreathStart">Start 5 breaths</button>
+          <button class="btn btnSmall" type="button" id="gtBreathReset">Reset</button>
+          <span id="gtBreathCount" style="font-size:12px;color:rgba(209,254,255,.75);font-weight:900;padding:6px 10px;border-radius:999px;border:1px solid rgba(209,254,255,.16);background:rgba(0,0,0,.14);">0 / 5</span>
+        </div>
+
+        <div id="gtBreathHint" style="text-align:center;margin-top:10px;font-size:12px;color:var(--muted);line-height:1.35;">
+          Inhale as the circle grows. Exhale as it shrinks.
+        </div>
+      </div>
+    </details>
+
+    <details class="expando">
+      <summary>
+        <div class="expandoMeta">
+          <div class="expandoTitle">Body scan</div>
+          <div class="expandoSub">30–60 seconds</div>
+        </div>
+        <div class="expandoArrow">▾</div>
+      </summary>
+      <div class="expandoBody">
+        <div class="p" style="margin:0 0 10px;color:rgba(209,254,255,.88);">
+          Close your eyes (if safe). Scan head → shoulders → chest → stomach → hands → legs → feet.
+          Notice where there’s tension. See if you can soften one spot by 5%.
+        </div>
+
+        <div id="gtBody" style="display:grid;gap:8px;margin-top:10px;"></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+          <button class="btn btnSmall" type="button" id="gtBodyDone">Mark scan as done</button>
+          <span id="gtBodyStatus" style="font-size:12px;color:rgba(209,254,255,.75);font-weight:900;padding:6px 10px;border-radius:999px;border:1px solid rgba(209,254,255,.16);background:rgba(0,0,0,.14);">Not started</span>
+        </div>
+      </div>
+    </details>
+
+    <details class="expando">
+      <summary>
+        <div class="expandoMeta">
+          <div class="expandoTitle">Positive repetition</div>
+          <div class="expandoSub">Repeat 5 times</div>
+        </div>
+        <div class="expandoArrow">▾</div>
+      </summary>
+      <div class="expandoBody">
+        <div class="p" style="margin:0 0 10px;color:rgba(209,254,255,.88);">
+          Choose a supportive phrase — or write your own — and repeat it quietly five times.
+        </div>
+
+        <div style="display:grid;gap:10px;">
+          <select id="gtAffirmSelect" class="rbTextarea" style="min-height:auto;resize:none;">
+            <option value="I deserve to be loved and happy.">I deserve to be loved and happy.</option>
+            <option value="I am safe in this moment.">I am safe in this moment.</option>
+            <option value="I can slow down and choose my next step.">I can slow down and choose my next step.</option>
+            <option value="I can pause without making it worse.">I can pause without making it worse.</option>
+            <option value="I can learn and do better next time.">I can learn and do better next time.</option>
+          </select>
+
+          <input id="gtAffirmCustom" class="rbTextarea" style="min-height:auto;resize:none;" placeholder="Or write your own phrase…" />
+
+          <div id="gtAffirmText" style="text-align:center;font-size:16px;font-weight:950;color:rgba(209,254,255,.95);padding:10px 12px;border-radius:14px;border:1px solid rgba(209,254,255,.14);background:rgba(255,255,255,.04);">
+            “I deserve to be loved and happy.”
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;">
+            <button class="btn btnSmall btnPrimary" type="button" id="gtAffirmTap">Tap to Repeat</button>
+            <button class="btn btnSmall" type="button" id="gtAffirmReset">Reset</button>
+            <span id="gtAffirmCount" style="font-size:12px;color:rgba(209,254,255,.75);font-weight:900;padding:6px 10px;border-radius:999px;border:1px solid rgba(209,254,255,.16);background:rgba(0,0,0,.14);">0 / 5</span>
+          </div>
+
+          <div id="gtAffirmHint" style="text-align:center;margin-top:4px;font-size:12px;color:var(--muted);line-height:1.35;">
+            Tap each time you repeat it.
+          </div>
+        </div>
+      </div>
+    </details>
+  `;
+}
+
+function initGrounding(){
+  if(groundingCleanup) groundingCleanup();
+  if(__groundBreathTimer){ clearInterval(__groundBreathTimer); __groundBreathTimer = null; }
+
+  const sensesMount = document.getElementById("gtSenses");
+  const bodyMount   = document.getElementById("gtBody");
+
+  const breathStart = document.getElementById("gtBreathStart");
+  const breathReset = document.getElementById("gtBreathReset");
+  const breathCount = document.getElementById("gtBreathCount");
+  const breathHint  = document.getElementById("gtBreathHint");
+
+  const affirmSelect= document.getElementById("gtAffirmSelect");
+  const affirmCustom= document.getElementById("gtAffirmCustom");
+  const affirmTap   = document.getElementById("gtAffirmTap");
+  const affirmReset = document.getElementById("gtAffirmReset");
+  const affirmCount = document.getElementById("gtAffirmCount");
+  const affirmText  = document.getElementById("gtAffirmText");
+
+  const bodyDone    = document.getElementById("gtBodyDone");
+  const bodyStatus  = document.getElementById("gtBodyStatus");
+
+  if(!sensesMount) return;
+
+  const STEPS = [
+    { key:"see",   label:"Notice 5 things you can see",   n:5, emoji:"👀" },
+    { key:"touch", label:"Notice 4 things you can touch", n:4, emoji:"✋" },
+    { key:"hear",  label:"Notice 3 things you can hear",  n:3, emoji:"👂" },
+    { key:"smell", label:"Notice 2 things you can smell", n:2, emoji:"👃" },
+    { key:"taste", label:"Notice 1 thing you can taste",  n:1, emoji:"👅" }
+  ];
+
+  const stateLocal = {
+    senses: { see:[], touch:[], hear:[], smell:[], taste:[] },
+    breaths: 0,
+    affirm: 0,
+    bodyDone: false
+  };
+
+  function esc(s){ return String(s||"").replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function senseCard(step){
+    const items = stateLocal.senses[step.key];
+    const done = items.length >= step.n;
+    return `
+      <div style="border:1px solid rgba(209,254,255,.14);background:rgba(0,0,0,.14);border-radius:16px;padding:14px;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+          <div style="min-width:0;">
+            <div style="font-weight:950;font-size:14px;letter-spacing:.1px;">${step.emoji} ${step.label}</div>
+            <div style="margin-top:4px;font-size:12px;color:var(--muted);line-height:1.35;">${items.length} / ${step.n}</div>
+          </div>
+          <span style="font-size:12px;font-weight:900;padding:6px 10px;border-radius:999px;border:1px solid rgba(209,254,255,.16);background:rgba(0,0,0,.14);color:${done ? "rgba(21,255,200,.95)" : "rgba(209,254,255,.75)"};">
+            ${done ? "Done" : "In progress"}
+          </span>
+        </div>
+
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;">
+          <input id="gt_${step.key}_in" class="rbTextarea" style="min-height:auto;resize:none;flex:1;" placeholder="Type one thing…" />
+          <button class="btn btnSmall" type="button" data-gt-add="${step.key}">Add</button>
+          <button class="btn btnSmall" type="button" data-gt-clear="${step.key}">Clear</button>
+        </div>
+
+        <div style="margin-top:10px;display:grid;gap:6px;">
+          ${items.map((t,i)=>`
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid rgba(209,254,255,.10);background:rgba(0,0,0,.12);padding:8px 10px;border-radius:12px;">
+              <div style="font-size:13px;color:rgba(209,254,255,.92);line-height:1.3;">${esc(t)}</div>
+              <button class="btn btnSmall" type="button" data-gt-del="${step.key}" data-gt-idx="${i}" aria-label="Remove">✕</button>
+            </div>
+          `).join("")}
+          ${items.length===0 ? `<div style="font-size:12px;color:rgba(209,254,255,.55);padding:6px 2px;">Nothing added yet.</div>` : ``}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderSenses(){
+    sensesMount.innerHTML = STEPS.map(s=>senseCard(s)).join("");
+  }
+
+  function setAffirmText(){
+    const chosen = (affirmCustom && affirmCustom.value.trim()) ? affirmCustom.value.trim() : (affirmSelect ? affirmSelect.value : "");
+    if(affirmText) affirmText.textContent = `“${chosen || "…" }”`;
+    return chosen;
+  }
+
+  function updateBreathUI(){
+    if(breathCount) breathCount.textContent = `${stateLocal.breaths} / 5`;
+    if(breathHint){
+      breathHint.textContent = stateLocal.breaths >= 5
+        ? "Done. Notice any small change in your body."
+        : "Inhale as the circle grows. Exhale as it shrinks.";
+    }
+    if(breathStart) breathStart.disabled = stateLocal.breaths >= 5;
+  }
+
+  function updateAffirmUI(){
+    if(affirmCount) affirmCount.textContent = `${stateLocal.affirm} / 5`;
+    if(affirmTap) affirmTap.disabled = stateLocal.affirm >= 5;
+  }
+
+  function updateBodyUI(){
+    if(!bodyStatus) return;
+    bodyStatus.textContent = stateLocal.bodyDone ? "Done" : "Not started";
+    bodyStatus.style.color = stateLocal.bodyDone ? "rgba(21,255,200,.95)" : "rgba(209,254,255,.75)";
+  }
+
+  function renderBody(){
+    if(!bodyMount) return;
+    const spots = ["Jaw", "Shoulders", "Chest", "Stomach", "Hands", "Legs", "Feet"];
+    bodyMount.innerHTML = spots.map(s=>`
+      <label style="display:flex;align-items:center;gap:10px;border:1px solid rgba(209,254,255,.10);background:rgba(0,0,0,.12);padding:10px 12px;border-radius:12px;">
+        <input type="checkbox" data-gt-body="${esc(s)}" style="accent-color: var(--sb-mint);" />
+        <span style="font-size:13px;color:rgba(209,254,255,.92);font-weight:800;">${esc(s)}</span>
+        <span style="font-size:12px;color:var(--muted);margin-left:auto;">soften 5%</span>
+      </label>
+    `).join("");
+  }
+
+  // Initial render
+  renderSenses();
+  renderBody();
+  setAffirmText();
+  updateBreathUI();
+  updateAffirmUI();
+  updateBodyUI();
+
+  // Handlers
+  const onSensesClick = (e)=>{
+    const addKey = e.target.closest("[data-gt-add]")?.getAttribute("data-gt-add");
+    const clearKey = e.target.closest("[data-gt-clear]")?.getAttribute("data-gt-clear");
+    const delKey = e.target.closest("[data-gt-del]")?.getAttribute("data-gt-del");
+    if(addKey){
+      const input = document.getElementById("gt_"+addKey+"_in");
+      const val = input?.value?.trim();
+      if(!val) return;
+      stateLocal.senses[addKey].push(val);
+      input.value = "";
+      renderSenses();
+      return;
+    }
+    if(clearKey){
+      stateLocal.senses[clearKey] = [];
+      renderSenses();
+      return;
+    }
+    if(delKey){
+      const idx = Number(e.target.closest("[data-gt-idx]")?.getAttribute("data-gt-idx"));
+      if(Number.isFinite(idx)) stateLocal.senses[delKey].splice(idx,1);
+      renderSenses();
+      return;
+    }
+  };
+
+  sensesMount.addEventListener("click", onSensesClick);
+
+  const onAffirmChange = ()=>{
+    setAffirmText();
+  };
+  if(affirmSelect) affirmSelect.addEventListener("change", onAffirmChange);
+  if(affirmCustom) affirmCustom.addEventListener("input", onAffirmChange);
+
+  const onAffirmTap = ()=>{
+    setAffirmText();
+    stateLocal.affirm = Math.min(5, stateLocal.affirm + 1);
+    updateAffirmUI();
+  };
+  const onAffirmReset = ()=>{
+    stateLocal.affirm = 0;
+    updateAffirmUI();
+  };
+  if(affirmTap) affirmTap.addEventListener("click", onAffirmTap);
+  if(affirmReset) affirmReset.addEventListener("click", onAffirmReset);
+
+  const onBreathStart = ()=>{
+    if(__groundBreathTimer) return;
+    // Each cycle = ~10s (4s in, 6s out), but we count breaths simply on a timer.
+    let remaining = 5 - stateLocal.breaths;
+    if(remaining <= 0) return;
+    breathStart.disabled = true;
+    breathReset.disabled = true;
+
+    let tick = 0;
+    __groundBreathTimer = setInterval(()=>{
+      tick += 1;
+      // count a "breath" every 10 seconds
+      if(tick % 10 === 0){
+        stateLocal.breaths = Math.min(5, stateLocal.breaths + 1);
+        updateBreathUI();
+        remaining = 5 - stateLocal.breaths;
+        if(remaining <= 0){
+          clearInterval(__groundBreathTimer);
+          __groundBreathTimer = null;
+          breathReset.disabled = false;
+        }
+      }
+    }, 1000);
+  };
+
+  const onBreathReset = ()=>{
+    if(__groundBreathTimer){ clearInterval(__groundBreathTimer); __groundBreathTimer = null; }
+    stateLocal.breaths = 0;
+    if(breathStart) breathStart.disabled = false;
+    if(breathReset) breathReset.disabled = false;
+    updateBreathUI();
+  };
+
+  if(breathStart) breathStart.addEventListener("click", onBreathStart);
+  if(breathReset) breathReset.addEventListener("click", onBreathReset);
+
+  const onBodyDone = ()=>{
+    stateLocal.bodyDone = true;
+    updateBodyUI();
+  };
+  if(bodyDone) bodyDone.addEventListener("click", onBodyDone);
+
+  groundingCleanup = ()=>{
+    sensesMount.removeEventListener("click", onSensesClick);
+    if(affirmSelect) affirmSelect.removeEventListener("change", onAffirmChange);
+    if(affirmCustom) affirmCustom.removeEventListener("input", onAffirmChange);
+    if(affirmTap) affirmTap.removeEventListener("click", onAffirmTap);
+    if(affirmReset) affirmReset.removeEventListener("click", onAffirmReset);
+    if(breathStart) breathStart.removeEventListener("click", onBreathStart);
+    if(breathReset) breathReset.removeEventListener("click", onBreathReset);
+    if(bodyDone) bodyDone.removeEventListener("click", onBodyDone);
+    if(__groundBreathTimer){ clearInterval(__groundBreathTimer); __groundBreathTimer = null; }
+    groundingCleanup = null;
+  };
+}
+
+
 function render(){
   // Simple progress indicator map
   const progressMap = {
@@ -3106,7 +3721,9 @@ function render(){
     prevent: 6,
     repair: 6,
     support: 6,
-    closing: 7
+    beliefShift: 6,
+    closing: 7,
+    grounding: 4
   };
   const totalSteps = 7;
   function progressBar(step){
@@ -3125,6 +3742,11 @@ function render(){
   if(id !== "H_relationship" && id !== "H_relationship_ongoing"){
     if(_roadListenersCleanup){ _roadListenersCleanup(); }
     if(ongoingConsentCleanup){ ongoingConsentCleanup(); }
+  }
+
+  // Cleanup: stop grounding timers/listeners when leaving grounding screen
+  if(id !== "grounding"){
+    if(groundingCleanup){ groundingCleanup(); }
   }
 
   // Make background subtly lighten as users move forward (spiral → calm)
@@ -3188,11 +3810,21 @@ function render(){
         "We're not here to judge you. We're here to help you slow down, learn, and choose safer next steps."
       ],
       "<b>Privacy:</b> This prototype collects no names, no account info, and stores nothing.",
-      grid(
-        btn("Start","start","btn btnPrimary") +
-        btn("Why this exists","whyBtn","btn") +
-        btn("Jump to pathways menu","pathMenu","btn")
-      )
+      
+`
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:14px;">
+        <button class="btn btnPrimary" data-action="start" style="padding:16px 18px; font-size:16px; font-weight:900; border-radius:16px; width:100%;">
+          Start
+        </button>
+        <button class="btn btnSmall" data-action="whyBtn" style="border-radius:14px; width:100%; padding:12px 14px; font-weight:850;">
+          Why this exists
+        </button>
+        <button class="btn btnSmall" data-action="pathMenu" style="border-radius:14px; width:100%; padding:12px 14px; font-weight:850;">
+          Jump to pathways
+        </button>
+      </div>
+    `
+
     );
 
     screen.innerHTML = progressBar(progressMap[id]) + spiral + mainCard;
@@ -3619,17 +4251,38 @@ if(id==="B_drinking_basics"){
   if(id==="emotion"){
     screen.innerHTML = backBtn() + card(
       "What are you feeling right now?",
-      ["Pick the closest one."],
+      ["Pick the closest one. There's no wrong answer."],
       null,
-      grid(
-        btnIcon("Guilt","guilt","😔") +
-        btnIcon("Defensive","defensive","😤") +
-        btnIcon("Confused / unsure","confused","😕") +
-        btnIcon("Ashamed","ashamed","😳") +
-        btnIcon("Anxious / panicking","anxious","😰") +
-        btnIcon("Angry","angry","😠") +
-        btnIcon("Numb","numb","😶")
-      )
+      `<div class="emotionGrid">
+        <button class="emotionCard" data-action="guilt">
+          <span class="emotionEmoji">😔</span>
+          <span class="emotionLabel">Guilt</span>
+        </button>
+        <button class="emotionCard" data-action="defensive">
+          <span class="emotionEmoji">😤</span>
+          <span class="emotionLabel">Defensive</span>
+        </button>
+        <button class="emotionCard" data-action="confused">
+          <span class="emotionEmoji">😕</span>
+          <span class="emotionLabel">Confused / Unsure</span>
+        </button>
+        <button class="emotionCard" data-action="ashamed">
+          <span class="emotionEmoji">😳</span>
+          <span class="emotionLabel">Ashamed</span>
+        </button>
+        <button class="emotionCard" data-action="anxious">
+          <span class="emotionEmoji">😰</span>
+          <span class="emotionLabel">Anxious / Panicking</span>
+        </button>
+        <button class="emotionCard" data-action="angry">
+          <span class="emotionEmoji">😠</span>
+          <span class="emotionLabel">Angry</span>
+        </button>
+        <button class="emotionCard" data-action="numb" style="grid-column: span 2;">
+          <span class="emotionEmoji">😶</span>
+          <span class="emotionLabel">Numb / Shut Down</span>
+        </button>
+      </div>`
     );
     actions.guilt=()=>{state.emotion="guilt"; go("emotionMessage");};
     actions.defensive=()=>{state.emotion="defensive"; go("emotionMessage");};
@@ -3792,42 +4445,123 @@ if(state.emotion==="angry"){
     return;
   }
 
+
+  if(id==="grounding"){
+    screen.innerHTML = backBtn() + groundingMarkup();
+    setTimeout(initGrounding, 0);
+    actions.nextSteps = ()=>go("nextSteps");
+    return;
+  }
+
+
   if(id==="nextSteps"){
     screen.innerHTML = backBtn() + card(
       "What do you want to do next?",
       ["Choose one to start. You can come back and try others."],
       null,
-      grid(
-        btn("Learn (quick basics)","learn") +
-        btn("Prevent it from happening again (skills)","prevent") +
-        btn("Repair (if appropriate)","repair") +
-        btn("🧠 Belief Shift (reactive thoughts)","beliefShift") +
-        btn("Talk to someone / get support","support") +
-        btn("Finish for now","closing")
-      ) + `<div class="mutedBox"><b>Reminder:</b> This is not legal advice. It doesn’t determine guilt or labels.</div>`
+      `<div class="nextGrid">
+        <button class="nextBtn" data-action="learn">
+          <span class="nextBtnIcon">📚</span>
+          <span class="nextBtnText">
+            <span class="nextBtnLabel">Learn</span>
+            <span class="nextBtnSub">Quick basics on consent, relationships & digital safety</span>
+          </span>
+        </button>
+
+        <button class="nextBtn" data-action="prevent">
+          <span class="nextBtnIcon">🛡️</span>
+          <span class="nextBtnText">
+            <span class="nextBtnLabel">Prevent it from happening again</span>
+            <span class="nextBtnSub">Practical skills and tools to build safer habits</span>
+          </span>
+        </button>
+
+        <button class="nextBtn" data-action="repair">
+          <span class="nextBtnIcon">🤝</span>
+          <span class="nextBtnText">
+            <span class="nextBtnLabel">Repair</span>
+            <span class="nextBtnSub">If appropriate — draft an accountable apology</span>
+          </span>
+        </button>
+
+        <button class="nextBtn" data-action="beliefShift">
+          <span class="nextBtnIcon">🧠</span>
+          <span class="nextBtnText">
+            <span class="nextBtnLabel">Belief Shift</span>
+            <span class="nextBtnSub">Reframe reactive thoughts toward accountability</span>
+          </span>
+        </button>
+
+        <button class="nextBtn" data-action="grounding">
+          <span class="nextBtnIcon">🫧</span>
+          <span class="nextBtnText">
+            <span class="nextBtnLabel">Ground / reset</span>
+            <span class="nextBtnSub">5-4-3-2-1 and body-based calming</span>
+          </span>
+        </button>
+
+        <button class="nextBtn" data-action="support">
+          <span class="nextBtnIcon">💬</span>
+          <span class="nextBtnText">
+            <span class="nextBtnLabel">Talk to someone / Get support</span>
+            <span class="nextBtnSub">Resources for accountability learning and crisis support</span>
+          </span>
+        </button>
+
+        <button class="nextBtn" data-action="closing" style="border-color:rgba(21,255,200,.30); background:rgba(21,255,200,.07);">
+          <span class="nextBtnIcon">✅</span>
+          <span class="nextBtnText">
+            <span class="nextBtnLabel">Finish for now</span>
+            <span class="nextBtnSub">You can return anytime</span>
+          </span>
+        </button>
+      </div>
+      <div class="mutedBox" style="margin-top:12px;"><b>Note:</b> This is not legal advice. It doesn't determine guilt or assign labels.</div>`
     );
     actions.learn=()=>go("learn");
     actions.prevent=()=>go("prevent");
     actions.repair=()=>go("repair");
     actions.beliefShift=()=>go("beliefShift");
+    actions.grounding=()=>go("grounding");
     actions.support=()=>go("support");
     actions.closing=()=>go("closing");
     return;
   }
 
   if(id==="beliefShift"){
-    screen.innerHTML = backBtn() + `
-      <div class="h1">🧠 Belief Shift</div>
-      <div class="p" style="margin-bottom:14px;">Drag each slider from a reactive thought to an accountability thought. No debate, no shame — just a steadier frame you can act from.</div>
-      <div class="bsColLabels">
-        <div class="bsColLabel bsColLabel-reactive"><span class="bsColDot"></span>Reactive Thought</div>
-        <div class="bsColLabel bsColLabel-account">Accountability Thought<span class="bsColDot"></span></div>
-      </div>
-      <div class="bsStack" id="bsStack"></div>
-      <div class="mutedBox" style="margin-bottom:12px;"><b>Micro-rule:</b> If you feel yourself resisting an accountability thought, you don’t have to fully agree. Try moving one notch toward <i>“I can take this seriously”</i> — that’s enough for a next step.</div>
-      <div class="bsHint">Drag handle or use ← → keys</div>
-      ${grid(btn("Back","nextSteps") + btn("Finish","closing","btn btnPrimary"))}
-    `;
+    screen.innerHTML = backBtn() + card(
+      "🧠 Belief Shift",
+      [
+        "Drag each slider from a reactive thought to an accountability thought.",
+        "No debate, no shame — just a steadier frame you can act from."
+      ],
+      null,
+      `
+        <div class="bsColLabels">
+          <div class="bsColLabel bsColLabel-reactive">
+            <span class="bsColDot"></span>Reactive Thought
+          </div>
+          <div class="bsColLabel bsColLabel-account">
+            Accountability Thought<span class="bsColDot"></span>
+          </div>
+        </div>
+
+        <div class="bsStack" id="bsStack"></div>
+
+        <div class="mutedBox" style="margin-bottom:12px;">
+          <b>Micro-rule:</b> If you feel resistance, you don’t have to fully agree.
+          Try moving one notch toward <i>“I can take this seriously.”</i>
+        </div>
+
+        <div class="bsHint">Drag handle or use ← → keys</div>
+
+        ${grid(
+          btn("Back","nextSteps") +
+          btn("Finish","closing","btn btnPrimary")
+        )}
+      `
+    );
+
     setTimeout(initBeliefShift, 0);
     actions.nextSteps=()=>go("nextSteps");
     actions.closing=()=>go("closing");
@@ -4239,20 +4973,51 @@ if(state.emotion==="angry"){
 }
 
     if(id==="support"){
-    screen.innerHTML = card(
+    screen.innerHTML = backBtn() + card(
       "Support options",
       [
-        "If you want structured accountability learning, consider SafeBAE’s accountability training.",
-        "If you’re overwhelmed or unsafe, reaching out for support can help."
+        "If you want structured accountability learning, consider SafeBAE's training.",
+        "If you're overwhelmed or unsafe, reaching out for support can help."
       ],
       null,
-      `<div class="grid">
-        <a class="btn" href="https://safebae.org/360-schools/accountability-training/" target="_blank" rel="noopener">SafeBAE Accountability Training (external)</a>
-        <a class="btn" href="https://rainn.org/" target="_blank" rel="noopener">RAINN (external)</a>
-        <a class="btn" href="https://988lifeline.org/" target="_blank" rel="noopener">988 Lifeline (external)</a>
-        <a class="btn" href="https://www.crisistextline.org/" target="_blank" rel="noopener">Crisis Text Line (external)</a>
-      </div>` +
-      grid(btn("Back","nextSteps") + btn("Finish","closing","btn btnPrimary"))
+      `<div style="display:flex; flex-direction:column; gap:8px; margin-top:14px;">
+        <a class="supportLink" href="https://safebae.org/360-schools/accountability-training/" target="_blank" rel="noopener noreferrer">
+          <span class="supportLinkIcon">🏫</span>
+          <span class="supportLinkText">
+            <span class="supportLinkLabel">SafeBAE Accountability Training</span>
+            <span class="supportLinkSub">Structured program for behavior change</span>
+          </span>
+          <span class="supportLinkArrow">↗</span>
+        </a>
+        <a class="supportLink" href="https://rainn.org/" target="_blank" rel="noopener noreferrer">
+          <span class="supportLinkIcon">🫂</span>
+          <span class="supportLinkText">
+            <span class="supportLinkLabel">RAINN</span>
+            <span class="supportLinkSub">National sexual assault hotline &amp; resources</span>
+          </span>
+          <span class="supportLinkArrow">↗</span>
+        </a>
+        <a class="supportLink" href="https://988lifeline.org/" target="_blank" rel="noopener noreferrer">
+          <span class="supportLinkIcon">📞</span>
+          <span class="supportLinkText">
+            <span class="supportLinkLabel">988 Lifeline</span>
+            <span class="supportLinkSub">Call or text 988 for mental health crisis support</span>
+          </span>
+          <span class="supportLinkArrow">↗</span>
+        </a>
+        <a class="supportLink" href="https://www.crisistextline.org/" target="_blank" rel="noopener noreferrer">
+          <span class="supportLinkIcon">💬</span>
+          <span class="supportLinkText">
+            <span class="supportLinkLabel">Crisis Text Line</span>
+            <span class="supportLinkSub">Text HOME to 741741 for free crisis counseling</span>
+          </span>
+          <span class="supportLinkArrow">↗</span>
+        </a>
+      </div>
+      <div style="margin-top:14px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        ${btn("Back","nextSteps")}
+        ${btn("Finish","closing","btn btnPrimary")}
+      </div>`
     );
     actions.nextSteps=()=>go("nextSteps");
     actions.closing=()=>go("closing");
@@ -4261,19 +5026,23 @@ if(state.emotion==="angry"){
 
   if(id==="closing"){
     screen.innerHTML = card(
-      "You paused. That matters.",
+      "✅ You paused. That matters.",
       [
-        "Taking a minute to reflect reduces the chance of harm happening again.",
-        "If you’re willing to learn and change, that’s important.",
-        "You can restart anytime."
+        "Taking a moment to reflect — even when it's uncomfortable — reduces the chance of harm happening again.",
+        "Accountability isn't a single moment. It's a pattern of honest reflection, behavior change, and choosing safer next steps.",
+        "You can come back anytime."
       ],
-      null,
-      grid(btn("Restart","restart","btn btnPrimary") + btn("Pathways menu","pathMenu"))
+      "The most important question now: <b>what is one concrete thing you'll do differently?</b>",
+      `<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;">
+        ${btn("Start over","restart","btn btnPrimary")}
+        ${btn("Explore pathways","pathMenu")}
+      </div>`
     );
     actions.restart=()=>reset();
     actions.pathMenu=()=>go("pathMenu");
     return;
   }
+
 
   if(id==="pathMenu"){
     screen.innerHTML = backBtn() + card(
