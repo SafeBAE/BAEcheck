@@ -1471,6 +1471,31 @@
   font-weight:900;
   font-size:11px;
 }
+
+/* ===== Belief Shift =====*/
+.bsColLabels{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.bsColLabel{padding:7px 12px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
+.bsColLabel-reactive{background:rgba(255,100,100,.08);border:1px solid rgba(255,100,100,.22);color:rgba(255,160,160,.9);}
+.bsColLabel-account{background:rgba(21,255,200,.08);border:1px solid rgba(21,255,200,.22);color:var(--sb-mint);justify-content:flex-end;}
+.bsColDot{width:7px;height:7px;border-radius:999px;flex-shrink:0;}
+.bsColLabel-reactive .bsColDot{background:rgba(255,120,120,.8);}
+.bsColLabel-account .bsColDot{background:var(--sb-mint);box-shadow:0 0 0 3px rgba(21,255,200,.2);}
+.bsStack{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.bsCard{position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(209,254,255,.16);box-shadow:0 10px 28px rgba(0,0,0,.38);user-select:none;-webkit-user-select:none;height:88px;}
+.bsCard:focus-within{outline:2px solid var(--sb-mint);outline-offset:2px;}
+.bsSide{position:absolute;inset:0;display:flex;align-items:center;padding:0 18px;}
+.bsSideLeft{background:linear-gradient(110deg,rgba(30,18,18,.97) 0%,rgba(40,25,25,.93) 100%);}
+.bsSideRight{background:linear-gradient(110deg,#0e2d28 0%,#0f3732 100%);}
+.bsSideText{font-size:13px;font-weight:800;line-height:1.3;color:rgba(255,200,200,.88);padding-left:16px;padding-right:32px;}
+.bsReframeText{font-size:13px;font-weight:800;line-height:1.3;color:rgba(209,254,255,.95);padding-left:16px;padding-right:32px;}
+.bsRevealMask{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.bsRevealInner{position:absolute;inset:0;}
+.bsHandleTrack{position:absolute;top:0;bottom:0;width:0;pointer-events:none;}
+.bsDividerLine{position:absolute;top:0;bottom:0;left:0;width:2px;transform:translateX(-50%);background:linear-gradient(to bottom,transparent,var(--sb-mint) 30%,var(--sb-mint) 70%,transparent);opacity:.8;}
+.bsKnob{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:999px;background:rgba(20,50,55,.97);border:1.5px solid rgba(21,255,200,.5);box-shadow:0 0 0 5px rgba(21,255,200,.08),0 6px 18px rgba(0,0,0,.5);display:grid;place-items:center;pointer-events:auto;cursor:ew-resize;touch-action:none;transition:box-shadow .15s ease,border-color .15s ease;}
+.bsKnob:hover,.bsKnob.bsDragging{border-color:rgba(21,255,200,.9);box-shadow:0 0 0 7px rgba(21,255,200,.14),0 6px 18px rgba(0,0,0,.5);}
+.bsCardNum{position:absolute;top:7px;left:10px;font-size:9px;font-weight:800;letter-spacing:.1em;color:rgba(255,160,160,.35);pointer-events:none;}
+.bsHint{text-align:center;font-size:11px;color:rgba(209,254,255,.3);letter-spacing:.04em;margin-bottom:14px;}
 </style>
 
 </head>
@@ -3776,6 +3801,7 @@ if(state.emotion==="angry"){
         btn("Learn (quick basics)","learn") +
         btn("Prevent it from happening again (skills)","prevent") +
         btn("Repair (if appropriate)","repair") +
+        btn("🧠 Belief Shift (reactive thoughts)","beliefShift") +
         btn("Talk to someone / get support","support") +
         btn("Finish for now","closing")
       ) + `<div class="mutedBox"><b>Reminder:</b> This is not legal advice. It doesn’t determine guilt or labels.</div>`
@@ -3783,7 +3809,27 @@ if(state.emotion==="angry"){
     actions.learn=()=>go("learn");
     actions.prevent=()=>go("prevent");
     actions.repair=()=>go("repair");
+    actions.beliefShift=()=>go("beliefShift");
     actions.support=()=>go("support");
+    actions.closing=()=>go("closing");
+    return;
+  }
+
+  if(id==="beliefShift"){
+    screen.innerHTML = backBtn() + `
+      <div class="h1">🧠 Belief Shift</div>
+      <div class="p" style="margin-bottom:14px;">Drag each slider from a reactive thought to an accountability thought. No debate, no shame — just a steadier frame you can act from.</div>
+      <div class="bsColLabels">
+        <div class="bsColLabel bsColLabel-reactive"><span class="bsColDot"></span>Reactive Thought</div>
+        <div class="bsColLabel bsColLabel-account">Accountability Thought<span class="bsColDot"></span></div>
+      </div>
+      <div class="bsStack" id="bsStack"></div>
+      <div class="mutedBox" style="margin-bottom:12px;"><b>Micro-rule:</b> If you feel yourself resisting an accountability thought, you don’t have to fully agree. Try moving one notch toward <i>“I can take this seriously”</i> — that’s enough for a next step.</div>
+      <div class="bsHint">Drag handle or use ← → keys</div>
+      ${grid(btn("Back","nextSteps") + btn("Finish","closing","btn btnPrimary"))}
+    `;
+    setTimeout(initBeliefShift, 0);
+    actions.nextSteps=()=>go("nextSteps");
     actions.closing=()=>go("closing");
     return;
   }
@@ -3941,7 +3987,7 @@ if(state.emotion==="angry"){
         { emoji:"&#128588;", title:"Create a culture of enthusiastic consent", body:"Only engage in sex-positive activity when there is ENTHUSIASTIC verbal consent. When you model this, others around you learn to as well." },
         { emoji:"&#128683;", title:"Don\u2019t laugh at rape jokes or \u2018locker room talk\u2019", body:"Speak up when you see people using sexually degrading terms or behavior. Let people know it\u2019s not okay with you \u2014 even a quiet \u201cthat\u2019s not funny\u201d shifts the room." },
         { emoji:"&#9876;&#65039;", title:"Speak out against the root causes", body:"Don\u2019t buy into ideas which view masculinity as violent and dominant, or femininity as passive, weak, or less valued. Redefine masculinity and challenge gender stereotypes when you encounter them." },
-        { emoji:"&#128064;", title:"Have zero tolerance", body:"Do not share intimate images of anyone without their permission, and let your friends know you aren\u2019t okay with them doing it either." },
+        { emoji:"&#128064;", title:"Draw a clear line", body:"Do not share intimate images of anyone without their permission, and let your friends know you aren\u2019t okay with them doing it either." },
         { emoji:"&#127757;", title:"Take an intersectional approach", body:"Rape culture affects us all regardless of gender identity, sexuality, race, religion, or ability. Transgender youth, Indigenous, Brown and Black girls, and people with disabilities are most at-risk and deserve centered support." },
         { emoji:"&#128101;", title:"Be an active bystander", body:"Not just among your friends, but with ANYONE. Safely intervening signals to the perpetrator that their behavior is unacceptable and may help someone stay safe." },
         { emoji:"&#9878;&#65039;", title:"Stop victim blaming", body:"Perpetrators are responsible for assault \u2014 NEVER the survivor. A survivor\u2019s sobriety, clothing, and sexual history are not relevant. Ask instead why the perpetrator felt entitled." },
@@ -4320,6 +4366,80 @@ if(state.emotion==="angry"){
 
 render();
 
+
+// ===== Belief Shift =====
+function initBeliefShift(){
+  var BS_PAIRS = [
+    { left: "They're lying.",                         right: "Even if details differ, something didn't feel okay for them." },
+    { left: "It wasn't that bad.",                    right: "It might not have felt that bad to me — but it might have to them." },
+    { left: "They didn't say no.",                    right: "No isn't the only signal. If it wasn't a clear yes, I should've paused." },
+    { left: "I didn't mean to.",                      right: "I can mean well and still mess up." },
+    { left: "This is unfair to me.",                  right: "It can feel unfair and still be something I need to own." },
+    { left: "If I admit anything, I'm a bad person.", right: "Owning a mistake isn't the same as being evil." },
+    { left: "They're trying to ruin my life.",        right: "This might be about them feeling unsafe — not revenge." },
+    { left: "They should've just told me.",           right: "Not everyone can speak up in the moment — that's why I need to check in." },
+    { left: "Everyone does this.",                    right: "I don't want my standard to be what everyone else does. I want it to be safe." },
+    { left: "I was drunk too.",                       right: "If alcohol made it unclear, that's my cue to stop." },
+    { left: "I need them to say it's okay.",          right: "It's not their job to fix my guilt." },
+    { left: "I'm being attacked.",                    right: "I feel attacked — and I can still listen." },
+    { left: "I can't handle this.",                   right: "I don't have to handle all of it, just one step at a time." }
+  ];
+  var stack = document.getElementById('bsStack');
+  if(!stack) return;
+  stack.innerHTML = '';
+  function bsClamp(n,lo,hi){ return Math.max(lo,Math.min(hi,n)); }
+  function bsEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function bsApply(card, pos, i){
+    pos = bsClamp(pos,0,100); card.dataset.pos = String(pos);
+    var mask=card.querySelector('.bs-mask-'+i), inner=card.querySelector('.bs-inner-'+i),
+        track=card.querySelector('.bs-track-'+i), knob=card.querySelector('.bs-knob-'+i);
+    if(mask)  mask.style.width  = pos+'%';
+    if(inner) inner.style.width = card.offsetWidth+'px';
+    if(track) track.style.left  = pos+'%';
+    if(knob)  knob.setAttribute('aria-valuenow', String(Math.round(pos)));
+  }
+  BS_PAIRS.forEach(function(pair,i){
+    var card = document.createElement('div');
+    card.className='bsCard'; card.dataset.pos='0';
+    card.innerHTML=
+      '<span class="bsCardNum">'+String(i+1).padStart(2,'0')+'</span>'+
+      '<div class="bsSide bsSideLeft"><div class="bsSideText">'+bsEsc(pair.left)+'</div></div>'+
+      '<div class="bsRevealMask bs-mask-'+i+'">'+
+        '<div class="bsRevealInner bsSide bsSideRight bs-inner-'+i+'">'+
+          '<div class="bsReframeText">'+bsEsc(pair.right)+'</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="bsHandleTrack bs-track-'+i+'">'+
+        '<div class="bsDividerLine"></div>'+
+        '<div class="bsKnob bs-knob-'+i+'" tabindex="0" role="slider" aria-label="Belief shift" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">'+
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none">'+
+            '<path d="M9 18l-6-6 6-6" stroke="rgba(255,160,160,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'+
+            '<path d="M15 6l6 6-6 6" stroke="rgba(21,255,200,.95)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'+
+          '</svg>'+
+        '</div>'+
+      '</div>';
+    stack.appendChild(card);
+    bsApply(card,0,i);
+    new ResizeObserver(function(){ bsApply(card,Number(card.dataset.pos),i); }).observe(card);
+    var dragging=false, knob=card.querySelector('.bs-knob-'+i);
+    function posFromEvt(e){
+      var rect=card.getBoundingClientRect(), cx=(e.touches&&e.touches[0])?e.touches[0].clientX:e.clientX;
+      return bsClamp(((cx-rect.left)/rect.width)*100,0,100);
+    }
+    knob.addEventListener('pointerdown',function(e){ dragging=true; knob.classList.add('bsDragging'); knob.setPointerCapture(e.pointerId); e.stopPropagation(); });
+    knob.addEventListener('pointermove',function(e){ if(!dragging)return; bsApply(card,posFromEvt(e),i); });
+    knob.addEventListener('pointerup',function(){ dragging=false; knob.classList.remove('bsDragging'); });
+    knob.addEventListener('pointercancel',function(){ dragging=false; knob.classList.remove('bsDragging'); });
+    card.addEventListener('pointerdown',function(e){ if(e.target.closest('.bs-knob-'+i))return; bsApply(card,posFromEvt(e),i); });
+    knob.addEventListener('keydown',function(e){
+      var step=e.shiftKey?12:5, cur=Number(card.dataset.pos);
+      if(e.key==='ArrowRight'){e.preventDefault();bsApply(card,cur+step,i);}
+      if(e.key==='ArrowLeft'){e.preventDefault();bsApply(card,cur-step,i);}
+      if(e.key==='Home'){e.preventDefault();bsApply(card,0,i);}
+      if(e.key==='End'){e.preventDefault();bsApply(card,100,i);}
+    });
+  });
+}
 </script>
 </body>
 </html>
