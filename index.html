@@ -1345,6 +1345,132 @@
   color: var(--muted);
   font-size: 12px;
 }
+
+/* ===== Prevent Page — tool hub ===== */
+.pvGrid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:10px;
+  margin:14px 0 18px;
+}
+@media(max-width:480px){ .pvGrid{ grid-template-columns:1fr; } }
+.pvBtn{
+  appearance:none;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:4px;
+  padding:16px;
+  border-radius:16px;
+  border:1px solid rgba(209,254,255,.18);
+  background:rgba(21,255,200,.06);
+  color:var(--sb-light);
+  cursor:pointer;
+  text-align:left;
+  transition: background .15s ease, border-color .15s ease, transform .08s ease, box-shadow .15s ease;
+}
+.pvBtn:hover{
+  background:rgba(21,255,200,.13);
+  border-color:rgba(21,255,200,.45);
+  box-shadow:0 0 12px rgba(21,255,200,.18);
+  transform:translateY(-1px);
+}
+.pvBtn:active{ transform:translateY(0); }
+.pvIcon{ font-size:24px; line-height:1; margin-bottom:2px; }
+.pvLabel{ font-size:14px; font-weight:850; letter-spacing:.1px; }
+.pvSub{ font-size:12px; color:var(--muted); line-height:1.3; }
+
+/* ===== Supporting a Survivor modal ===== */
+.ssGrid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media(max-width:480px){ .ssGrid{ grid-template-columns:1fr; } }
+.ssCol{ border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:8px; }
+.ssColDo{ background:rgba(21,255,200,.07); border:1px solid rgba(21,255,200,.25); }
+.ssColDont{ background:rgba(255,80,80,.06); border:1px solid rgba(255,80,80,.22); }
+.ssColHead{ font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.3px; margin-bottom:2px; }
+.ssColDo .ssColHead{ color:var(--sb-mint); }
+.ssColDont .ssColHead{ color:#ff8080; }
+.ssItem{ font-size:13px; color:var(--muted); line-height:1.4; padding:7px 9px; border-radius:8px; background:rgba(0,0,0,.14); }
+
+/* ===== Shift the Culture accordion ===== */
+.scAccordion{ display:flex; flex-direction:column; gap:6px; }
+.scItem{ border-radius:12px; border:1px solid rgba(209,254,255,.14); background:rgba(0,0,0,.14); overflow:hidden; }
+.scHeader{ width:100%; appearance:none; background:transparent; border:none; display:flex; align-items:center; gap:10px; padding:12px 14px; cursor:pointer; color:var(--sb-light); text-align:left; }
+.scHeader:hover{ background:rgba(21,255,200,.06); }
+.scHeader.scOpen{ background:rgba(21,255,200,.08); }
+.scEmoji{ font-size:18px; flex-shrink:0; }
+.scTitle{ flex:1; font-size:14px; font-weight:800; }
+.scChev{ flex-shrink:0; transition:transform .18s ease; opacity:.7; }
+.scHeader.scOpen .scChev{ transform:rotate(180deg); }
+.scBody{ max-height:0; overflow:hidden; font-size:13px; color:var(--muted); line-height:1.5; transition:max-height .25s ease, padding .25s ease; padding:0 14px; }
+.scBody.scOpen{ max-height:160px; padding:0 14px 12px 42px; }
+
+/* ===== Bystander Intervention cards ===== */
+.biCards{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media(max-width:480px){ .biCards{ grid-template-columns:1fr; } }
+.biCard{ border-radius:14px; border:1px solid rgba(209,254,255,.14); background:rgba(0,0,0,.18); padding:14px; }
+.biNum{ font-size:11px; font-weight:900; color:var(--sb-mint); letter-spacing:.4px; margin-bottom:4px; }
+.biTitle{ font-size:15px; font-weight:900; margin-bottom:6px; }
+.biBody{ font-size:13px; color:var(--muted); line-height:1.45; }
+
+/* Allow taller modals for prevent tools */
+.modal{ max-height:88vh; overflow-y:auto; }
+
+/* ===== Bystander modal additions ===== */
+.biSectionHead{
+  font-size:13px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+  color:var(--sb-mint);
+  margin-bottom:8px;
+}
+.biNum{
+  font-size:12px;
+  font-weight:900;
+  color:var(--sb-mint);
+  letter-spacing:.3px;
+  margin-bottom:5px;
+  text-transform:uppercase;
+}
+.biBarriers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  margin-bottom:4px;
+}
+@media(max-width:480px){ .biBarriers{ grid-template-columns:1fr; } }
+.biBarrier{
+  font-size:12px;
+  color:var(--muted);
+  padding:8px 10px;
+  border-radius:8px;
+  border:1px solid rgba(255,120,120,.2);
+  background:rgba(255,80,80,.05);
+  font-style:italic;
+}
+.biBaeCode{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.biBaeItem{
+  font-size:13px;
+  color:var(--muted);
+  padding:8px 12px;
+  border-radius:8px;
+  border:1px solid rgba(209,254,255,.12);
+  background:rgba(21,255,200,.05);
+  position:relative;
+  padding-left:24px;
+}
+.biBaeItem::before{
+  content:'✓';
+  position:absolute;
+  left:8px;
+  color:var(--sb-mint);
+  font-weight:900;
+  font-size:11px;
+}
 </style>
 
 </head>
@@ -3684,17 +3810,195 @@ if(state.emotion==="angry"){
 }
 
   if(id==="prevent"){
-    screen.innerHTML = card(
-      "Prevent it from happening again",
-      [
-        "1) If you feel uncertainty: <b>pause</b>.",
-        "2) Ask: “Are you okay? Want to stop?”",
-        "3) If they freeze/go quiet/pull away: <b>stop</b>.",
-        "4) Treat consent as ongoing — not a one-time question."
-      ],
-      null,
-      grid(btn("Back","nextSteps") + btn("Finish","closing","btn btnPrimary"))
-    );
+    screen.innerHTML = backBtn() + `
+      <div class="h1">Prevent it from happening again</div>
+      <div class="p">These tools can help you build real prevention skills \u2014 not just rules to memorize.</div>
+
+      <div class="pvGrid">
+        <button class="pvBtn" data-action="openConsentRoadModal">
+          <span class="pvIcon">&#128739;&#65039;</span>
+          <span class="pvLabel">Ongoing Consent Road</span>
+          <span class="pvSub">Practice check-ins in real time</span>
+        </button>
+        <button class="pvBtn" data-action="openSurvivorModal">
+          <span class="pvIcon">&#128172;</span>
+          <span class="pvLabel">Supporting a Survivor</span>
+          <span class="pvSub">What to say \u2014 and what not to say</span>
+        </button>
+        <button class="pvBtn" data-action="openCultureModal">
+          <span class="pvIcon">&#127757;</span>
+          <span class="pvLabel">Shift the Culture</span>
+          <span class="pvSub">Ways to build consent culture around you</span>
+        </button>
+        <button class="pvBtn" data-action="openBystanderModal">
+          <span class="pvIcon">&#128065;&#65039;</span>
+          <span class="pvLabel">Bystander Intervention</span>
+          <span class="pvSub">How to step in safely</span>
+        </button>
+      </div>
+
+      ${grid(btn("Back","nextSteps") + btn("Finish","closing","btn btnPrimary"))}
+    `;
+
+    // ── Consent Road modal ──
+    actions.openConsentRoadModal = ()=>{
+      openModal("&#128739;&#65039; Ongoing Consent Road", `
+        <div class="p" style="color:var(--muted);margin:0 0 10px;">Consent is a <em>repeated practice</em>, not a one-time question. Each tap adds a real check-in phrase to the road.</div>
+        <div class="ocTopCopy" style="margin-bottom:10px;">
+          <p><b>Consent doesn\u2019t carry over.</b> It has to be present throughout an interaction \u2014 and revisited over time.</p>
+          <p>The prevention habit: <b>ask clearly</b>, listen carefully, and stop the moment anything feels uncertain.</p>
+        </div>
+        <div style="margin:0 0 8px;font-size:12px;color:rgba(209,254,255,.5);text-transform:uppercase;letter-spacing:.3px;font-weight:800;text-align:center;">\u2190 Scroll the road \u2192</div>
+        <div class="ocRoadWrap" id="ocRoadWrap" aria-label="Ongoing consent roadmap" style="height:200px;">
+          <div class="ocRoadInner" id="ocRoadInner">
+            <div class="ocRoad" aria-hidden="true"></div>
+            <div id="ocProgressLine"></div>
+            <div id="ocMileLayer"></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap;">
+          <button id="ocAddBtn" class="ocBtn" type="button">&#10133; Add check-in</button>
+          <button id="ocResetBtn" class="ocBtn ocBtnGhost" type="button">&#8635; Reset</button>
+          <span id="ocCount" style="font-size:12px;color:rgba(209,254,255,.60);font-weight:800;padding:3px 8px;border-radius:999px;border:1px solid rgba(209,254,255,.16);background:rgba(0,0,0,.14);">0 / 11</span>
+        </div>
+        <div id="ocEndNote" class="ocEndNote" style="margin-top:10px;">
+          \u2705 <b>Road complete.</b> Ongoing consent is a <em>pattern</em>, not a moment.
+        </div>
+        <div style="margin-top:8px;"><span id="ocTip" style="font-size:12px;color:rgba(209,254,255,.65);font-style:italic;">Tip: check in when things change.</span></div>
+      `);
+      setTimeout(initOngoingConsentRoad, 0);
+    };
+
+    // ── Supporting a Survivor modal ──
+    actions.openSurvivorModal = ()=>{
+      openModal("&#128172; Supporting a Survivor", `
+        <div class="p" style="color:var(--muted);margin:0 0 14px;">If someone discloses to you, how you respond matters. Here’s what helps — and what causes harm.</div>
+        <div class="ssGrid">
+          <div class="ssCol ssColDo">
+            <div class="ssColHead">&#10003;&nbsp; Try saying</div>
+            <div class="ssItem">“I’m so sorry this happened to you.”</div>
+            <div class="ssItem">“You are not alone. I know there are people that can help.”</div>
+            <div class="ssItem">“How can I support you?”</div>
+            <div class="ssItem">“It’s not your fault.”</div>
+            <div class="ssItem">“I’m glad you felt safe to tell me so I can be here for you.”</div>
+            <div class="ssItem">“You didn’t deserve that to happen to you.”</div>
+          </div>
+          <div class="ssCol ssColDont">
+            <div class="ssColHead">&#10007;&nbsp; Don’t say</div>
+            <div class="ssItem">“Why didn’t you just leave?”</div>
+            <div class="ssItem">“Why were you there?”</div>
+            <div class="ssItem">“If you kissed, you should have known something was going to happen.”</div>
+            <div class="ssItem">“Were you drinking?”</div>
+            <div class="ssItem">“What were you wearing?”</div>
+            <div class="ssItem">“It’s going to be fine; just move on.”</div>
+            <div class="ssItem">“If it was really a big deal, why didn’t you tell me sooner?”</div>
+          </div>
+        </div>
+        <div class="mutedBox" style="margin-top:14px;">Your job is to listen and support — not to investigate, fix, or decide what they should do.</div>
+      `);
+    };
+
+    // ── Shift the Culture modal ──
+    actions.openCultureModal = ()=>{
+      const items = [
+        { emoji:"&#128588;", title:"Create a culture of enthusiastic consent", body:"Only engage in sex-positive activity when there is ENTHUSIASTIC verbal consent. When you model this, others around you learn to as well." },
+        { emoji:"&#128683;", title:"Don\u2019t laugh at rape jokes or \u2018locker room talk\u2019", body:"Speak up when you see people using sexually degrading terms or behavior. Let people know it\u2019s not okay with you \u2014 even a quiet \u201cthat\u2019s not funny\u201d shifts the room." },
+        { emoji:"&#9876;&#65039;", title:"Speak out against the root causes", body:"Don\u2019t buy into ideas which view masculinity as violent and dominant, or femininity as passive, weak, or less valued. Redefine masculinity and challenge gender stereotypes when you encounter them." },
+        { emoji:"&#128064;", title:"Have zero tolerance", body:"Do not share intimate images of anyone without their permission, and let your friends know you aren\u2019t okay with them doing it either." },
+        { emoji:"&#127757;", title:"Take an intersectional approach", body:"Rape culture affects us all regardless of gender identity, sexuality, race, religion, or ability. Transgender youth, Indigenous, Brown and Black girls, and people with disabilities are most at-risk and deserve centered support." },
+        { emoji:"&#128101;", title:"Be an active bystander", body:"Not just among your friends, but with ANYONE. Safely intervening signals to the perpetrator that their behavior is unacceptable and may help someone stay safe." },
+        { emoji:"&#9878;&#65039;", title:"Stop victim blaming", body:"Perpetrators are responsible for assault \u2014 NEVER the survivor. A survivor\u2019s sobriety, clothing, and sexual history are not relevant. Ask instead why the perpetrator felt entitled." },
+        { emoji:"&#128483;&#65039;", title:"Educate your peers and start the conversation", body:"Talk to your family and friends about how you can work together to end rape culture and support survivors. Awareness + Action = Culture Change." },
+      ];
+      openModal("&#127757; Shift the Culture", `
+        <div class="p" style="color:var(--muted);margin:0 0 14px;">Culture changes through consistent, small actions. Here are ways you can contribute starting today.</div>
+        <div class="scAccordion">
+          ${items.map((it,i)=>`
+            <div class="scItem" id="scItem${i}">
+              <button class="scHeader" type="button" data-sc="${i}" aria-expanded="false">
+                <span class="scEmoji">${it.emoji}</span>
+                <span class="scTitle">${it.title}</span>
+                <span class="scChev" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2.5 5L7 9.5L11.5 5" stroke="rgba(209,254,255,.78)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </button>
+              <div class="scBody" id="scBody${i}">${it.body}</div>
+            </div>
+          `).join('')}
+        </div>
+      `);
+      // accordion logic
+      document.querySelectorAll('.scHeader').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          const idx = btn.getAttribute('data-sc');
+          const body = document.getElementById('scBody'+idx);
+          const open = body.classList.contains('scOpen');
+          // close all
+          document.querySelectorAll('.scBody').forEach(b=>b.classList.remove('scOpen'));
+          document.querySelectorAll('.scHeader').forEach(b=>{ b.classList.remove('scOpen'); b.setAttribute('aria-expanded','false'); });
+          if(!open){
+            body.classList.add('scOpen');
+            btn.classList.add('scOpen');
+            btn.setAttribute('aria-expanded','true');
+          }
+        });
+      });
+    };
+
+    // ── Bystander Intervention modal ──
+    actions.openBystanderModal = ()=>{
+      openModal("&#128065;&#65039; Bystander Intervention", `
+        <div class="p" style="color:var(--muted);margin:0 0 6px;">Bystander intervention is the idea that we can all step in to help prevent violence, harassment, or abuse \u2014 and it doesn\u2019t have to be aggressive or confrontational.</div>
+
+        <div class="mutedBox" style="margin-bottom:14px;">A bystander is present in about <b>30% of cases</b> of rape, threat of rape, or unwanted sexual contact. It\u2019s natural to not know what to do \u2014 but if one person gets involved, others are likely to follow.</div>
+
+        <div class="biSectionHead">The 4 D\u2019s of Intervention</div>
+        <div class="p" style="color:var(--muted);font-size:12px;margin:-8px 0 10px;">Use whichever fits the moment and your safety level.</div>
+        <div class="biCards">
+          <div class="biCard">
+            <div class="biNum">Distract</div>
+            <div class="biBody">Interrupt without confrontation \u2014 ask for directions, pretend your wallet is missing, suggest going somewhere else. Great when you\u2019re unsure what\u2019s happening or don\u2019t know the people involved. Can be safer than direct intervention if the situation might escalate.</div>
+          </div>
+          <div class="biCard">
+            <div class="biNum">Delegate</div>
+            <div class="biBody">Seek help from a third party \u2014 get a trusted friend, tell a trusted adult, enlist a party host to remove a problematic person. Use this when you don\u2019t feel equipped to handle it alone or when things become more dangerous. Respect the survivor\u2019s privacy.</div>
+          </div>
+          <div class="biCard">
+            <div class="biNum">Direct</div>
+            <div class="biBody">Directly intervene \u2014 tell someone to stop a behavior, separate people, or express disapproval while it\u2019s happening. Consider everyone\u2019s safety level, including yours. Most useful when you know the people involved and feel comfortable stepping in.</div>
+          </div>
+          <div class="biCard">
+            <div class="biNum">Delay</div>
+            <div class="biBody">Check in with someone afterwards \u2014 see how the survivor is doing, or confront the perpetrator separately. Sometimes situations happen in seconds and you can\u2019t act in the moment. If that happens, you are <em>never</em> at fault for the perpetrator\u2019s actions. Following up still matters.</div>
+          </div>
+        </div>
+
+        <div class="biSectionHead" style="margin-top:16px;">Common barriers \u2014 and why to push past them</div>
+        <div class="biBarriers">
+          <div class="biBarrier">\u201cIt\u2019s none of my business.\u201d</div>
+          <div class="biBarrier">\u201cSomeone else will step in.\u201d</div>
+          <div class="biBarrier">\u201cI don\u2019t know what to say.\u201d</div>
+          <div class="biBarrier">\u201cI don\u2019t want to cause a scene.\u201d</div>
+          <div class="biBarrier">\u201cIf I say something, it might start a fight.\u201d</div>
+          <div class="biBarrier">\u201cI\u2019m not sure if this is really crossing the line.\u201d</div>
+        </div>
+        <div class="p" style="color:var(--muted);font-size:12px;margin:8px 0 14px;">It\u2019s better to risk being wrong about a situation than to passively witness harassment. It\u2019s not about being a hero \u2014 it\u2019s about preventing harm.</div>
+
+        <div class="biSectionHead">The BAE Code</div>
+        <div class="p" style="color:var(--muted);font-size:12px;margin:-6px 0 10px;">BAE-code means committing to keep an eye out for <em>anyone</em> who might need help \u2014 even if they aren\u2019t your friend.</div>
+        <div class="biBaeCode">
+          <div class="biBaeItem">Watch out for the safety of everyone, not just your friends</div>
+          <div class="biBaeItem">Always intervene if you see something sketchy</div>
+          <div class="biBaeItem">Don\u2019t send unrequested nude photos</div>
+          <div class="biBaeItem">Don\u2019t pressure someone to send nudes or share them without consent</div>
+          <div class="biBaeItem">Never pressure someone to do something sexually</div>
+          <div class="biBaeItem">Always get enthusiastic consent</div>
+          <div class="biBaeItem">Look out for people who have been drinking and help get them home safely</div>
+          <div class="biBaeItem">Change the conversation away from sexist or negative talk about people</div>
+        </div>
+      `);
+    };
+
     actions.nextSteps=()=>go("nextSteps");
     actions.closing=()=>go("closing");
     return;
