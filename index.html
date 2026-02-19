@@ -3550,7 +3550,14 @@ if(id==="B_drinking_basics"){
         "You don’t need them to ‘prove’ anything for their feelings to matter.",
         "Accountability here can look like listening, apologizing without pressure, and respecting whatever boundaries they set."
       ],
-      null,
+      `<details style="margin-top:4px;">
+        <summary style="cursor:pointer; font-weight:900; color: var(--sb-light);">Learn More About Why This Happens</summary>
+        <div style="margin-top:8px; color: var(--muted); line-height:1.45;">
+          Emotional withdrawal after a sexual encounter can be a sign that someone felt unsafe, pressured, or violated — even if they didn’t say so in the moment. People often need time and distance before they can process what happened.
+          <br><br>
+          Silence afterward isn’t the same as being okay. If someone is distant, quiet, or avoidant, that response deserves to be taken seriously — not explained away or minimized. The most accountable response is to create space, listen without defensiveness, and let them lead.
+        </div>
+      </details>`,
       grid(btn("Continue","toEmotion","btn btnPrimary"))
     );
     actions.toEmotion=()=>go("emotion");
@@ -3566,7 +3573,14 @@ if(id==="B_drinking_basics"){
         "A helpful question: did you check in clearly and get an enthusiastic yes? If not, the safest assumption is that you need stronger consent practices.",
         "You can’t redo the past, but you can choose accountability now: learn, change habits, and avoid repeating harm."
       ],
-      null,
+      `<details style="margin-top:4px;">
+        <summary style="cursor:pointer; font-weight:900; color: var(--sb-light);">Learn More About Why This Happens</summary>
+        <div style="margin-top:8px; color: var(--muted); line-height:1.45;">
+          Confusion after a sexual encounter is common — especially when alcohol, strong emotions, or social pressure were involved. Our brains can struggle to process events clearly in the moment, and certainty often only comes later.
+          <br><br>
+          If you’re unsure whether something was okay, that uncertainty itself is meaningful. A clear yes — enthusiastic, verbal, and freely given — is something you tend to remember. If you can’t recall that, the accountable move is to take the uncertainty seriously, reflect honestly, and build stronger habits going forward.
+        </div>
+      </details>`,
       grid(btn("Continue","toEmotion","btn btnPrimary"))
     );
     actions.toEmotion=()=>go("emotion");
@@ -3911,7 +3925,7 @@ if(state.emotion==="angry"){
         { emoji:"&#128588;", title:"Create a culture of enthusiastic consent", body:"Only engage in sex-positive activity when there is ENTHUSIASTIC verbal consent. When you model this, others around you learn to as well." },
         { emoji:"&#128683;", title:"Don\u2019t laugh at rape jokes or \u2018locker room talk\u2019", body:"Speak up when you see people using sexually degrading terms or behavior. Let people know it\u2019s not okay with you \u2014 even a quiet \u201cthat\u2019s not funny\u201d shifts the room." },
         { emoji:"&#9876;&#65039;", title:"Speak out against the root causes", body:"Don\u2019t buy into ideas which view masculinity as violent and dominant, or femininity as passive, weak, or less valued. Redefine masculinity and challenge gender stereotypes when you encounter them." },
-        { emoji:"&#128064;", title:"Have zero tolerance", body:"Do not share intimate images of anyone without their permission, and let your friends know you aren\u2019t okay with them doing it either." },
+        { emoji:"&#128064;", title:"Draw a clear line", body:"Do not share intimate images of anyone without their permission, and let your friends know you aren\u2019t okay with them doing it either." },
         { emoji:"&#127757;", title:"Take an intersectional approach", body:"Rape culture affects us all regardless of gender identity, sexuality, race, religion, or ability. Transgender youth, Indigenous, Brown and Black girls, and people with disabilities are most at-risk and deserve centered support." },
         { emoji:"&#128101;", title:"Be an active bystander", body:"Not just among your friends, but with ANYONE. Safely intervening signals to the perpetrator that their behavior is unacceptable and may help someone stay safe." },
         { emoji:"&#9878;&#65039;", title:"Stop victim blaming", body:"Perpetrators are responsible for assault \u2014 NEVER the survivor. A survivor\u2019s sobriety, clothing, and sexual history are not relevant. Ask instead why the perpetrator felt entitled." },
