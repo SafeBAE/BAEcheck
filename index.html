@@ -3527,7 +3527,14 @@ if(id==="B_drinking_basics"){
         "Consent usually looks like active participation — not silence, stiffness, or doing it just to ‘get it over with.’",
         "When in doubt: pause, ask, and be ready to stop without argument."
       ],
-      null,
+      `<details style="margin-top:4px;">
+        <summary style="cursor:pointer; font-weight:900; color: var(--sb-light);">Learn More About Why This Happens</summary>
+        <div style="margin-top:8px; color: var(--muted); line-height:1.45;">
+          People don’t always say no clearly — even when they don’t want to continue. They might go along to avoid conflict, to protect the other person’s feelings, or because they feel frozen or unsure how to stop things.
+          <br><br>
+          This is why <b>active, enthusiastic participation</b> is the clearest signal of a real yes. Silence, passivity, or “going along with it” are not the same as consent. If you’re reading uncertainty and continuing anyway, that uncertainty matters — and it’s always safer to pause and check in than to keep going.
+        </div>
+      </details>`,
       grid(btn("Continue","toEmotion","btn btnPrimary"))
     );
     actions.toEmotion=()=>go("emotion");
@@ -3904,7 +3911,7 @@ if(state.emotion==="angry"){
         { emoji:"&#128588;", title:"Create a culture of enthusiastic consent", body:"Only engage in sex-positive activity when there is ENTHUSIASTIC verbal consent. When you model this, others around you learn to as well." },
         { emoji:"&#128683;", title:"Don\u2019t laugh at rape jokes or \u2018locker room talk\u2019", body:"Speak up when you see people using sexually degrading terms or behavior. Let people know it\u2019s not okay with you \u2014 even a quiet \u201cthat\u2019s not funny\u201d shifts the room." },
         { emoji:"&#9876;&#65039;", title:"Speak out against the root causes", body:"Don\u2019t buy into ideas which view masculinity as violent and dominant, or femininity as passive, weak, or less valued. Redefine masculinity and challenge gender stereotypes when you encounter them." },
-        { emoji:"&#128064;", title:"Draw a clear line", body:"Do not share intimate images of anyone without their permission, and let your friends know you aren\u2019t okay with them doing it either." },
+        { emoji:"&#128064;", title:"Have zero tolerance", body:"Do not share intimate images of anyone without their permission, and let your friends know you aren\u2019t okay with them doing it either." },
         { emoji:"&#127757;", title:"Take an intersectional approach", body:"Rape culture affects us all regardless of gender identity, sexuality, race, religion, or ability. Transgender youth, Indigenous, Brown and Black girls, and people with disabilities are most at-risk and deserve centered support." },
         { emoji:"&#128101;", title:"Be an active bystander", body:"Not just among your friends, but with ANYONE. Safely intervening signals to the perpetrator that their behavior is unacceptable and may help someone stay safe." },
         { emoji:"&#9878;&#65039;", title:"Stop victim blaming", body:"Perpetrators are responsible for assault \u2014 NEVER the survivor. A survivor\u2019s sobriety, clothing, and sexual history are not relevant. Ask instead why the perpetrator felt entitled." },
