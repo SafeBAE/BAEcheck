@@ -1613,6 +1613,396 @@
   font-size:11px;
 }
 
+/* ===== Signal Board ===== */
+.sbScreen{ }
+.sbIntro{
+  font-size:13px; color:rgba(209,254,255,.65); line-height:1.5;
+  margin-bottom:18px;
+}
+.sbIntro b{ color:rgba(209,254,255,.90); }
+.sbGrid{
+  display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:20px;
+}
+.sbSignal{
+  position:relative; border-radius:14px;
+  border:1px solid rgba(209,254,255,.14);
+  background:rgba(0,0,0,.18);
+  padding:12px 12px 12px 14px; cursor:pointer;
+  user-select:none; -webkit-tap-highlight-color:transparent;
+  transition:border-color .18s ease, background .18s ease, box-shadow .18s ease, transform .1s ease;
+  display:flex; flex-direction:column; gap:5px;
+}
+.sbSignal:hover{ background:rgba(255,255,255,.04); border-color:rgba(209,254,255,.28); }
+.sbSignal:active{ transform:scale(.97); }
+.sbSignal.active{
+  border-color:rgba(255,100,60,.60);
+  background:linear-gradient(135deg, rgba(255,80,40,.12), rgba(29,65,78,.18));
+  box-shadow:0 0 0 1px rgba(255,100,60,.20), 0 4px 14px rgba(0,0,0,.25);
+}
+.sbSignal.active .sbSignalCheck{ opacity:1; transform:scale(1); }
+.sbSignalEmoji{ font-size:20px; line-height:1; }
+.sbSignalLabel{ font-size:12px; font-weight:850; line-height:1.25; color:rgba(209,254,255,.88); }
+.sbSignalSub{ font-size:11px; color:rgba(209,254,255,.48); line-height:1.3; }
+.sbSignalCheck{
+  position:absolute; top:8px; right:9px;
+  width:18px; height:18px; border-radius:999px;
+  background:rgba(255,100,60,.85); display:grid; place-items:center;
+  opacity:0; transform:scale(.6);
+  transition:opacity .15s ease, transform .18s cubic-bezier(.22,1.3,.36,1);
+}
+.sbMeterWrap{ margin-bottom:18px; }
+.sbMeterLabel{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+.sbMeterTitle{ font-size:11px; font-weight:900; letter-spacing:.5px; text-transform:uppercase; color:rgba(209,254,255,.55); }
+.sbMeterPhrase{ font-size:12px; font-weight:850; transition:color .4s ease; }
+.sbMeterTrack{
+  height:10px; border-radius:999px; background:rgba(0,0,0,.25);
+  border:1px solid rgba(209,254,255,.10); overflow:hidden; position:relative;
+}
+.sbMeterFill{
+  height:100%; border-radius:999px; width:0%;
+  transition:width .55s cubic-bezier(.22,1,.36,1), background .55s ease;
+  background:rgba(21,255,200,.80); position:relative;
+}
+.sbMeterFill::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg, transparent 60%, rgba(255,255,255,.25));
+  border-radius:999px;
+}
+.sbReframe{
+  border-radius:14px; padding:14px 16px;
+  border:1px solid rgba(209,254,255,.14); background:rgba(0,0,0,.14);
+  min-height:64px; transition:border-color .4s ease, background .4s ease; margin-bottom:18px;
+}
+.sbReframe.warm{
+  border-color:rgba(255,100,60,.35);
+  background:linear-gradient(135deg, rgba(255,60,30,.08), rgba(29,65,78,.15));
+}
+.sbReframeInner{ font-size:13px; line-height:1.5; color:rgba(209,254,255,.82); transition:opacity .3s ease; }
+.sbReframeInner b{ color:rgba(209,254,255,.96); }
+.sbReframeTag{
+  display:inline-block; font-size:10px; font-weight:900; letter-spacing:.5px; text-transform:uppercase;
+  color:rgba(255,140,80,.85); background:rgba(255,100,60,.12); border:1px solid rgba(255,100,60,.28);
+  border-radius:999px; padding:2px 9px; margin-bottom:8px;
+  opacity:0; transform:translateY(4px); transition:opacity .3s ease .1s, transform .3s ease .1s;
+}
+.sbReframe.warm .sbReframeTag{ opacity:1; transform:translateY(0); }
+.sbCountRow{ display:flex; gap:10px; margin-bottom:6px; flex-wrap:wrap; }
+.sbCountPill{
+  font-size:11px; font-weight:900; padding:3px 10px;
+  border-radius:999px; border:1px solid rgba(209,254,255,.16);
+  background:rgba(0,0,0,.16); color:rgba(209,254,255,.65);
+  transition:border-color .3s ease, background .3s ease, color .3s ease;
+}
+.sbCountPill.lit{
+  border-color:rgba(255,100,60,.45); background:rgba(255,80,40,.14); color:rgba(255,160,110,.95);
+}
+@media(prefers-reduced-motion:reduce){
+  .sbSignal,.sbSignalCheck,.sbMeterFill,.sbReframe,.sbReframeTag,.sbCountPill{ transition:none !important; }
+}
+
+/* ===== Commitment Forge ===== */
+.forgeWrap{
+  margin-top: 18px;
+}
+.forgeLabel{
+  font-size: 12px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: rgba(209,254,255,.60);
+  margin-bottom: 8px;
+}
+.forgeTextarea{
+  width:100%;
+  min-height: 80px;
+  background: rgba(0,0,0,.22);
+  border: 1px solid rgba(209,254,255,.20);
+  border-radius: 12px;
+  color: var(--sb-light);
+  font-size: 14px;
+  font-family: inherit;
+  padding: 12px 14px;
+  resize: vertical;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  line-height: 1.45;
+}
+.forgeTextarea::placeholder{ color: rgba(209,254,255,.35); }
+.forgeTextarea:focus{
+  border-color: rgba(21,255,200,.55);
+  box-shadow: 0 0 0 3px rgba(21,255,200,.12);
+}
+.forgeBtn{
+  margin-top: 10px;
+  width: 100%;
+  padding: 13px 18px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 900;
+  font-size: 14px;
+  background: linear-gradient(135deg, rgba(21,255,200,.95), rgba(19,132,143,.80));
+  color: #041114;
+  transition: transform .1s ease, box-shadow .2s ease, opacity .2s ease;
+  box-shadow: 0 0 0 rgba(21,255,200,0);
+}
+.forgeBtn:hover{
+  box-shadow: 0 0 20px rgba(21,255,200,.35);
+  transform: translateY(-1px);
+}
+.forgeBtn:active{ transform: translateY(1px); }
+.forgeBtn:disabled{ opacity: .4; cursor: default; transform: none; box-shadow: none; }
+
+/* Forged Card */
+.forgedCardWrap{
+  display: none;
+  margin-top: 16px;
+  position: relative;
+}
+.forgedCardWrap.show{ display: block; }
+.forgedCard{
+  border-radius: 18px;
+  padding: 20px 22px;
+  background: linear-gradient(135deg,
+    rgba(21,255,200,.12) 0%,
+    rgba(19,132,143,.18) 50%,
+    rgba(29,65,78,.30) 100%
+  );
+  border: 1px solid rgba(21,255,200,.45);
+  box-shadow: 0 0 0 rgba(21,255,200,0);
+  animation: forgeIn .55s cubic-bezier(.22,1.2,.36,1) forwards;
+  position: relative;
+  overflow: hidden;
+}
+@keyframes forgeIn{
+  0%  { opacity:0; transform: scale(.88) translateY(12px); box-shadow: 0 0 0 rgba(21,255,200,0); }
+  60% { box-shadow: 0 0 36px rgba(21,255,200,.30); }
+  100%{ opacity:1; transform: scale(1) translateY(0); box-shadow: 0 0 18px rgba(21,255,200,.14); }
+}
+.forgedCard::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0px,
+    transparent 18px,
+    rgba(21,255,200,.025) 18px,
+    rgba(21,255,200,.025) 20px
+  );
+  pointer-events:none;
+}
+.forgedCardMeta{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom: 10px;
+}
+.forgedCardBadge{
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .7px;
+  text-transform: uppercase;
+  color: rgba(21,255,200,.85);
+  background: rgba(21,255,200,.10);
+  border: 1px solid rgba(21,255,200,.28);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.forgedCardDate{
+  font-size: 11px;
+  color: rgba(209,254,255,.40);
+}
+.forgedCardText{
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--sb-light);
+}
+.forgedCardGlow{
+  position:absolute;
+  bottom:-30px; right:-30px;
+  width:120px; height:120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(21,255,200,.22), transparent 70%);
+  pointer-events:none;
+}
+
+/* Pulse on forge */
+@keyframes mintPulse{
+  0%   { box-shadow: 0 0 0 0 rgba(21,255,200,.55); }
+  70%  { box-shadow: 0 0 0 16px rgba(21,255,200,0); }
+  100% { box-shadow: 0 0 0 0 rgba(21,255,200,0); }
+}
+.forgePulse{ animation: mintPulse .7s ease-out; }
+
+/* ===== Rationalization Detector ===== */
+.rdWrap{ margin-top: 14px; }
+.rdPanel{
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: rgba(21,255,200,.04);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.rdPanelHeader{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:16px 18px; cursor:pointer;
+  user-select:none; -webkit-tap-highlight-color:transparent;
+}
+.rdPanelHeader:focus-visible{ outline:none; box-shadow:0 0 0 3px rgba(21,255,200,.32); }
+.rdTitleBlock{ display:flex; flex-direction:column; gap:3px; min-width:0; }
+.rdPanelTitle{ font-size:15px; font-weight:800; letter-spacing:.2px; }
+.rdPanelSub{ font-size:12px; color:var(--muted); line-height:1.3; }
+.rdChev{
+  width:34px; height:34px; border-radius:999px;
+  display:grid; place-items:center;
+  border:1px solid rgba(209,254,255,.16);
+  background:rgba(0,0,0,.12);
+  transition: transform .18s ease, background .18s ease;
+  flex:0 0 auto; font-size:14px;
+}
+.rdPanel.open .rdChev{ transform:rotate(180deg); background:rgba(0,0,0,.18); border-color:rgba(21,255,200,.24); }
+.rdPanelBody{
+  max-height:0; opacity:0; transform:translateY(-6px);
+  transition: max-height .32s ease, opacity .24s ease, transform .24s ease;
+  overflow:hidden;
+}
+.rdPanel.open .rdPanelBody{ max-height:1000px; opacity:1; transform:translateY(0); }
+.rdInner{ padding:0 16px 18px; }
+
+.rdContext{
+  font-size:12px; color:rgba(209,254,255,.55); line-height:1.45;
+  margin-bottom:12px; padding:10px 12px;
+  border-radius:10px; border:1px dashed rgba(209,254,255,.12);
+  background:rgba(0,0,0,.10);
+}
+
+.rdTextarea{
+  width:100%; min-height:100px;
+  background:rgba(0,0,0,.22);
+  border:1px solid rgba(209,254,255,.20);
+  border-radius:12px;
+  color:var(--sb-light);
+  font-size:14px; font-family:inherit;
+  padding:12px 14px; resize:vertical; outline:none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  line-height:1.5;
+}
+.rdTextarea::placeholder{ color:rgba(209,254,255,.30); }
+.rdTextarea:focus{ border-color:rgba(21,255,200,.50); box-shadow:0 0 0 3px rgba(21,255,200,.10); }
+
+.rdScanBtn{
+  margin-top:10px; width:100%;
+  padding:13px 18px; border-radius:14px; border:none;
+  cursor:pointer; font-family:inherit; font-weight:900; font-size:14px;
+  background:linear-gradient(135deg, rgba(255,120,80,.90), rgba(200,60,60,.80));
+  color:#fff;
+  transition: transform .1s ease, box-shadow .2s ease, opacity .2s ease;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.rdScanBtn:hover{ box-shadow:0 0 20px rgba(255,100,60,.30); transform:translateY(-1px); }
+.rdScanBtn:active{ transform:translateY(1px); }
+.rdScanBtn:disabled{ opacity:.4; cursor:default; transform:none; box-shadow:none; }
+
+/* Scanning animation */
+.rdScanLine{
+  display:none; margin-top:14px;
+  height:3px; border-radius:999px;
+  background:linear-gradient(90deg, transparent, rgba(255,120,80,.80), transparent);
+  background-size:200% 100%;
+  animation:rdSweep 1.2s ease-in-out infinite;
+}
+.rdScanLine.active{ display:block; }
+@keyframes rdSweep{
+  0%  { background-position:200% 0; }
+  100%{ background-position:-200% 0; }
+}
+.rdScanningLabel{
+  display:none; text-align:center;
+  font-size:12px; color:rgba(255,140,80,.80);
+  letter-spacing:.4px; margin-top:8px; font-weight:800;
+  text-transform:uppercase;
+  animation: rdPulseText 1.2s ease-in-out infinite;
+}
+.rdScanningLabel.active{ display:block; }
+@keyframes rdPulseText{
+  0%,100%{ opacity:.5; } 50%{ opacity:1; }
+}
+
+/* Results area */
+.rdResults{ margin-top:16px; display:none; }
+.rdResults.show{ display:block; }
+
+.rdResultsHeader{
+  display:flex; align-items:center; gap:8px;
+  margin-bottom:12px;
+}
+.rdResultsTitle{ font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:.4px; color:rgba(209,254,255,.70); }
+.rdFindCount{
+  font-size:11px; font-weight:900; padding:2px 9px;
+  border-radius:999px;
+  background:rgba(255,100,60,.15);
+  border:1px solid rgba(255,100,60,.35);
+  color:rgba(255,150,100,.90);
+}
+
+.rdMechCard{
+  border-radius:14px; padding:14px 16px; margin-bottom:10px;
+  border:1px solid rgba(255,100,60,.25);
+  background:linear-gradient(135deg, rgba(255,60,30,.08), rgba(29,65,78,.20));
+  animation: rdCardIn .4s cubic-bezier(.22,1.1,.36,1) both;
+}
+@keyframes rdCardIn{
+  from{ opacity:0; transform:translateY(10px) scale(.97); }
+  to  { opacity:1; transform:translateY(0) scale(1); }
+}
+.rdMechHeader{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.rdMechTag{
+  font-size:10px; font-weight:900; letter-spacing:.6px; text-transform:uppercase;
+  padding:3px 10px; border-radius:999px;
+  background:rgba(255,100,60,.18); border:1px solid rgba(255,100,60,.40);
+  color:rgba(255,160,120,.95); flex-shrink:0;
+}
+.rdMechQuote{
+  font-size:13px; color:rgba(209,254,255,.60); font-style:italic;
+  border-left:2px solid rgba(255,100,60,.45); padding-left:10px;
+  margin-bottom:8px; line-height:1.4;
+}
+.rdMechExplain{
+  font-size:13px; color:rgba(209,254,255,.88); line-height:1.45;
+}
+.rdMechReframe{
+  margin-top:10px; padding:10px 12px; border-radius:10px;
+  background:rgba(21,255,200,.07); border:1px solid rgba(21,255,200,.22);
+  font-size:13px; color:rgba(209,254,255,.90); line-height:1.4;
+}
+.rdMechReframeLabel{
+  font-size:10px; font-weight:900; letter-spacing:.5px; text-transform:uppercase;
+  color:rgba(21,255,200,.70); margin-bottom:4px;
+}
+
+.rdClean{
+  text-align:center; padding:18px 14px;
+  border-radius:14px; border:1px solid rgba(21,255,200,.22);
+  background:rgba(21,255,200,.06);
+  animation: rdCardIn .4s cubic-bezier(.22,1.1,.36,1) both;
+}
+.rdCleanEmoji{ font-size:28px; margin-bottom:8px; }
+.rdCleanText{ font-size:14px; font-weight:800; color:rgba(209,254,255,.90); line-height:1.4; }
+.rdCleanSub{ font-size:12px; color:rgba(209,254,255,.55); margin-top:6px; }
+
+.rdRetryBtn{
+  margin-top:12px; width:100%;
+  padding:10px 14px; border-radius:12px; border:none;
+  cursor:pointer; font-family:inherit; font-weight:800; font-size:13px;
+  background:rgba(255,255,255,.06); color:var(--muted);
+  border:1px solid var(--border);
+  transition: background .15s ease;
+}
+.rdRetryBtn:hover{ background:rgba(255,255,255,.10); color:var(--text); }
+
 /* ===== Belief Shift =====*/
 .bsColLabels{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
 .bsColLabel{padding:7px 12px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
@@ -2774,7 +3164,200 @@ function initBrickWall(){
   };
 }
 
-// ===== Anger Pressure Meter =====
+// ===== Rationalization Detector =====
+let rdCleanup = null;
+
+function rationalizationDetectorMarkup(){
+  return `
+  <div class="rdWrap" id="rdWrap">
+    <div class="rdPanel" id="rdPanel">
+      <div class="rdPanelHeader" id="rdPanelHeader" tabindex="0" role="button" aria-expanded="false">
+        <div class="rdTitleBlock">
+          <div class="rdPanelTitle">🔍 Rationalization Detector</div>
+          <div class="rdPanelSub">Type your side of the story — AI spots defense patterns in real time</div>
+        </div>
+        <div class="rdChev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="rgba(209,254,255,.9)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="rdPanelBody" id="rdPanelBody">
+        <div class="rdInner">
+          <div class="rdContext">
+            Defensiveness often hides in how we tell the story. Type what you'd say in your own defense — this tool will identify patterns like minimizing, blame-shifting, or victimhood, and offer a clearer way to see what happened.
+          </div>
+          <textarea id="rdInput" class="rdTextarea" rows="4" maxlength="600"
+            placeholder="e.g. &quot;I didn't mean to, and honestly they never said anything so how was I supposed to know? Everyone does this kind of thing...&quot;"></textarea>
+          <button id="rdScanBtn" class="rdScanBtn" disabled>
+            <span>🔍</span><span>Scan for patterns</span>
+          </button>
+          <div class="rdScanLine" id="rdScanLine"></div>
+          <div class="rdScanningLabel" id="rdScanningLabel">Analyzing…</div>
+          <div class="rdResults" id="rdResults">
+            <div class="rdResultsHeader">
+              <div class="rdResultsTitle">Patterns detected</div>
+              <div class="rdFindCount" id="rdFindCount">0</div>
+            </div>
+            <div id="rdResultsList"></div>
+            <button class="rdRetryBtn" id="rdRetryBtn">Try different text ↺</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function initRationalizationDetector(){
+  if(rdCleanup) rdCleanup();
+
+  const panel   = document.getElementById('rdPanel');
+  const header  = document.getElementById('rdPanelHeader');
+  const body    = document.getElementById('rdPanelBody');
+  const input   = document.getElementById('rdInput');
+  const scanBtn = document.getElementById('rdScanBtn');
+  const scanLine= document.getElementById('rdScanLine');
+  const scanLbl = document.getElementById('rdScanningLabel');
+  const results = document.getElementById('rdResults');
+  const resList = document.getElementById('rdResultsList');
+  const findCount=document.getElementById('rdFindCount');
+  const retryBtn= document.getElementById('rdRetryBtn');
+
+  if(!panel) return;
+
+  // Panel toggle
+  function togglePanel(){
+    const open = panel.classList.toggle('open');
+    header.setAttribute('aria-expanded', String(open));
+  }
+  function onKey(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); togglePanel(); } }
+  header.addEventListener('click', togglePanel);
+  header.addEventListener('keydown', onKey);
+
+  // Enable button when enough text
+  input.addEventListener('input', ()=>{
+    scanBtn.disabled = input.value.trim().length < 15;
+  });
+
+  // Reset to input state
+  function resetToInput(){
+    results.classList.remove('show');
+    resList.innerHTML = '';
+    findCount.textContent = '0';
+    input.disabled = false;
+    input.value = '';
+    input.style.opacity = '1';
+    scanBtn.disabled = true;
+    scanBtn.innerHTML = '<span>🔍</span><span>Scan for patterns</span>';
+    scanBtn.disabled = true;
+    scanLine.classList.remove('active');
+    scanLbl.classList.remove('active');
+  }
+  retryBtn.addEventListener('click', resetToInput);
+
+  // Scan
+  scanBtn.addEventListener('click', async ()=>{
+    const text = input.value.trim();
+    if(text.length < 15) return;
+
+    // Lock UI
+    input.disabled = true;
+    input.style.opacity = '.55';
+    scanBtn.disabled = true;
+    scanBtn.innerHTML = '<span>⏳</span><span>Scanning…</span>';
+    scanLine.classList.add('active');
+    scanLbl.classList.add('active');
+    results.classList.remove('show');
+    resList.innerHTML = '';
+
+    const SYSTEM = `You are an expert in psychology and accountability. A user is feeling defensive after possibly harming someone. They will share their internal explanation or excuse. Your job is to identify specific rationalization patterns in their text with compassion — not to shame them, but to help them see clearly so they can take accountability.
+
+Identify 1–4 defense mechanisms present. For each one found, return a JSON object. Return ONLY a raw JSON array — no markdown, no prose, no code fences.
+
+Each object must have exactly these keys:
+- "mechanism": short name (e.g. "Minimizing", "Blame-shifting", "Victimhood inversion", "Deflection", "Intent shield", "False equivalence", "Universalizing", "Silence as consent")
+- "quote": the exact short phrase from their text (under 12 words) that shows this pattern. Must be a verbatim substring.
+- "explanation": 1–2 sentences (plain, non-shaming) explaining what this pattern does psychologically
+- "reframe": 1 sentence they could hold instead that opens accountability
+
+If there are genuinely no defense mechanisms (the text is already accountable), return an empty array [].`;
+
+    try {
+      const resp = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({
+          model:'claude-sonnet-4-6',
+          max_tokens:1000,
+          system: SYSTEM,
+          messages:[{ role:'user', content: text }]
+        })
+      });
+
+      const data = await resp.json();
+      scanLine.classList.remove('active');
+      scanLbl.classList.remove('active');
+
+      const raw = (data.content||[]).map(b=>b.text||'').join('');
+      // Strip any stray code fences
+      const clean = raw.replace(/```json|```/g,'').trim();
+      let findings = [];
+      try{ findings = JSON.parse(clean); } catch(e){ findings = []; }
+      if(!Array.isArray(findings)) findings = [];
+
+      results.classList.add('show');
+      findCount.textContent = String(findings.length);
+
+      if(findings.length === 0){
+        resList.innerHTML = `
+          <div class="rdClean">
+            <div class="rdCleanEmoji">✅</div>
+            <div class="rdCleanText">No rationalization patterns detected.</div>
+            <div class="rdCleanSub">What you wrote reads as honest and accountable. That's genuinely hard to do.</div>
+          </div>`;
+      } else {
+        findings.forEach((f, i) => {
+          const card = document.createElement('div');
+          card.className = 'rdMechCard';
+          card.style.animationDelay = (i * 0.08) + 's';
+          card.innerHTML = `
+            <div class="rdMechHeader">
+              <div class="rdMechTag">${esc(f.mechanism||'Pattern')}</div>
+            </div>
+            ${f.quote ? `<div class="rdMechQuote">"${esc(f.quote)}"</div>` : ''}
+            <div class="rdMechExplain">${esc(f.explanation||'')}</div>
+            <div class="rdMechReframe">
+              <div class="rdMechReframeLabel">↳ Try holding instead</div>
+              ${esc(f.reframe||'')}
+            </div>`;
+          resList.appendChild(card);
+        });
+      }
+
+      scanBtn.innerHTML = '<span>🔍</span><span>Scan for patterns</span>';
+
+    } catch(err){
+      scanLine.classList.remove('active');
+      scanLbl.classList.remove('active');
+      results.classList.add('show');
+      resList.innerHTML = `<div class="rdClean"><div class="rdCleanText" style="color:rgba(255,150,100,.9)">Something went wrong. Try again in a moment.</div></div>`;
+      scanBtn.disabled = false;
+      scanBtn.innerHTML = '<span>🔍</span><span>Retry scan</span>';
+      input.disabled = false;
+      input.style.opacity = '1';
+    }
+  });
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  rdCleanup = ()=>{
+    header.removeEventListener('click', togglePanel);
+    header.removeEventListener('keydown', onKey);
+    rdCleanup = null;
+  };
+}
+
+
 let __angerResetTimer = null;
 let angerPressureCleanup = null;
 
@@ -3999,13 +4582,92 @@ if(id==="B_drinking_basics"){
   if(id==="B_drinking_rule"){
     screen.innerHTML = backBtn() + card(
       "A simple safety rule",
-      [
-        "If you’re asking yourself “were they too drunk?” treat that as a <b>stop sign</b>.",
-        "Choose the safer option: stop, make sure everyone gets home safely, and revisit another time when everyone is sober."
-      ],
+      [],
       null,
-      grid(btn("Continue","toEmotion","btn btnPrimary"))
+      `<div id="drinkRuleWrap">
+
+        <div id="drThought" style="text-align:center;padding:22px 18px 18px;border-radius:18px;border:1px solid rgba(209,254,255,.14);background:rgba(0,0,0,.18);margin-bottom:14px;cursor:pointer;transition:border-color .2s ease,background .2s ease,opacity .4s ease;user-select:none;-webkit-tap-highlight-color:transparent;">
+          <div style="font-size:11px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;color:rgba(209,254,255,.38);margin-bottom:12px;">The thought in your head</div>
+          <div style="font-size:20px;font-weight:900;line-height:1.4;color:rgba(209,254,255,.90);">&ldquo;Were they too drunk?&rdquo;</div>
+          <div id="drCta" style="margin-top:14px;font-size:12px;color:rgba(21,255,200,.70);font-weight:800;letter-spacing:.2px;">Tap to see what this question means &#8594;</div>
+        </div>
+
+        <div id="drStopWrap" style="display:none;text-align:center;margin-bottom:16px;">
+          <div id="drStop" style="display:inline-block;transform:scale(0) rotate(-15deg);transition:transform .55s cubic-bezier(.22,1.3,.36,1);filter:drop-shadow(0 0 18px rgba(200,50,30,.40)) drop-shadow(0 8px 24px rgba(0,0,0,.50));">
+            <svg id="drStopSvg" width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+              <!-- Outer octagon fill -->
+              <polygon points="47,4 113,4 156,47 156,113 113,156 47,156 4,113 4,47"
+                fill="url(#stopGrad)" />
+              <!-- White inner border ring -->
+              <polygon points="47,4 113,4 156,47 156,113 113,156 47,156 4,113 4,47"
+                fill="none" stroke="white" stroke-width="5.5"
+                transform="scale(0.865) translate(12,12)" />
+              <!-- STOP text -->
+              <text x="80" y="88" text-anchor="middle" dominant-baseline="middle"
+                font-family="ui-sans-serif,system-ui,-apple-system,Arial,sans-serif"
+                font-weight="900" font-size="36" letter-spacing="3" fill="white">STOP</text>
+              <defs>
+                <linearGradient id="stopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#C0392B"/>
+                  <stop offset="100%" stop-color="#922B21"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div id="drStopLabel" style="margin-top:14px;font-size:13px;font-weight:800;color:rgba(255,160,120,.85);opacity:0;transition:opacity .4s ease .3s;line-height:1.5;">
+            That question <em>is</em> the answer.<br>
+            <span style="font-weight:600;color:rgba(209,254,255,.60);">Uncertainty = stop.</span>
+          </div>
+        </div>
+
+        <div id="drSteps" style="display:none;flex-direction:column;gap:8px;margin-bottom:16px;"></div>
+
+        <div id="drCont" style="display:none;opacity:0;transition:opacity .4s ease;">
+          <div style="padding:12px 14px;border-radius:12px;margin-bottom:12px;border:1px dashed rgba(209,254,255,.16);background:rgba(0,0,0,.12);font-size:12px;color:rgba(209,254,255,.55);line-height:1.5;">
+            Revisit when everyone is sober, clearheaded, and enthusiastic. Consent can&#39;t wait &#8212; and neither can safety.
+          </div>
+          <div class="grid"><button class="btn btnPrimary" data-action="toEmotion">Continue</button></div>
+        </div>
+
+      </div>`
     );
+
+    (function(){
+      var STEPS=[
+        {icon:"&#x270B;",label:"Stop what&#39;s happening",sub:"Right now, in this moment. Not in a minute."},
+        {icon:"&#x1F3E0;",label:"Make sure everyone gets home safely",sub:"That&#39;s the only priority. Nothing else matters right now."},
+        {icon:"&#x1F4C5;",label:"Revisit another time",sub:"When everyone is sober, clearheaded, and genuinely into it."}
+      ];
+      var thought=document.getElementById("drThought");
+      var stopWrap=document.getElementById("drStopWrap");
+      var stopEl=document.getElementById("drStop");
+      var stopLabel=document.getElementById("drStopLabel");
+      var stepsEl=document.getElementById("drSteps");
+      var contWrap=document.getElementById("drCont");
+      var cta=document.getElementById("drCta");
+      var tapped=false;
+      thought.addEventListener("click",function(){
+        if(tapped)return; tapped=true;
+        thought.style.opacity=".38"; thought.style.cursor="default"; cta.style.display="none";
+        stopWrap.style.display="block";
+        requestAnimationFrame(function(){requestAnimationFrame(function(){
+          stopEl.style.transform="scale(1) rotate(0deg)";
+        });});
+        setTimeout(function(){stopLabel.style.opacity="1";},420);
+        stepsEl.style.display="flex";
+        STEPS.forEach(function(s,i){
+          setTimeout(function(){
+            var el=document.createElement("div");
+            el.style.cssText="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:13px;border:1px solid rgba(209,254,255,.12);background:rgba(255,255,255,.04);opacity:0;transform:translateX(-12px);transition:opacity .35s ease,transform .35s ease;";
+            el.innerHTML="<div style='font-size:22px;line-height:1;flex-shrink:0;margin-top:2px;'>"+s.icon+"</div><div><div style='font-size:14px;font-weight:900;color:rgba(209,254,255,.95);margin-bottom:2px;'>"+s.label+"</div><div style='font-size:12px;color:rgba(209,254,255,.55);line-height:1.4;'>"+s.sub+"</div></div>";
+            stepsEl.appendChild(el);
+            requestAnimationFrame(function(){requestAnimationFrame(function(){el.style.opacity="1";el.style.transform="translateX(0)";});});
+            if(i===STEPS.length-1){setTimeout(function(){contWrap.style.display="block";requestAnimationFrame(function(){requestAnimationFrame(function(){contWrap.style.opacity="1";});});},500);}
+          },900+i*400);
+        });
+      });
+    })();
+
     actions.toEmotion=()=>go("emotion");
     return;
   }
@@ -4111,7 +4773,7 @@ if(id==="B_drinking_basics"){
       </details>`,
       grid(btn("Continue","toEmotion","btn btnPrimary"))
     );
-    actions.toEmotion = ()=>go("emotion");
+    actions.toEmotion=()=>go("emotion");
     return;
   }
 
@@ -4171,7 +4833,7 @@ if(id==="B_drinking_basics"){
       };
     })();
 
-    actions.toEmotion = ()=>go("emotion");
+    actions.toEmotion=()=>go("emotion");
     return;
   }
 
@@ -4240,7 +4902,7 @@ if(id==="B_drinking_basics"){
       </details>`,
       grid(btn("Continue","toEmotion","btn btnPrimary"))
     );
-    actions.toEmotion=()=>go("emotion");
+    actions.toEmotion=()=>go("signalBoard");
     return;
   }
 
@@ -4248,6 +4910,178 @@ if(id==="B_drinking_basics"){
 
 
   // ===== Shared emotion + next steps =====
+  // ===== Signal Board =====
+  if(id==="signalBoard"){
+    screen.innerHTML = backBtn() + card(
+      "What signals were present?",
+      [],
+      null,
+      `<div class="sbScreen">
+        <p class="sbIntro">Before you describe how you feel, take a moment with this.<br>
+        <b>Toggle every signal that was present</b> — even if you're not sure it meant anything.</p>
+
+        <div class="sbGrid" id="sbGrid">
+          <div class="sbSignal" data-sig="0" data-weight="3">
+            <span class="sbSignalEmoji">😶</span>
+            <span class="sbSignalLabel">Went quiet or still</span>
+            <span class="sbSignalSub">Stopped responding, froze, or became silent</span>
+            <span class="sbSignalCheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <div class="sbSignal" data-sig="1" data-weight="3">
+            <span class="sbSignalEmoji">↩️</span>
+            <span class="sbSignalLabel">Pulled away physically</span>
+            <span class="sbSignalSub">Moved back, turned away, created distance</span>
+            <span class="sbSignalCheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <div class="sbSignal" data-sig="2" data-weight="2">
+            <span class="sbSignalEmoji">😐</span>
+            <span class="sbSignalLabel">Didn't participate</span>
+            <span class="sbSignalSub">Passive, not actively engaged or reciprocating</span>
+            <span class="sbSignalCheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <div class="sbSignal" data-sig="3" data-weight="2">
+            <span class="sbSignalEmoji">😬</span>
+            <span class="sbSignalLabel">Looked uncomfortable</span>
+            <span class="sbSignalSub">Tense body language, avoiding eye contact</span>
+            <span class="sbSignalCheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <div class="sbSignal" data-sig="4" data-weight="2">
+            <span class="sbSignalEmoji">🗣️</span>
+            <span class="sbSignalLabel">Said "wait" or "stop"</span>
+            <span class="sbSignalSub">Any verbal hesitation, even softly or once</span>
+            <span class="sbSignalCheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <div class="sbSignal" data-sig="5" data-weight="3">
+            <span class="sbSignalEmoji">😔</span>
+            <span class="sbSignalLabel">Seemed upset after</span>
+            <span class="sbSignalSub">Quiet, withdrawn, or tearful afterward</span>
+            <span class="sbSignalCheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <div class="sbSignal" data-sig="6" data-weight="1">
+            <span class="sbSignalEmoji">🍺</span>
+            <span class="sbSignalLabel">Had been drinking</span>
+            <span class="sbSignalSub">Either of you had consumed alcohol</span>
+            <span class="sbSignalCheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+          <div class="sbSignal" data-sig="7" data-weight="2">
+            <span class="sbSignalEmoji">🤐</span>
+            <span class="sbSignalLabel">Never gave a clear yes</span>
+            <span class="sbSignalSub">No explicit agreement — went along without saying yes</span>
+            <span class="sbSignalCheck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </div>
+
+        <div class="sbMeterWrap">
+          <div class="sbMeterLabel">
+            <span class="sbMeterTitle">Signal clarity</span>
+            <span class="sbMeterPhrase" id="sbPhrase" style="color:rgba(209,254,255,.40)">No signals selected</span>
+          </div>
+          <div class="sbMeterTrack">
+            <div class="sbMeterFill" id="sbFill"></div>
+          </div>
+        </div>
+
+        <div class="sbReframe" id="sbReframe">
+          <div class="sbReframeTag" id="sbReframeTag">What this means</div>
+          <div class="sbReframeInner" id="sbReframeInner">
+            Select the signals that were present. Even one changes the picture.
+          </div>
+        </div>
+
+        <div class="sbCountRow">
+          <div class="sbCountPill" id="sbPillCount">0 signals selected</div>
+          <div class="sbCountPill" id="sbPillLevel">—</div>
+        </div>
+
+        <button class="btn btnPrimary" data-action="toEmotion" style="margin-top:4px; width:100%; padding:13px;">
+          Continue to reflection →
+        </button>
+      </div>`
+    );
+
+    // Signal Board logic
+    (function initSignalBoard(){
+      const LEVELS = [
+        { min:0,  max:0,  color:'rgba(209,254,255,.40)', phrase:'No signals selected',
+          tag:'', text:'Select the signals that were present. Even one changes the picture.' },
+        { min:1,  max:3,  color:'rgba(255,220,100,.80)', phrase:'Some signals present',
+          tag:'Worth pausing on',
+          text:'<b>At least one signal was there.</b> Even subtle signals — silence, stillness, not participating — are communication. If you noticed them, they mattered.' },
+        { min:4,  max:7,  color:'rgba(255,150,60,.90)', phrase:'Multiple clear signals',
+          tag:'This needed a check-in',
+          text:'<b>Several signals were present at once.</b> When more than one thing feels off, the pattern gets harder to miss. A pause and a direct question — "Are you okay with this?" — was available and needed.' },
+        { min:8,  max:11, color:'rgba(255,80,40,.95)', phrase:'Strong cluster of signals',
+          tag:'These were not subtle',
+          text:'<b>This was a significant cluster of signals.</b> Taken together, these strongly indicate the other person was not freely okay with what was happening. The clearest sign isn\'t always a "no" — sometimes it\'s everything else.' },
+        { min:12, max:99, color:'rgba(220,40,40,1.0)', phrase:'Overwhelming signal weight',
+          tag:'Unmistakable',
+          text:'<b>These signals, together, were unmistakable.</b> Consent wasn\'t present here. Recognizing that — even now — is the first step toward real accountability.' }
+      ];
+
+      const signals = document.querySelectorAll('.sbSignal');
+      const fill    = document.getElementById('sbFill');
+      const phrase  = document.getElementById('sbPhrase');
+      const reframe = document.getElementById('sbReframe');
+      const rtag    = document.getElementById('sbReframeTag');
+      const rtext   = document.getElementById('sbReframeInner');
+      const pillCount = document.getElementById('sbPillCount');
+      const pillLevel = document.getElementById('sbPillLevel');
+
+      const MAX_WEIGHT = 18; // sum of all weights
+
+      function update(){
+        let weight = 0, count = 0;
+        signals.forEach(s => {
+          if(s.classList.contains('active')){
+            weight += parseInt(s.dataset.weight, 10);
+            count++;
+          }
+        });
+
+        const pct = Math.min(100, Math.round((weight / MAX_WEIGHT) * 100));
+        fill.style.width = pct + '%';
+
+        // Color gradient: mint → amber → orange → red
+        const r = Math.min(255, Math.round(pct * 2.55));
+        const g = Math.max(40,  Math.round(255 - pct * 2.0));
+        const b = Math.max(30,  Math.round(200 - pct * 2.0));
+        fill.style.background = `rgba(${r},${g},${b},.85)`;
+
+        // Pick level
+        const level = LEVELS.find(l => weight >= l.min && weight <= l.max) || LEVELS[0];
+        phrase.textContent = level.phrase;
+        phrase.style.color = level.color;
+
+        if(weight > 0){
+          reframe.classList.add('warm');
+          rtag.textContent  = level.tag;
+          rtext.innerHTML   = level.text;
+        } else {
+          reframe.classList.remove('warm');
+          rtag.textContent  = '';
+          rtext.innerHTML   = level.text;
+        }
+
+        pillCount.textContent = count === 0 ? '0 signals selected' : count + ' signal' + (count===1?'':'s') + ' selected';
+        pillCount.classList.toggle('lit', count > 0);
+        pillLevel.textContent = weight === 0 ? '—' : 'Weight: ' + weight + ' / ' + MAX_WEIGHT;
+        pillLevel.classList.toggle('lit', weight > 0);
+      }
+
+      signals.forEach(sig => {
+        sig.addEventListener('click', () => {
+          sig.classList.toggle('active');
+          update();
+        });
+      });
+
+      update();
+    })();
+
+    actions.toEmotion = () => go('emotion');
+    return;
+  }
+
   if(id==="emotion"){
     screen.innerHTML = backBtn() + card(
       "What are you feeling right now?",
@@ -4395,7 +5229,7 @@ if(state.emotion==="ashamed"){
 }
 
 if(state.emotion==="defensive"){
-  extra = brickWallMarkup();
+  extra = brickWallMarkup() + rationalizationDetectorMarkup();
 }
 
 if(state.emotion==="angry"){
@@ -4431,8 +5265,10 @@ if(state.emotion==="ashamed"){
 
 if(state.emotion==="defensive"){
   setTimeout(initBrickWall, 0);
+  setTimeout(initRationalizationDetector, 0);
 } else {
   if (brickWallCleanup) brickWallCleanup();
+  if (rdCleanup) rdCleanup();
 }
 
 if(state.emotion==="angry"){
@@ -5029,15 +5865,69 @@ if(state.emotion==="angry"){
       "✅ You paused. That matters.",
       [
         "Taking a moment to reflect — even when it's uncomfortable — reduces the chance of harm happening again.",
-        "Accountability isn't a single moment. It's a pattern of honest reflection, behavior change, and choosing safer next steps.",
-        "You can come back anytime."
+        "Accountability isn't a single moment. It's a pattern of honest reflection, behavior change, and choosing safer next steps."
       ],
-      "The most important question now: <b>what is one concrete thing you'll do differently?</b>",
-      `<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;">
-        ${btn("Start over","restart","btn btnPrimary")}
-        ${btn("Explore pathways","pathMenu")}
+      null,
+      `<div id="forgeSection">
+        <div class="forgeWrap">
+          <div class="forgeLabel">🔨 Forge your commitment</div>
+          <textarea id="forgeInput" class="forgeTextarea" maxlength="200" placeholder="Write one concrete thing you'll do differently next time…"></textarea>
+          <button id="forgeSubmitBtn" class="forgeBtn" disabled>Forge It →</button>
+        </div>
+
+        <div id="forgedCardWrap" class="forgedCardWrap">
+          <div class="forgedCard" id="forgedCard">
+            <div class="forgedCardMeta">
+              <span class="forgedCardBadge">⚡ Commitment Forged</span>
+              
+            </div>
+            <div class="forgedCardText" id="forgedCardText"></div>
+            <div class="forgedCardGlow"></div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px;">
+          ${btn("Start over","restart","btn btnPrimary")}
+          ${btn("Explore pathways","pathMenu")}
+        </div>
       </div>`
     );
+
+    // --- Forge logic ---
+    const forgeInput = document.getElementById('forgeInput');
+    const forgeBtn   = document.getElementById('forgeSubmitBtn');
+    const cardWrap   = document.getElementById('forgedCardWrap');
+    const cardText   = document.getElementById('forgedCardText');
+    
+    // Enable/disable forge button
+    forgeInput.addEventListener('input', ()=>{
+      forgeBtn.disabled = forgeInput.value.trim().length < 5;
+    });
+
+    forgeBtn.addEventListener('click', ()=>{
+      const text = forgeInput.value.trim();
+      if(text.length < 5) return;
+
+      
+      // Show forged card
+      cardText.textContent = '\u201C' + text + '\u201D';
+            cardWrap.classList.add('show');
+
+      // Re-trigger animation
+      const fc = document.getElementById('forgedCard');
+      fc.style.animation = 'none';
+      fc.offsetHeight; // reflow
+      fc.style.animation = '';
+      fc.classList.add('forgePulse');
+      setTimeout(()=> fc.classList.remove('forgePulse'), 700);
+
+      // Swap button
+      forgeBtn.textContent = '\u2713 Commitment forged';
+      forgeBtn.disabled = true;
+      forgeInput.disabled = true;
+      forgeInput.style.opacity = '.55';
+    });
+
     actions.restart=()=>reset();
     actions.pathMenu=()=>go("pathMenu");
     return;
