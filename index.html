@@ -1569,9 +1569,6 @@ function catRunnerMarkup(){
           Score: <span id="cr_score" style="color:var(--sb-mint)">0</span>
         </div>
         <div style="border:1px solid var(--border); border-radius:999px; padding:6px 10px; font-weight:900; font-size:12px;">
-          Best: <span id="cr_best" style="color:var(--sb-mint)">0</span>
-        </div>
-        <div style="border:1px solid var(--border); border-radius:999px; padding:6px 10px; font-weight:900; font-size:12px;">
           Speed: <span id="cr_speed" style="color:var(--sb-mint)">1.0</span>x
         </div>
         <button class="btn btnSmall" type="button" id="cr_restart" style="margin-left:auto;">Restart</button>
@@ -1666,14 +1663,9 @@ function initCatRunner(){
   if (!canvas || !ctx) return;
 
   const scoreEl = document.getElementById("cr_score");
-  const bestEl  = document.getElementById("cr_best");
   const speedEl = document.getElementById("cr_speed");
   const restartBtn = document.getElementById("cr_restart");
 
-  // Best score persistence (local to browser)
-  const BEST_KEY = "safebae_runner_best_v2";
-  let best = Number(localStorage.getItem(BEST_KEY) || 0);
-  bestEl.textContent = best;
 
   // --- Cat SVG sprite (embedded) ---
   const CAT_SVG_RAW = `<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -1939,11 +1931,6 @@ function drawStartOverlay(){
 
     if (!running) {
       const finalScore = Math.floor(score);
-      if (finalScore > best) {
-        best = finalScore;
-        localStorage.setItem(BEST_KEY, String(best));
-        bestEl.textContent = String(best);
-      }
     }
   }
 
@@ -2065,11 +2052,6 @@ function spiralInterruptMarkup(){
 
       <div class="panelBody" id="si_body">
         <div class="inner">
-          <div class="note" id="si_note">
-            This won’t move until you open it.
-            <span id="si_reducedTag" class="pill" style="display:none;">Reduced motion</span>
-          </div>
-
           <div class="spiralStage" id="si_stage" tabindex="0" aria-label="Tap to steady the spiral">
             <svg id="si_spiral" viewBox="0 0 200 200" aria-hidden="true">
               <path d="M100 100
@@ -2089,10 +2071,6 @@ function spiralInterruptMarkup(){
 
           <div class="msg" id="si_msg">When you’re ready, tap the spiral to slow it down.</div>
 
-          <div class="actionsRow">
-            <button class="linkBtn" id="si_closeBtn" type="button">Close</button>
-          </div>
-
           <div class="footer">Spiraling feels productive. It isn’t.</div>
         </div>
       </div>
@@ -2107,14 +2085,13 @@ function initSpiralInterrupt(){
 
   const panel = document.getElementById('si_panel');
   const header = document.getElementById('si_header');
-  const closeBtn = document.getElementById('si_closeBtn');
 
   const reducedTag = document.getElementById('si_reducedTag');
   const spiral = document.getElementById('si_spiral');
   const stage = document.getElementById('si_stage');
   const msg = document.getElementById('si_msg');
 
-  if(!panel || !header || !closeBtn || !spiral || !stage || !msg) return;
+  if(!panel || !header || !spiral || !stage || !msg) return;
 
   const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(prefersReducedMotion && reducedTag) reducedTag.style.display = 'inline-block';
@@ -2211,7 +2188,6 @@ function initSpiralInterrupt(){
 
   header.addEventListener('click', togglePanel);
   header.addEventListener('keydown', onHeaderKey);
-  closeBtn.addEventListener('click', closePanel);
   stage.addEventListener('click', tapToSteady);
   stage.addEventListener('keydown', onStageKey);
 
@@ -2221,7 +2197,6 @@ function initSpiralInterrupt(){
     if(rafId) cancelAnimationFrame(rafId);
     header.removeEventListener('click', togglePanel);
     header.removeEventListener('keydown', onHeaderKey);
-    closeBtn.removeEventListener('click', closePanel);
     stage.removeEventListener('click', tapToSteady);
     stage.removeEventListener('keydown', onStageKey);
     spiralCleanup = null;
@@ -2770,7 +2745,6 @@ function ongoingConsentMarkup(){
 
                 <div class="ocControls">
                   <button id="ocAddBtn" class="ocBtn" type="button">➕ Add check-in</button>
-                  <button id="ocAutoBtn" class="ocBtn ocBtnGhost" type="button">▶ Auto-play</button>
                   <button id="ocResetBtn" class="ocBtn ocBtnGhost" type="button">↺ Reset</button>
                 </div>
 
@@ -2816,13 +2790,12 @@ function initOngoingConsentRoad(){
   const progressLine = document.getElementById('ocProgressLine');
   const mileLayer    = document.getElementById('ocMileLayer');
   const addBtn       = document.getElementById('ocAddBtn');
-  const autoBtn      = document.getElementById('ocAutoBtn');
   const resetBtn     = document.getElementById('ocResetBtn');
   const countEl      = document.getElementById('ocCount');
   const endNote      = document.getElementById('ocEndNote');
   const tipEl        = document.getElementById('ocTip');
 
-  if(!roadWrap || !roadInner || !mileLayer || !addBtn || !autoBtn || !resetBtn || !countEl || !endNote) return;
+  if(!roadWrap || !roadInner || !mileLayer || !addBtn || !resetBtn || !countEl || !endNote) return;
 
   let idx   = 0;
   let timer = null;
@@ -2853,13 +2826,10 @@ function initOngoingConsentRoad(){
     if(idx >= PHRASES.length){
       endNote.style.display = "block";
       addBtn.disabled = true;
-      autoBtn.disabled = true;
       if(timer){ clearInterval(timer); timer = null; }
-      autoBtn.textContent = "Auto-play";
     } else {
       endNote.style.display = "none";
       addBtn.disabled = false;
-      autoBtn.disabled = false;
     }
   }
 
@@ -2928,9 +2898,7 @@ function initOngoingConsentRoad(){
     mileLayer.innerHTML = "";
     endNote.style.display = "none";
     addBtn.disabled = false;
-    autoBtn.disabled = false;
     if(timer){ clearInterval(timer); timer = null; }
-    autoBtn.textContent = "Auto-play";
     if(progressLine){ progressLine.style.width = "0px"; progressLine.style.left = PADDING + "px"; }
     setRoadWidth();
     roadWrap.scrollLeft = 0;
@@ -2942,31 +2910,10 @@ function initOngoingConsentRoad(){
     }
   }
 
-  function toggleAuto(){
-    if(timer){
-      clearInterval(timer);
-      timer = null;
-      autoBtn.textContent = "Auto-play";
-      return;
-    }
-    if(idx >= PHRASES.length){ reset(); return; }
-    autoBtn.textContent = "Pause \u23F8";
-    addOne();
-    timer = setInterval(function(){
-      if(idx >= PHRASES.length){
-        clearInterval(timer); timer = null;
-        autoBtn.textContent = "Auto-play";
-        return;
-      }
-      addOne();
-    }, 900);
-  }
-
   if(tipEl) tipEl.style.transition = "opacity .2s ease";
 
   addBtn.addEventListener("click", addOne);
   resetBtn.addEventListener("click", reset);
-  autoBtn.addEventListener("click", toggleAuto);
 
   setRoadWidth();
   updateCount();
@@ -2975,7 +2922,6 @@ function initOngoingConsentRoad(){
     if(timer){ clearInterval(timer); timer = null; }
     addBtn.removeEventListener("click", addOne);
     resetBtn.removeEventListener("click", reset);
-    autoBtn.removeEventListener("click", toggleAuto);
     _roadListenersCleanup = null;
   };
 }
