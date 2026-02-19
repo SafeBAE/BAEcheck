@@ -3790,41 +3790,57 @@ if(state.emotion==="angry"){
 
   if(id==="learn"){
   screen.innerHTML = backBtn() + `
-    <div class="h1">Learn (quick basics)</div>
-    <div class="p">Swipe or click through the slides below.</div>
+    <div class="h1">Learn</div>
+    <div class="p">Choose a topic to explore. Each one opens a slide deck you can click through at your own pace.</div>
 
-    <div style="
-      position:relative;
-      padding-top:56.25%;
-      height:0;
-      overflow:hidden;
-      border-radius:18px;
-      border:1px solid var(--border);
-      box-shadow: var(--shadow);
-      margin-top:14px;
-      background:rgba(0,0,0,.25);
-    ">
-      <iframe 
-        src="https://docs.google.com/presentation/d/e/2PACX-1vTqott0nhwUnLhRY72eAyETCUjW-Lk-bCAZDao9CzBgaht8NMUydeVce8thEtwnBqabaYGHwURKpiq8/pubembed?start=true&loop=true&delayms=30000"
-        frameborder="0"
-        allowfullscreen="true"
-        mozallowfullscreen="true"
-        webkitallowfullscreen="true"
-        style="
-          position:absolute;
-          top:0;
-          left:0;
-          width:100%;
-          height:100%;
-        ">
-      </iframe>
+    <div class="pvGrid" style="margin:14px 0 18px;">
+      <button class="pvBtn" data-action="openLearnConsent">
+        <span class="pvIcon">&#128218;</span>
+        <span class="pvLabel">Consent</span>
+        <span class="pvSub">What it is, what it isn’t, and why it matters</span>
+      </button>
+      <button class="pvBtn" data-action="openLearnRapeCulture">
+        <span class="pvIcon">&#127757;</span>
+        <span class="pvLabel">Rape Culture</span>
+        <span class="pvSub">How harmful norms develop and how to push back</span>
+      </button>
+      <button class="pvBtn" data-action="openLearnRelationships">
+        <span class="pvIcon">&#10084;&#65039;</span>
+        <span class="pvLabel">Healthy Relationships</span>
+        <span class="pvSub">Signs of healthy and unhealthy dynamics</span>
+      </button>
+      <button class="pvBtn" data-action="openLearnInternet">
+        <span class="pvIcon">&#128241;</span>
+        <span class="pvLabel">Internet Safety</span>
+        <span class="pvSub">Digital consent, privacy, and online harm</span>
+      </button>
     </div>
 
-    <div class="grid" style="margin-top:18px;">
+    <div class="grid" style="margin-top:4px;">
       ${btn("Back","nextSteps")}
       ${btn("Finish","closing","btn btnPrimary")}
     </div>
   `;
+
+  function slideModal(title, src){
+    openModal(title, `
+      <div style="position:relative;padding-top:56.25%;height:0;overflow:hidden;border-radius:12px;border:1px solid var(--border);background:rgba(0,0,0,.25);margin-top:4px;">
+        <iframe src="${src}"
+          frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;">
+        </iframe>
+      </div>
+    `);
+    // Widen modal for slides
+    const m = document.querySelector('.modalOverlay .modal');
+    if(m) m.style.width = 'min(820px, 96vw)';
+  }
+
+  actions.openLearnConsent      = ()=> slideModal("&#128218; Consent", "https://docs.google.com/presentation/d/e/2PACX-1vTqott0nhwUnLhRY72eAyETCUjW-Lk-bCAZDao9CzBgaht8NMUydeVce8thEtwnBqabaYGHwURKpiq8/pubembed?start=false&loop=false&delayms=15000");
+  actions.openLearnRapeCulture  = ()=> slideModal("&#127757; Rape Culture", "https://docs.google.com/presentation/d/e/2PACX-1vQPIVFjSCoaMv4IQq5R5pfpaaFYxzBLx1efOQMv0qDuyA5lI1A4HiNP7_xFPjGXSkSey9D_ZKD5ng0-/pubembed?start=false&loop=false&delayms=15000");
+  actions.openLearnRelationships = ()=> slideModal("&#10084;&#65039; Healthy Relationships", "https://docs.google.com/presentation/d/e/2PACX-1vTCWnNXmG3Ogfm-2e8kRW4J0pttp01H0pK9g8IF-giC5y5UlnZsKpZ0cr8Yv2pS5COIXapqs-dGDubK/pubembed?start=false&loop=false&delayms=10000");
+  actions.openLearnInternet      = ()=> slideModal("&#128241; Internet Safety", "https://docs.google.com/presentation/d/e/2PACX-1vQEgAN4ux7TLN9KoZv4WXhZ82ddSiWNWzrmCL3rSnqDqRslK-9tRIZXpGcW7MqmQ01fGsUqBP-fY7_m/pubembed?start=false&loop=false&delayms=10000");
+
   actions.nextSteps = ()=>go("nextSteps");
   actions.closing = ()=>go("closing");
   return;
@@ -3925,7 +3941,7 @@ if(state.emotion==="angry"){
         { emoji:"&#128588;", title:"Create a culture of enthusiastic consent", body:"Only engage in sex-positive activity when there is ENTHUSIASTIC verbal consent. When you model this, others around you learn to as well." },
         { emoji:"&#128683;", title:"Don\u2019t laugh at rape jokes or \u2018locker room talk\u2019", body:"Speak up when you see people using sexually degrading terms or behavior. Let people know it\u2019s not okay with you \u2014 even a quiet \u201cthat\u2019s not funny\u201d shifts the room." },
         { emoji:"&#9876;&#65039;", title:"Speak out against the root causes", body:"Don\u2019t buy into ideas which view masculinity as violent and dominant, or femininity as passive, weak, or less valued. Redefine masculinity and challenge gender stereotypes when you encounter them." },
-        { emoji:"&#128064;", title:"Draw a clear line", body:"Do not share intimate images of anyone without their permission, and let your friends know you aren\u2019t okay with them doing it either." },
+        { emoji:"&#128064;", title:"Have zero tolerance", body:"Do not share intimate images of anyone without their permission, and let your friends know you aren\u2019t okay with them doing it either." },
         { emoji:"&#127757;", title:"Take an intersectional approach", body:"Rape culture affects us all regardless of gender identity, sexuality, race, religion, or ability. Transgender youth, Indigenous, Brown and Black girls, and people with disabilities are most at-risk and deserve centered support." },
         { emoji:"&#128101;", title:"Be an active bystander", body:"Not just among your friends, but with ANYONE. Safely intervening signals to the perpetrator that their behavior is unacceptable and may help someone stay safe." },
         { emoji:"&#9878;&#65039;", title:"Stop victim blaming", body:"Perpetrators are responsible for assault \u2014 NEVER the survivor. A survivor\u2019s sobriety, clothing, and sexual history are not relevant. Ask instead why the perpetrator felt entitled." },
