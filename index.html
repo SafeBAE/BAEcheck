@@ -2737,17 +2737,22 @@
   font-family: inherit;
 }
 .hrSortCard:hover { background: rgba(21,255,200,.12); border-color: rgba(21,255,200,.45); }
+.hrSortCard.selected { background: rgba(21,255,200,.18); border-color: rgba(21,255,200,.80); box-shadow: 0 0 0 2px rgba(21,255,200,.40); color: #fff; }
 .hrSortCard.placed-healthy { opacity: .5; background: rgba(21,255,100,.08); pointer-events:none; }
 .hrSortCard.placed-unhealthy { opacity: .5; background: rgba(255,80,80,.08); pointer-events:none; }
+.hrDropZone.zone-active.green-zone { border-color: rgba(21,255,100,.75); background: rgba(21,255,100,.10); box-shadow: 0 0 14px rgba(21,255,100,.18); }
+.hrDropZone.zone-active.red-zone { border-color: rgba(255,80,80,.70); background: rgba(255,80,80,.10); box-shadow: 0 0 14px rgba(255,80,80,.15); }
 
 .hrDropZone {
   border-radius: 14px;
-  padding: 12px;
-  min-height: 60px;
+  padding: 10px;
+  min-height: 80px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   align-content: flex-start;
+  align-items: flex-start;
+  transition: border-color .15s, background .15s, box-shadow .15s;
 }
 .hrDropZone.green-zone {
   border: 2px dashed rgba(21,255,100,.35);
@@ -2767,10 +2772,13 @@
 .hrDropZone.green-zone .hrDropZoneLabel { color: rgba(21,255,100,.80); }
 .hrDropZone.red-zone .hrDropZoneLabel { color: rgba(255,80,80,.75); }
 .hrPlacedTag {
-  border-radius: 99px;
-  padding: 5px 11px;
-  font-size: 12px;
+  border-radius: 8px;
+  padding: 5px 8px;
+  font-size: 11px;
   font-weight: 700;
+  line-height: 1.3;
+  display: inline-block;
+  word-break: break-word;
 }
 .hrPlacedTag.healthy { background: rgba(21,255,100,.14); color: #b8ffcc; border: 1px solid rgba(21,255,100,.35); }
 .hrPlacedTag.unhealthy { background: rgba(255,80,80,.12); color: #ffd1d1; border: 1px solid rgba(255,80,80,.30); }
@@ -11503,19 +11511,19 @@ function hrRender() {
     const scoreHtml = allDone ? `<div class="hrScoreBox show">You got <b>${correct} out of ${allSigns.length}</b> correct. ${correct === allSigns.length ? '🎉 Perfect! You know the signs.' : correct >= 7 ? '👍 Great work — you know most of the signs.' : 'Keep going — recognizing these patterns takes practice.'}</div>` : '';
 
     innerHTML = `
-      <div class="p" style="color:var(--muted);">Tap each sign, then drop it into the correct column. Some healthy relationships have "bad" moments — and unhealthy ones can have "good" moments too. Look at the overall pattern.</div>
+      <div class="p" style="color:var(--muted);">Tap a sign to select it, then tap the 🟢 Healthy or 🔴 Unhealthy column to place it. Some healthy relationships have "bad" moments — and unhealthy ones can have "good" moments too. Look at the overall pattern.</div>
       ${unplaced.length > 0 ? `<div class="hrSortGame"><div class="hrSortRow">${unplacedCards}</div></div>` : ''}
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
         <div>
           <div class="hrDropZoneLabel" style="color:rgba(21,255,100,.8);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;">🟢 Healthy</div>
-          <div class="hrDropZone green-zone" id="hrDropHealthy">
-            <div class="hrDropZoneLabel" style="opacity:.4;font-size:11px;">${hPlaced || 'Drop signs here'}</div>
+          <div class="hrDropZone green-zone" id="hrDropHealthy" data-hrdest="healthy">
+            ${hPlaced || '<span style="opacity:.35;font-size:11px;font-weight:700;">Tap a sign, then tap here</span>'}
           </div>
         </div>
         <div>
           <div class="hrDropZoneLabel" style="color:rgba(255,80,80,.8);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;">🔴 Unhealthy</div>
-          <div class="hrDropZone red-zone" id="hrDropUnhealthy">
-            <div class="hrDropZoneLabel" style="opacity:.4;font-size:11px;">${uPlaced || 'Drop signs here'}</div>
+          <div class="hrDropZone red-zone" id="hrDropUnhealthy" data-hrdest="unhealthy">
+            ${uPlaced || '<span style="opacity:.35;font-size:11px;font-weight:700;">Tap a sign, then tap here</span>'}
           </div>
         </div>
       </div>
@@ -11792,35 +11800,48 @@ function hrRender() {
   });
 
   // Sort game
+  // Tap-to-select card, then tap zone to place
+  let hrSelectedSign = null;
+
+  function updateZoneHighlight() {
+    const greenZone = screen.querySelector('#hrDropHealthy');
+    const redZone = screen.querySelector('#hrDropUnhealthy');
+    if (!greenZone || !redZone) return;
+    if (hrSelectedSign) {
+      greenZone.classList.add('zone-active');
+      redZone.classList.add('zone-active');
+      greenZone.style.cursor = 'pointer';
+      redZone.style.cursor = 'pointer';
+    } else {
+      greenZone.classList.remove('zone-active');
+      redZone.classList.remove('zone-active');
+      greenZone.style.cursor = '';
+      redZone.style.cursor = '';
+    }
+  }
+
   screen.querySelectorAll('[data-hrsort]').forEach(btn => {
     btn.onclick = () => {
-      const text = btn.dataset.hrsort;
-      const type = btn.dataset.hrtype;
-      // Show two quick options
-      const choiceHtml = `
-        <div style="position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;" id="hrSortOverlay">
-          <div style="background:var(--sb-deep);border:1px solid var(--border);border-radius:18px;padding:22px;width:min(340px,100%);text-align:center;">
-            <div style="font-weight:900;font-size:15px;margin-bottom:14px;">"${text}"</div>
-            <div style="display:grid;gap:10px;">
-              <button class="btn" data-hrplace="healthy" data-hrplacetxt="${text}" style="background:rgba(21,255,100,.10);border-color:rgba(21,255,100,.45);color:#b8ffcc;">🟢 Healthy</button>
-              <button class="btn" data-hrplace="unhealthy" data-hrplacetxt="${text}" style="background:rgba(255,80,80,.10);border-color:rgba(255,80,80,.40);color:#ffd1d1;">🔴 Unhealthy</button>
-              <button class="btn" data-hrplacecancel="1" style="opacity:.6;">Cancel</button>
-            </div>
-          </div>
-        </div>`;
-      const div = document.createElement('div');
-      div.innerHTML = choiceHtml;
-      document.body.appendChild(div);
-      div.querySelectorAll('[data-hrplace]').forEach(b => {
-        b.onclick = () => {
-          const txt = b.dataset.hrplacetxt;
-          const dest = b.dataset.hrplace;
-          hrState.sortState.placed[txt] = dest;
-          div.remove();
-          hrRender();
-        };
-      });
-      div.querySelectorAll('[data-hrplacecancel]').forEach(b => { b.onclick = () => div.remove(); });
+      // Deselect if already selected
+      if (hrSelectedSign === btn.dataset.hrsort) {
+        hrSelectedSign = null;
+        screen.querySelectorAll('[data-hrsort]').forEach(b => b.classList.remove('selected'));
+      } else {
+        hrSelectedSign = btn.dataset.hrsort;
+        screen.querySelectorAll('[data-hrsort]').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      }
+      updateZoneHighlight();
+    };
+  });
+
+  screen.querySelectorAll('[data-hrdest]').forEach(zone => {
+    zone.onclick = () => {
+      if (!hrSelectedSign) return;
+      const dest = zone.dataset.hrdest;
+      hrState.sortState.placed[hrSelectedSign] = dest;
+      hrSelectedSign = null;
+      hrRender();
     };
   });
 
