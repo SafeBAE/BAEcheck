@@ -37,6 +37,249 @@
   margin-top:2px;
 }
 
+/* ===== BOUNDARY FLAGS GAME ===== */
+.bfIntro {
+  background: rgba(21,255,200,.07);
+  border: 1px solid rgba(21,255,200,.22);
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--sb-light);
+  margin: 12px 0 16px;
+}
+.bfTrafficRow {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 16px 0;
+}
+.bfTrafficLight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(209,254,255,.14);
+  background: rgba(0,0,0,.22);
+  min-width: 90px;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.bfTrafficLight.zone-active {
+  border-color: rgba(209,254,255,.45);
+  box-shadow: 0 0 12px rgba(209,254,255,.15);
+  cursor: pointer;
+}
+.bfTrafficLight.zone-active:hover {
+  background: rgba(255,255,255,.06);
+}
+.bfTrafficDot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,.25);
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,.2);
+}
+.bfTrafficDot.green { background: radial-gradient(circle at 40% 35%, #6dff6d, #1a9e1a); }
+.bfTrafficDot.yellow { background: radial-gradient(circle at 40% 35%, #ffe066, #cca300); }
+.bfTrafficDot.red { background: radial-gradient(circle at 40% 35%, #ff6b6b, #cc2222); }
+.bfTrafficLabel {
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: rgba(209,254,255,.65);
+}
+.bfTrafficLabel.green { color: rgba(109,255,109,.85); }
+.bfTrafficLabel.yellow { color: rgba(255,224,102,.85); }
+.bfTrafficLabel.red { color: rgba(255,107,107,.85); }
+
+.bfCardStack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 14px 0;
+}
+.bfScenarioCard {
+  appearance: none;
+  border: none;
+  background: rgba(255,255,255,.05);
+  border: 1.5px solid rgba(209,254,255,.16);
+  border-radius: 13px;
+  padding: 13px 16px;
+  cursor: pointer;
+  color: var(--text);
+  text-align: left;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.4;
+  transition: background .15s, border-color .15s, box-shadow .15s, transform .12s;
+  font-family: inherit;
+  position: relative;
+}
+.bfScenarioCard:hover {
+  background: rgba(21,255,200,.10);
+  border-color: rgba(21,255,200,.40);
+  box-shadow: 0 0 10px rgba(21,255,200,.12);
+}
+.bfScenarioCard.selected {
+  background: rgba(21,255,200,.14);
+  border-color: var(--sb-mint);
+  box-shadow: 0 0 14px rgba(21,255,200,.22);
+  transform: scale(1.01);
+}
+.bfScenarioCard.placed {
+  opacity: .55;
+  pointer-events: none;
+  transform: scale(.97);
+}
+.bfScenarioCard .bfCorrectTag {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: .3px;
+}
+.bfScenarioCard.placed .bfCorrectTag { display: inline-block; }
+.bfScenarioCard.correct .bfCorrectTag { background: rgba(21,255,200,.15); color: rgba(109,255,109,.9); }
+.bfScenarioCard.wrong .bfCorrectTag { background: rgba(255,80,80,.15); color: rgba(255,120,120,.9); }
+
+.bfActiveCard {
+  background: rgba(0,0,0,.28);
+  border: 1.5px solid rgba(209,254,255,.18);
+  border-radius: 16px;
+  padding: 22px 20px;
+  margin-bottom: 18px;
+  animation: bfCardIn 300ms ease both;
+}
+@keyframes bfCardIn {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.bfChoiceRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.bfChoiceBtn {
+  appearance: none;
+  border: none;
+  background: rgba(255,255,255,.04);
+  border: 1.5px solid rgba(209,254,255,.14);
+  border-radius: 14px;
+  padding: 16px 10px;
+  cursor: pointer;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+  transition: background .15s, border-color .15s, box-shadow .15s, transform .15s;
+}
+.bfChoiceBtn:active { transform: scale(.96); }
+.bfChoiceGreen:hover {
+  background: rgba(109,255,109,.10);
+  border-color: rgba(109,255,109,.50);
+  box-shadow: 0 0 14px rgba(109,255,109,.15);
+}
+.bfChoiceYellow:hover {
+  background: rgba(255,224,102,.10);
+  border-color: rgba(255,224,102,.50);
+  box-shadow: 0 0 14px rgba(255,224,102,.15);
+}
+.bfChoiceRed:hover {
+  background: rgba(255,107,107,.10);
+  border-color: rgba(255,107,107,.50);
+  box-shadow: 0 0 14px rgba(255,107,107,.15);
+}
+.bfChoiceLbl {
+  font-size: 13px;
+  font-weight: 900;
+}
+.bfChoiceGreen .bfChoiceLbl { color: rgba(109,255,109,.85); }
+.bfChoiceYellow .bfChoiceLbl { color: rgba(255,224,102,.85); }
+.bfChoiceRed .bfChoiceLbl { color: rgba(255,107,107,.85); }
+.bfChoiceSub {
+  font-size: 10px;
+  color: rgba(209,254,255,.50);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.bfPlacedList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 8px;
+  min-height: 28px;
+}
+.bfPlacedTag {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 10px;
+  line-height: 1.35;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.bfPlacedTag.green { background: rgba(109,255,109,.08); border: 1px solid rgba(109,255,109,.20); color: rgba(180,255,180,.9); }
+.bfPlacedTag.yellow { background: rgba(255,224,102,.08); border: 1px solid rgba(255,224,102,.20); color: rgba(255,235,160,.9); }
+.bfPlacedTag.red { background: rgba(255,107,107,.08); border: 1px solid rgba(255,107,107,.20); color: rgba(255,170,170,.9); }
+
+.bfExplanation {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(0,0,0,.20);
+  border: 1px solid rgba(209,254,255,.10);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgba(209,254,255,.78);
+}
+.bfExplanation b { color: var(--sb-light); }
+.bfZoneColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin: 14px 0;
+}
+.bfZoneCol {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.bfReflectArea {
+  margin: 16px 0 10px;
+}
+.bfReflectArea textarea {
+  width: 100%;
+  min-height: 80px;
+  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(209,254,255,.18);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--sb-light);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  transition: border-color .2s;
+}
+.bfReflectArea textarea:focus {
+  border-color: rgba(21,255,200,.50);
+}
+.bfReflectArea textarea::placeholder {
+  color: rgba(209,254,255,.35);
+}
+
     *{box-sizing:border-box}
     /* Prevent iOS zoom on input focus */
     input, select, textarea { font-size: 16px; }
@@ -7844,7 +8087,7 @@ function render(){
           <div class="accAccStep" data-step="0">
             <div class="accAccDot"></div>
             <div class="accAccBody">
-              <div class="accAccTitle">Tap to start</div>
+              <div class="accAccTitle">Let's reframe this</div>
               <div class="accAccText">Accountability is not about whether you're a good or bad person. It's about one question: what part did I play?</div>
             </div>
           </div>
@@ -10181,6 +10424,14 @@ if(state.emotion==="okay"){
           </span>
         </button>
 
+        <button class="nextBtn" data-action="boundaryFlags" style="border-color:rgba(21,255,200,.30); background:rgba(21,255,200,.05);">
+          <span class="nextBtnIcon">🚦</span>
+          <span class="nextBtnText">
+            <span class="nextBtnLabel">Boundary Flags Game</span>
+            <span class="nextBtnSub">Sort everyday scenarios into your own green, yellow & red flags — then save your boundary map</span>
+          </span>
+        </button>
+
         <button class="nextBtn" data-action="closing" style="border-color:rgba(21,255,200,.30); background:rgba(21,255,200,.07);">
           <span class="nextBtnIcon">✅</span>
           <span class="nextBtnText">
@@ -10205,6 +10456,7 @@ if(state.emotion==="okay"){
     actions.rapeCulture=()=>{ rcState={step:0,mythOpen:null,elementOpen:null,quizIdx:0,quizAnswers:{}}; go("rapeCulture"); };
     actions.consentModule=()=>{ conState={step:0,pillarOpen:null,quizIdx:0,quizAnswers:{}}; go("consentModule"); };
     actions.sardModule=()=>{ sardState={step:0,quizIdx:0,quizAnswers:{}}; go("sardModule"); };
+    actions.boundaryFlags=()=>{ bfState={step:0,placed:{},selected:null,reflectText:''}; go("boundaryFlags"); };
     return;
   }
 
@@ -10937,6 +11189,7 @@ if(state.emotion==="okay"){
   if(id==="rapeCulture"){ rcRender(); return; }
   if(id==="consentModule"){ consentRender(); return; }
   if(id==="sardModule"){ sardRender(); return; }
+  if(id==="boundaryFlags"){ bfRender(); return; }
   if(id==="rejection"){ rejectionScreen(); return; }
 
   if(id==="closing"){
@@ -14465,6 +14718,390 @@ function sardRender() {
     el.onclick = () => go('nextSteps');
   });
 }
+// ============================================================
+// BOUNDARY FLAGS SORTING GAME
+// ============================================================
+let bfState = { step: 0, cardIdx: 0, placed: {}, reflectText: '' };
+
+const BF_STEPS = ['intro','sort','summary'];
+
+const BF_SCENARIOS = [
+  { text: "Your roommate borrows your clothes without asking" },
+  { text: "A friend asks before posting a photo of you on social media" },
+  { text: "Your classmate misses a class and assumes you'll share your notes" },
+  { text: "Your partner checks in about your comfort level during intimacy" },
+  { text: "Your roommate frequently brings over guests without warning" },
+  { text: "A friend says 'no pressure, but I'd love it if you came' to an event" },
+  { text: "Your partner shares details of your intimacy with mutual friends" },
+  { text: "A friend gets upset when you can't hang out but says 'I understand'" },
+  { text: "Your partner tells you who you can and can't be friends with" },
+  { text: "Someone you're dating asks 'Is this okay?' before escalating physically" },
+  { text: "Your partner shares details about their previous sexual experiences unprompted" },
+  { text: "A friend reads your private messages when you leave your phone unlocked" },
+  { text: "Someone keeps texting you after you've stopped responding" },
+  { text: "Your friend checks in with you after a tough day without being asked" },
+  { text: "A group of friends makes plans in front of you without including you" },
+];
+
+function bfBuildSummaryText() {
+  const placed = bfState.placed;
+  const greens = BF_SCENARIOS.filter((_, i) => placed[i] === 'green');
+  const yellows = BF_SCENARIOS.filter((_, i) => placed[i] === 'yellow');
+  const reds = BF_SCENARIOS.filter((_, i) => placed[i] === 'red');
+
+  let text = '🚦 MY BOUNDARY FLAGS\n';
+  text += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+
+  if (greens.length) {
+    text += '🟢 GREEN FLAGS — I\'m okay with this\n';
+    text += 'These are things that feel respectful and safe to me.\n';
+    greens.forEach(s => { text += '  • ' + s.text + '\n'; });
+    text += '\n';
+  }
+  if (yellows.length) {
+    text += '🟡 YELLOW FLAGS — Depends / I\'d want to talk about it\n';
+    text += 'These are things I\'d need a conversation about. Context matters.\n';
+    yellows.forEach(s => { text += '  • ' + s.text + '\n'; });
+    text += '\n';
+  }
+  if (reds.length) {
+    text += '🔴 RED FLAGS — Not okay with me\n';
+    text += 'These are things that cross my boundaries.\n';
+    reds.forEach(s => { text += '  • ' + s.text + '\n'; });
+    text += '\n';
+  }
+
+  text += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+  text += 'HOW TO USE THIS\n\n';
+  text += '1. Share with people you trust\n';
+  text += '   Let a partner, friend, or roommate know where your boundaries are. You don\'t have to share everything — even one or two flags can open a real conversation.\n\n';
+  text += '2. Use "I" statements\n';
+  text += '   Try: "I feel uncomfortable when..." or "Something that\'s important to me is..." This keeps things personal, not accusatory.\n\n';
+  text += '3. Check in with yourself regularly\n';
+  text += '   Boundaries can shift over time. What felt okay last year might not feel okay now — and that\'s completely valid.\n\n';
+  text += '4. Remember: boundaries aren\'t walls\n';
+  text += '   They\'re guidelines that help you and the people around you feel safe, respected, and valued. Setting them isn\'t selfish — it\'s one of the most important relationship skills you can build.\n\n';
+  text += 'Created with BAE Check by SafeBAE\n';
+  return text;
+}
+
+function bfBuildSummaryHTML() {
+  const placed = bfState.placed;
+  const greens = BF_SCENARIOS.filter((_, i) => placed[i] === 'green');
+  const yellows = BF_SCENARIOS.filter((_, i) => placed[i] === 'yellow');
+  const reds = BF_SCENARIOS.filter((_, i) => placed[i] === 'red');
+
+  return `<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>My Boundary Flags</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Helvetica,Arial,sans-serif;padding:40px;max-width:700px;margin:0 auto;color:#1a1a1a;line-height:1.5}
+  h1{font-size:28px;margin-bottom:6px}
+  .subtitle{color:#666;font-size:14px;margin-bottom:28px}
+  .section{margin-bottom:24px}
+  .section-title{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid}
+  .section-title.green{color:#1a8a1a;border-color:#1a8a1a}
+  .section-title.yellow{color:#9a7800;border-color:#cca300}
+  .section-title.red{color:#cc2222;border-color:#cc2222}
+  .section-desc{font-size:13px;color:#666;margin-bottom:10px;font-style:italic}
+  .item{font-size:14px;padding:8px 0;border-bottom:1px solid #eee}
+  .item:last-child{border-bottom:none}
+  .how-to{margin-top:32px;padding:20px 24px;background:#f7f7f7;border-radius:12px}
+  .how-to h2{font-size:18px;margin-bottom:14px}
+  .how-to-item{margin-bottom:14px}
+  .how-to-item b{display:block;margin-bottom:2px}
+  .how-to-item:last-child{margin-bottom:0}
+  .footer{margin-top:30px;font-size:12px;color:#999;text-align:center}
+  @media print{body{padding:20px},.how-to{background:#f7f7f7!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head><body>
+<h1>🚦 My Boundary Flags</h1>
+<div class="subtitle">A personal map of what's okay, what needs a conversation, and what's not okay with me.</div>
+${greens.length ? `<div class="section">
+  <div class="section-title green">🟢 Green Flags — I'm okay with this</div>
+  <div class="section-desc">These are things that feel respectful and safe to me.</div>
+  ${greens.map(s => `<div class="item">• ${s.text}</div>`).join('')}
+</div>` : ''}
+${yellows.length ? `<div class="section">
+  <div class="section-title yellow">🟡 Yellow Flags — Depends / I'd want to talk about it</div>
+  <div class="section-desc">These are things I'd need a conversation about. Context matters.</div>
+  ${yellows.map(s => `<div class="item">• ${s.text}</div>`).join('')}
+</div>` : ''}
+${reds.length ? `<div class="section">
+  <div class="section-title red">🔴 Red Flags — Not okay with me</div>
+  <div class="section-desc">These are things that cross my boundaries.</div>
+  ${reds.map(s => `<div class="item">• ${s.text}</div>`).join('')}
+</div>` : ''}
+<div class="how-to">
+  <h2>How to Use This</h2>
+  <div class="how-to-item"><b>1. Share with people you trust</b>Let a partner, friend, or roommate know where your boundaries are. You don't have to share everything — even one or two flags can open a real conversation.</div>
+  <div class="how-to-item"><b>2. Use "I" statements</b>Try: "I feel uncomfortable when…" or "Something that's important to me is…" This keeps things personal, not accusatory.</div>
+  <div class="how-to-item"><b>3. Check in with yourself regularly</b>Boundaries can shift over time. What felt okay last year might not feel okay now — and that's completely valid.</div>
+  <div class="how-to-item"><b>4. Remember: boundaries aren't walls</b>They're guidelines that help you and the people around you feel safe, respected, and valued. Setting them isn't selfish — it's one of the most important relationship skills you can build.</div>
+</div>
+<div class="footer">Created with BAE Check by SafeBAE</div>
+</body></html>`;
+}
+
+function bfRender() {
+  const screen = document.getElementById('screen');
+  const s = bfState.step;
+
+  const progressDots = BF_STEPS.map((_, i) =>
+    `<span class="dsProgressDot${i <= s ? ' active' : ''}">${i < s ? '✓' : i + 1}</span>`
+  ).join('');
+
+  let innerHTML = '';
+
+  if (s === 0) {
+    // Intro
+    innerHTML = `
+      <div style="text-align:center; margin-bottom:8px;">
+        <div style="font-size:48px; margin-bottom:6px;">🚦</div>
+        <div class="h1" style="margin-bottom:4px;">Know Your Boundaries</div>
+      </div>
+      <div class="p" style="text-align:center;">Boundaries look different for everyone. This activity helps you figure out where yours are.</div>
+
+      <div class="bfTrafficRow">
+        <div class="bfTrafficLight">
+          <div class="bfTrafficDot green"></div>
+          <div class="bfTrafficLabel green">Green Flag</div>
+          <div style="font-size:11px; color:rgba(209,254,255,.55); text-align:center; line-height:1.3;">I'm okay<br>with this</div>
+        </div>
+        <div class="bfTrafficLight">
+          <div class="bfTrafficDot yellow"></div>
+          <div class="bfTrafficLabel yellow">Yellow Flag</div>
+          <div style="font-size:11px; color:rgba(209,254,255,.55); text-align:center; line-height:1.3;">Depends /<br>let's talk</div>
+        </div>
+        <div class="bfTrafficLight">
+          <div class="bfTrafficDot red"></div>
+          <div class="bfTrafficLabel red">Red Flag</div>
+          <div style="font-size:11px; color:rgba(209,254,255,.55); text-align:center; line-height:1.3;">Not okay<br>with me</div>
+        </div>
+      </div>
+
+      <div class="bfIntro">
+        <b>How it works:</b> You'll see one scenario at a time. For each one, decide which flag it is <em>for you</em>. There are no wrong answers — this is about understanding your own boundaries.
+      </div>
+
+      <div class="note">
+        💡 <b>Your boundaries are yours.</b> Two people can sort the same scenario differently and both be right. The goal is self-awareness, not a score.
+      </div>
+
+      <div class="dsNavRow" style="margin-top:14px;">
+        <button class="btn" data-bfaction="backToLearn">← Back</button>
+        <button class="btn btnPrimary" data-bfaction="start">Let's Go →</button>
+      </div>
+    `;
+  } else if (s === 1) {
+    // Individual card sorting
+    const idx = bfState.cardIdx;
+    const total = BF_SCENARIOS.length;
+    const scenario = BF_SCENARIOS[idx];
+    const pct = Math.round((idx / total) * 100);
+
+    innerHTML = `
+      <div class="p" style="margin-bottom:4px;"><b>Scenario ${idx + 1} of ${total}</b></div>
+      <div style="height:6px; border-radius:6px; background:rgba(255,255,255,.06); margin-bottom:18px; overflow:hidden;">
+        <div style="height:100%; width:${pct}%; background:linear-gradient(90deg, rgba(21,255,200,.7), rgba(21,255,200,.4)); border-radius:6px; transition:width .3s;"></div>
+      </div>
+
+      <div class="bfActiveCard">
+        <div style="font-size:13px; color:rgba(209,254,255,.50); margin-bottom:10px; font-weight:700;">Where does this land for you?</div>
+        <div style="font-size:17px; font-weight:800; line-height:1.4; color:var(--sb-light); min-height:52px;">${scenario.text}</div>
+      </div>
+
+      <div class="bfChoiceRow">
+        <button class="bfChoiceBtn bfChoiceGreen" data-bfchoice="green">
+          <div class="bfTrafficDot green" style="width:28px;height:28px;"></div>
+          <div class="bfChoiceLbl">Green</div>
+          <div class="bfChoiceSub">I'm okay<br>with this</div>
+        </button>
+        <button class="bfChoiceBtn bfChoiceYellow" data-bfchoice="yellow">
+          <div class="bfTrafficDot yellow" style="width:28px;height:28px;"></div>
+          <div class="bfChoiceLbl">Yellow</div>
+          <div class="bfChoiceSub">Depends /<br>let's talk</div>
+        </button>
+        <button class="bfChoiceBtn bfChoiceRed" data-bfchoice="red">
+          <div class="bfTrafficDot red" style="width:28px;height:28px;"></div>
+          <div class="bfChoiceLbl">Red</div>
+          <div class="bfChoiceSub">Not okay<br>with me</div>
+        </button>
+      </div>
+
+      <div class="dsNavRow" style="margin-top:14px;">
+        ${idx > 0 ? `<button class="btn" data-bfaction="prevCard">← Previous</button>` : `<button class="btn" data-bfaction="back">← Back</button>`}
+      </div>
+    `;
+  } else if (s === 2) {
+    // Summary with save/copy/print
+    const placed = bfState.placed;
+    const greens = BF_SCENARIOS.filter((_, i) => placed[i] === 'green');
+    const yellows = BF_SCENARIOS.filter((_, i) => placed[i] === 'yellow');
+    const reds = BF_SCENARIOS.filter((_, i) => placed[i] === 'red');
+
+    const renderGroup = (items, color, emoji, label, sublabel) => {
+      if (!items.length) return '';
+      return `
+        <div style="margin-bottom:16px;">
+          <div style="font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; color:${color};">${emoji} ${label}</div>
+          <div style="font-size:11.5px; color:rgba(209,254,255,.50); margin-bottom:8px; font-style:italic;">${sublabel}</div>
+          <div class="bfPlacedList">
+            ${items.map(s => `<div class="bfPlacedTag ${emoji === '🟢' ? 'green' : emoji === '🟡' ? 'yellow' : 'red'}">${s.text}</div>`).join('')}
+          </div>
+        </div>
+      `;
+    };
+
+    innerHTML = `
+      <div style="text-align:center; margin-bottom:8px;">
+        <div style="font-size:36px; margin-bottom:6px;">🪞</div>
+        <div class="h1" style="margin-bottom:4px;">Your Boundary Map</div>
+      </div>
+      <div class="p" style="text-align:center;">Here's how you sorted each scenario. This is <em>your</em> map — no one else's.</div>
+
+      <div style="margin-top:16px;">
+        ${renderGroup(greens, 'rgba(109,255,109,.85)', '🟢', 'Green Flags — I\'m okay with this', 'These are things that feel respectful and safe to you.')}
+        ${renderGroup(yellows, 'rgba(255,224,102,.85)', '🟡', 'Yellow Flags — Depends / Let\'s talk', 'These need a conversation. Context matters.')}
+        ${renderGroup(reds, 'rgba(255,107,107,.85)', '🔴', 'Red Flags — Not okay with me', 'These cross your boundaries.')}
+      </div>
+
+      <div class="bfIntro" style="margin-top:16px;">
+        <b>How to use your boundary map:</b>
+        <div style="margin-top:8px; line-height:1.6;">
+          <b>1. Share with people you trust.</b> Let a partner, friend, or roommate know where your boundaries are. You don't have to share everything — even one or two flags can open a real conversation.<br><br>
+          <b>2. Use "I" statements.</b> Try: "I feel uncomfortable when…" or "Something that's important to me is…" This keeps things personal, not accusatory.<br><br>
+          <b>3. Check in with yourself regularly.</b> Boundaries can shift over time. What felt okay last year might not feel okay now — and that's completely valid.<br><br>
+          <b>4. Remember: boundaries aren't walls.</b> They're guidelines that help you and the people around you feel safe, respected, and valued. Setting them isn't selfish — it's one of the most important relationship skills you can build.
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:8px; margin-top:18px;">
+        <button class="btn btnPrimary" data-bfaction="copy" style="width:100%;">📋 Copy My Boundary Map</button>
+        <button class="btn" data-bfaction="print" style="width:100%; border-color:rgba(21,255,200,.30); background:rgba(21,255,200,.06);">🖨️ Print / Save as PDF</button>
+      </div>
+
+      <div id="bfCopyConfirm" style="display:none; text-align:center; padding:8px; margin-top:6px; font-size:13px; font-weight:800; color:var(--sb-mint);">✓ Copied to clipboard!</div>
+
+      <div class="dsNavRow" style="flex-direction:column; gap:8px; margin-top:14px;">
+        <button class="btn" data-bfaction="restart" style="width:100%;">↺ Play Again</button>
+        <button class="btn" data-action="nextSteps" style="width:100%;">Back to Next Steps</button>
+      </div>
+    `;
+  }
+
+  screen.innerHTML = backBtn() + `
+    <div class="dsHeader">
+      <div class="dsEyebrow">BAE Check — Interactive Activity</div>
+      <div class="h1">🚦 Boundary Flags Game</div>
+      <div class="p" style="margin:0">Figure out your own green, yellow & red flags.</div>
+    </div>
+    <div class="dsProgress">${BF_STEPS.map((_, i) =>
+      `<span class="dsProgressDot${i <= s ? ' active' : ''}"></span>`
+    ).join('')}</div>
+    <div class="dsPanel">${innerHTML}</div>
+  `;
+  triggerTransition();
+
+  // --- Event handlers ---
+
+  // Navigation
+  screen.querySelectorAll('[data-bfaction]').forEach(el => {
+    el.onclick = () => {
+      const a = el.dataset.bfaction;
+      if (a === 'start') {
+        bfState.step = 1;
+        bfState.cardIdx = 0;
+        bfState.placed = {};
+        bfRender();
+      } else if (a === 'next') {
+        bfState.step = Math.min(BF_STEPS.length - 1, bfState.step + 1);
+        bfRender();
+      } else if (a === 'back') {
+        if (bfState.step === 0) {
+          go('nextSteps');
+        } else {
+          bfState.step = Math.max(0, bfState.step - 1);
+          bfRender();
+        }
+      } else if (a === 'prevCard') {
+        if (bfState.cardIdx > 0) {
+          bfState.cardIdx--;
+          bfRender();
+        }
+      } else if (a === 'restart') {
+        bfState = { step: 1, cardIdx: 0, placed: {}, reflectText: '' };
+        bfRender();
+      } else if (a === 'backToLearn') {
+        go('nextSteps');
+      } else if (a === 'copy') {
+        const text = bfBuildSummaryText();
+        navigator.clipboard.writeText(text).then(() => {
+          const confirm = document.getElementById('bfCopyConfirm');
+          if (confirm) {
+            confirm.style.display = 'block';
+            setTimeout(() => { confirm.style.display = 'none'; }, 2500);
+          }
+        }).catch(() => {
+          // Fallback: select text in a textarea
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          const confirm = document.getElementById('bfCopyConfirm');
+          if (confirm) {
+            confirm.style.display = 'block';
+            setTimeout(() => { confirm.style.display = 'none'; }, 2500);
+          }
+        });
+      } else if (a === 'print') {
+        const html = bfBuildSummaryHTML();
+        const printWin = window.open('', '_blank');
+        if (printWin) {
+          printWin.document.write(html);
+          printWin.document.close();
+          setTimeout(() => { printWin.print(); }, 400);
+        }
+      }
+    };
+  });
+
+  // Back to next steps
+  screen.querySelectorAll('[data-action="nextSteps"]').forEach(el => {
+    el.onclick = () => go('nextSteps');
+  });
+
+  // Flag choice buttons (individual card)
+  screen.querySelectorAll('[data-bfchoice]').forEach(btn => {
+    btn.onclick = () => {
+      const choice = btn.dataset.bfchoice;
+      bfState.placed[bfState.cardIdx] = choice;
+
+      // Brief visual feedback
+      btn.style.transform = 'scale(1.08)';
+      btn.style.boxShadow = choice === 'green'
+        ? '0 0 20px rgba(109,255,109,.4)'
+        : choice === 'yellow'
+          ? '0 0 20px rgba(255,224,102,.4)'
+          : '0 0 20px rgba(255,107,107,.4)';
+
+      setTimeout(() => {
+        if (bfState.cardIdx < BF_SCENARIOS.length - 1) {
+          bfState.cardIdx++;
+          bfRender();
+        } else {
+          // All done — go to summary
+          bfState.step = 2;
+          bfRender();
+        }
+      }, 280);
+    };
+  });
+}
+
 </script>
 </body>
 </html>
