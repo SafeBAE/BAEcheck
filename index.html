@@ -9207,20 +9207,97 @@ if(id==="B_drinking_rule"){
   if(id==="I_not_sure_wanted"){
     screen.innerHTML = backBtn() + card(
       "Not sure they wanted it",
-      [
-        "If you’re not sure they wanted it, treat that uncertainty seriously.",
-        "Consent usually looks like active participation — not silence, stiffness, or doing it just to ‘get it over with.’",
-        "When in doubt: pause, ask, and be ready to stop without argument."
-      ],
-      `<details style="margin-top:4px;">
-        <summary style="cursor:pointer; font-weight:900; color: var(--sb-light);">Learn More About Why This Happens</summary>
-        <div style="margin-top:8px; color: var(--muted); line-height:1.45;">
-          People don’t always say no clearly — even when they don’t want to continue. They might go along to avoid conflict, to protect the other person’s feelings, or because they feel frozen or unsure how to stop things.
-          <br><br>
-          This is why <b>active, enthusiastic participation</b> is the clearest signal of a real yes. Silence, passivity, or “going along with it” are not the same as consent. If you’re reading uncertainty and continuing anyway, that uncertainty matters — and it’s always safer to pause and check in than to keep going.
+      ["That uncertainty is information. The fact that you’re questioning it means something felt off — and that matters."],
+      null,
+      `<div style="display:flex; flex-direction:column; gap:10px; margin:4px 0 16px;">
+
+        <div style="font-size:13px; color:var(--muted); line-height:1.55; padding: 2px 0 6px;">
+          Uncertainty about someone’s desire isn’t a gray area to push through — it’s a signal to stop. Below are three common ways this plays out. See if any feel familiar.
         </div>
-      </details>`,
-      grid(btn("Continue","toEmotion","btn btnPrimary"))
+
+        <details style="border:1px solid rgba(209,254,255,.15); border-radius:14px; overflow:hidden; background:rgba(0,0,0,.18);">
+          <summary style="cursor:pointer; padding:14px 16px; font-size:13.5px; font-weight:900; color:var(--sb-light); list-style:none; display:flex; justify-content:space-between; align-items:center; gap:8px; user-select:none;">
+            <span>They went along but didn’t really engage</span>
+            <span style="font-size:18px; color:var(--sb-mint); flex-shrink:0;">﹢</span>
+          </summary>
+          <div style="padding:0 16px 16px; border-top:1px solid rgba(209,254,255,.09);">
+            <div style="margin-top:12px; font-size:13px; color:var(--muted); line-height:1.6;">
+              Passive compliance — going still, being quiet, doing the minimum to get through it — is not a yes. People go along for a lot of reasons that have nothing to do with wanting something:
+            </div>
+            <div style="margin-top:10px; display:flex; flex-direction:column; gap:6px;">
+              <div style="padding:7px 11px; border-radius:9px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.22); font-size:12.5px; color:var(--muted); line-height:1.45;">To avoid an argument or an awkward moment</div>
+              <div style="padding:7px 11px; border-radius:9px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.22); font-size:12.5px; color:var(--muted); line-height:1.45;">Because they felt frozen and didn’t know how to stop it</div>
+              <div style="padding:7px 11px; border-radius:9px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.22); font-size:12.5px; color:var(--muted); line-height:1.45;">Because they were afraid of how you’d react</div>
+              <div style="padding:7px 11px; border-radius:9px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.22); font-size:12.5px; color:var(--muted); line-height:1.45;">Because they didn’t feel like they had a real choice</div>
+            </div>
+            <div style="margin-top:12px; font-size:13px; color:var(--sb-light); line-height:1.55; padding:10px 12px; border-radius:10px; background:rgba(21,255,200,.06); border:1px solid rgba(21,255,200,.18);">
+              <b>Participation is not the same as consent.</b> A body that’s present but disengaged is telling you something — if you were paying attention to them and not just the moment.
+            </div>
+          </div>
+        </details>
+
+        <details style="border:1px solid rgba(209,254,255,.15); border-radius:14px; overflow:hidden; background:rgba(0,0,0,.18);">
+          <summary style="cursor:pointer; padding:14px 16px; font-size:13.5px; font-weight:900; color:var(--sb-light); list-style:none; display:flex; justify-content:space-between; align-items:center; gap:8px; user-select:none;">
+            <span>I didn’t stop to ask — I assumed</span>
+            <span style="font-size:18px; color:var(--sb-mint); flex-shrink:0;">﹢</span>
+          </summary>
+          <div style="padding:0 16px 16px; border-top:1px solid rgba(209,254,255,.09);">
+            <div style="margin-top:12px; font-size:13px; color:var(--muted); line-height:1.6;">
+              Assumptions feel like reading the room. They’re not. Assuming someone is okay with something because of how they were dressed, what happened before, how things started, or what’s happened in the past — none of that is consent to <em>this</em> moment.
+            </div>
+            <div style="margin-top:10px; display:flex; flex-direction:column; gap:7px;">
+              <div style="padding:8px 12px; border-radius:10px; background:rgba(255,255,255,.04); border-left:3px solid rgba(255,160,80,.35);">
+                <div style="font-size:11px; font-weight:700; color:rgba(255,180,100,.75); text-transform:uppercase; letter-spacing:.4px; margin-bottom:3px;">Assumption sounds like</div>
+                <div style="font-style:italic; font-size:12.5px; color:var(--muted);">“They didn’t stop me, so I figured it was fine.”</div>
+                <div style="font-style:italic; font-size:12.5px; color:var(--muted); margin-top:3px;">“We’d done it before, so I thought they were into it.”</div>
+                <div style="font-style:italic; font-size:12.5px; color:var(--muted); margin-top:3px;">“Things were already going that direction.”</div>
+              </div>
+            </div>
+            <div style="margin-top:12px; font-size:13px; color:var(--sb-light); line-height:1.55; padding:10px 12px; border-radius:10px; background:rgba(21,255,200,.06); border:1px solid rgba(21,255,200,.18);">
+              Consent requires a check-in, not just a lack of objection. The absence of “no” is not the presence of “yes.” Asking takes two seconds. Assuming can cause real harm.
+            </div>
+          </div>
+        </details>
+
+        <details style="border:1px solid rgba(209,254,255,.15); border-radius:14px; overflow:hidden; background:rgba(0,0,0,.18);">
+          <summary style="cursor:pointer; padding:14px 16px; font-size:13.5px; font-weight:900; color:var(--sb-light); list-style:none; display:flex; justify-content:space-between; align-items:center; gap:8px; user-select:none;">
+            <span>I noticed something was off but kept going</span>
+            <span style="font-size:18px; color:var(--sb-mint); flex-shrink:0;">﹢</span>
+          </summary>
+          <div style="padding:0 16px 16px; border-top:1px solid rgba(209,254,255,.09);">
+            <div style="margin-top:12px; font-size:13px; color:var(--muted); line-height:1.6;">
+              This is the hardest one to sit with — because you already knew. Something shifted. You noticed. And then you kept going anyway.
+            </div>
+            <div style="margin-top:10px; font-size:13px; color:var(--muted); line-height:1.55; padding:10px 12px; border-radius:10px; background:rgba(255,80,80,.06); border:1px solid rgba(255,100,100,.20);">
+              That moment of noticing and continuing is where harm most often happens — not always because of bad intent, but because momentum, desire, and discomfort with stopping all felt easier than pausing.
+            </div>
+            <div style="margin-top:10px; font-size:13px; color:var(--sb-light); line-height:1.55; padding:10px 12px; border-radius:10px; background:rgba(21,255,200,.06); border:1px solid rgba(21,255,200,.18);">
+              The fact that you noticed means your instincts were working. Using this moment to understand that — and committing to stopping when you notice next time — is what real accountability looks like.
+            </div>
+          </div>
+        </details>
+
+        <div style="margin-top:6px; border-radius:16px; overflow:hidden; border:1.5px solid rgba(21,255,200,.45); background: linear-gradient(160deg, rgba(21,255,200,.10), rgba(19,132,143,.08));">
+          <div style="padding:14px 16px 12px; border-bottom:1px solid rgba(21,255,200,.18);">
+            <div style="font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:1px; color:var(--sb-mint); margin-bottom:6px;">The Standard</div>
+            <div style="font-size:18px; font-weight:900; color:var(--sb-light); line-height:1.2;">Consent should be <em>unmistakable.</em></div>
+            <div style="font-size:13px; color:var(--muted); line-height:1.5; margin-top:6px;">Enthusiastic consent isn’t a technicality or a checklist — it’s a <b>feeling in the room.</b> When someone genuinely wants something, you know. They’re present, engaged, and an active participant — not just someone who didn’t say stop.</div>
+          </div>
+          <div style="padding:14px 16px; display:flex; flex-direction:column; gap:7px;">
+            <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.50); margin-bottom:2px;">What it actually looks like</div>
+            <div style="padding:8px 12px; border-radius:9px; background:rgba(21,255,200,.07); border-left:3px solid rgba(21,255,200,.50); font-size:13px; color:var(--sb-light); line-height:1.45;">They initiate, reciprocate, and stay engaged — not just tolerate</div>
+            <div style="padding:8px 12px; border-radius:9px; background:rgba(21,255,200,.07); border-left:3px solid rgba(21,255,200,.50); font-size:13px; color:var(--sb-light); line-height:1.45;">Their body language and words match — there’s no disconnect to explain away</div>
+            <div style="padding:8px 12px; border-radius:9px; background:rgba(21,255,200,.07); border-left:3px solid rgba(21,255,200,.50); font-size:13px; color:var(--sb-light); line-height:1.45;">If you paused and asked, they’d say yes clearly — not out of obligation</div>
+            <div style="padding:8px 12px; border-radius:9px; background:rgba(21,255,200,.07); border-left:3px solid rgba(21,255,200,.50); font-size:13px; color:var(--sb-light); line-height:1.45;">You don’t have to wonder. You’re not rationalizing. You just <em>know.</em></div>
+            <div style="font-size:14px; color:var(--sb-light); font-weight:900; line-height:1.55; padding:13px 16px; border-radius:12px; background:rgba(21,255,200,.14); border:1px solid rgba(21,255,200,.40); text-align:center; margin-top:6px;">
+              If you’re asking yourself <em>“did they really want it?”</em><br>— that question <b>is</b> the answer.
+            </div>
+          </div>
+        </div>
+
+      </div>
+      ${grid(btn("Continue","toEmotion","btn btnPrimary"))}
+    `
     );
     actions.toEmotion=()=>go("emotion");
     return;
