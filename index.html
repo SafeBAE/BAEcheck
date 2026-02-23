@@ -38,6 +38,10 @@
 }
 
     *{box-sizing:border-box}
+    /* Prevent iOS zoom on input focus */
+    input, select, textarea { font-size: 16px; }
+    /* Remove tap highlight globally for touch devices */
+    button, a, [role="button"], summary { -webkit-tap-highlight-color: transparent; }
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -54,8 +58,9 @@
       transition: background 600ms ease;
     }
     .app{ width: min(540px, 100%); }
-    .topbar{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px; }
+    .topbar{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
     .brand { display:flex; align-items:center; gap:10px; }
+
     .logo svg{ width:26px; height:36px; transform-origin: 50% 100%; animation: grow 7s ease-in-out infinite; }
     @keyframes grow {
       0%   { transform: scale(0.88) translateY(4px); opacity: .85; }
@@ -79,7 +84,7 @@
       border-radius:2px;
     }
     .brand .subtitle{ font-size:12px; color: var(--muted); margin-top:2px; }
-    .topActions{ display:flex; gap:10px; }
+    .topActions{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
     .btn{
       appearance:none; border:none;
       padding: 12px 14px;
@@ -2887,7 +2892,6 @@
 }
 .crowdWord{
   position:absolute;
-  transform:translate(-50%,-50%);
   font-size:11px;
   font-weight:700;
   color:rgba(255,100,80,0.7);
@@ -2897,11 +2901,14 @@
   transition:opacity .4s ease, transform .4s ease;
   pointer-events:none;
   text-shadow:0 0 8px rgba(255,80,60,.35);
+  max-width:40%;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 @keyframes crowdFloat{
-  0%   { transform:translate(-50%,-50%) translateY(0px); }
-  50%  { transform:translate(-50%,-50%) translateY(-6px); }
-  100% { transform:translate(-50%,-50%) translateY(0px); }
+  0%   { transform:translateY(0px); }
+  50%  { transform:translateY(-6px); }
+  100% { transform:translateY(0px); }
 }
 /* Knob area */
 .crowdKnobArea{
@@ -3033,6 +3040,10 @@
 .accFlipRow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .accFlipCard{perspective:600px;cursor:pointer;height:160px;}
 .accFlipCardFull{perspective:600px;cursor:pointer;height:110px;grid-column:span 2;}
+@media(max-width:400px){
+  .accFlipCard{height:200px;}
+  .accFlipCardFull{height:130px;}
+}
 .accFlipInner{
   position:relative;width:100%;height:100%;
   transform-style:preserve-3d;
@@ -3045,11 +3056,13 @@
   border:1px solid rgba(209,254,255,.18);
   background:rgba(255,255,255,.05);
   display:flex;flex-direction:column;justify-content:space-between;
+  overflow-y:auto;
 }
 .accFlipBack{
   transform:rotateY(180deg);
   background:rgba(21,255,200,.10);
   border-color:rgba(21,255,200,.40);
+  justify-content:center;
 }
 .accFlipLabel{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.4px;color:rgba(209,254,255,.55);margin-bottom:4px;}
 .accFlipQ{font-size:14px;font-weight:900;color:rgba(209,254,255,.95);line-height:1.3;}
@@ -3947,6 +3960,172 @@
 .bacGauge{margin:14px 0;padding:16px;border-radius:16px;border:1px solid rgba(255,180,100,.22);background:rgba(0,0,0,.18);}.bacBar{height:14px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid rgba(255,255,255,.10);margin:10px 0 6px;}.bacFill{height:100%;border-radius:999px;transition:width .3s ease,background .3s ease;}.bacLabels{display:flex;justify-content:space-between;font-size:10px;color:rgba(209,254,255,.50);}.bacSlider{width:100%;margin:12px 0 6px;accent-color:rgba(255,160,80,.85);}.bacZone{margin-top:10px;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.5;transition:background .3s ease,border-color .3s ease;}.bacConsentTag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:900;margin-bottom:8px;}
 .alcSignalGrid{display:grid;gap:8px;margin:12px 0;}.alcSignal{appearance:none;border:1px solid rgba(255,180,100,.22);background:rgba(255,140,60,.05);color:var(--text);border-radius:12px;padding:12px 14px;font-size:13px;font-weight:700;cursor:pointer;text-align:left;transition:background .15s,border-color .15s,transform .06s;display:flex;align-items:flex-start;gap:10px;font-family:inherit;line-height:1.4;}.alcSignal:hover{background:rgba(255,160,80,.12);border-color:rgba(255,160,80,.45);}.alcSignal:active{transform:scale(.98);}.alcSignal.checked{background:rgba(255,100,60,.14);border-color:rgba(255,100,60,.55);color:#fff;}.alcSignalCheck{width:20px;height:20px;min-width:20px;border-radius:6px;border:2px solid rgba(255,180,100,.35);background:transparent;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s ease;font-size:11px;}.alcSignal.checked .alcSignalCheck{background:rgba(255,100,60,.30);border-color:rgba(255,100,60,.70);}.alcResultBox{margin-top:14px;padding:14px 16px;border-radius:14px;font-size:13px;line-height:1.55;display:none;animation:rejFadeIn .3s ease;}.alcResultBox.show{display:block;}
 .alcReframeCard{border-radius:16px;border:1px solid rgba(209,254,255,.14);background:rgba(0,0,0,.18);padding:16px;margin:12px 0;}.alcReframeSide{padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.5;margin-top:10px;}.alcReframeSide.myth{background:rgba(255,100,60,.08);border:1px solid rgba(255,100,60,.25);color:rgba(255,180,160,.92);}.alcReframeSide.truth{background:rgba(21,255,200,.08);border:1px solid rgba(21,255,200,.25);color:var(--sb-light);}
+
+/* ============================================================
+   MOBILE RESPONSIVE FIXES
+   ============================================================ */
+
+/* --- Fix 2-column grids that lack mobile breakpoints --- */
+@media (max-width: 480px) {
+  /* Power Dynamics type picker */
+  .pdTypeGrid { grid-template-columns: 1fr !important; }
+
+  /* Healthy Relationships cycle of abuse grid */
+  .hrCycleGrid { grid-template-columns: 1fr !important; }
+
+  /* Vibe Jukebox tiles */
+  .vjTiles { grid-template-columns: 1fr !important; }
+
+  /* Accused module feeling grid */
+  .accFeelingGrid { grid-template-columns: 1fr !important; }
+
+  /* Signal Boost grid */
+  .sbGrid { grid-template-columns: 1fr !important; }
+
+  /* Belief Shift column labels */
+  .bsColLabels { grid-template-columns: 1fr !important; }
+
+  /* Emotion picker cards */
+  .emotionGrid { grid-template-columns: 1fr !important; }
+
+  /* Accused flip row */
+  .accFlipRow { grid-template-columns: 1fr !important; }
+
+  /* Fix inline-style 2-column grids (need !important to override inline styles) */
+  .nextGrid,
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* --- Fix dsNavRow button overflow on narrow screens --- */
+@media (max-width: 400px) {
+  .dsNavRow {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .dsNavRow .btn {
+    flex: none;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    padding: 12px 10px;
+  }
+}
+
+/* --- Accordion content clipping fix --- */
+@media (max-width: 480px) {
+  .scBody.scOpen { max-height: 280px; }
+  .fpConvoCard.open .fpConvoBody { max-height: 600px; }
+  .fpEnabling.open .fpEnablingBody { max-height: 500px; }
+  .fpDecNode.open .fpDecNodeBody { max-height: 600px; }
+  .dsConsentCard.open .dsConsentBody { max-height: 500px; }
+  .siWrap .panel.open .panelBody { max-height: 700px; }
+  .bwWrap .panel.open .panelBody { max-height: 800px; }
+  .nrmWrap .panel.open .panelBody { max-height: 900px; }
+  .repairPanel.open .panelBody { max-height: 1200px; }
+}
+
+/* --- Modal: better mobile spacing --- */
+@media (max-width: 480px) {
+  .modalOverlay { padding: 10px; }
+  .modal {
+    padding: 16px;
+    border-radius: 14px;
+    max-height: 92vh;
+  }
+  .modalTitle { font-size: 16px; }
+}
+
+/* --- Touch target minimum sizing (44px recommended by Apple/Google) --- */
+@media (pointer: coarse) {
+  .dsScriptChip { min-height: 44px; display: inline-flex; align-items: center; }
+  .hrAbuseTab { min-height: 44px; display: inline-flex; align-items: center; }
+  .ocBtn { min-height: 44px; }
+  .nrmBtn { min-height: 44px; }
+  .rbBtn { min-height: 44px; }
+  .btnSmall { min-height: 44px; display: inline-flex; align-items: center; }
+  .pdScenario { min-height: 44px; }
+  .fpSitBtn { min-height: 44px; }
+  .alcSignal { min-height: 44px; }
+  .hrSign { min-height: 44px; }
+  .hrSortCard { min-height: 44px; display: inline-flex; align-items: center; }
+  .tsCard { min-height: 44px; }
+  .ttCardHeader { min-height: 44px; }
+}
+
+/* --- Prevent horizontal overflow on small screens --- */
+@media (max-width: 380px) {
+  body { padding: 16px 8px 48px; }
+  .card { padding: 14px; }
+  .h1 { font-size: 19px; }
+  .topbar { gap: 8px; }
+  .brand .title { font-size: 14px; }
+
+  /* Pressure meter ticks can overflow */
+  .pressureTicks { font-size: 10px; }
+  .pressureValue { font-size: 11px; padding: 5px 8px; }
+
+  /* NRM path nodes can get cramped */
+  .nrmNode { width: 28px; height: 28px; }
+  .nrmNode span { font-size: 10px; }
+  .nrmMove { font-size: 16px; }
+}
+
+/* --- Ongoing Consent Road mobile refinements --- */
+@media (max-width: 480px) {
+  .ocBubble {
+    max-width: 120px !important;
+    min-width: 80px !important;
+    font-size: 11px !important;
+    padding: 7px 9px !important;
+  }
+  .ocRoadWrap { height: 340px !important; }
+  .ocRoadInner { height: 340px !important; min-height: 340px !important; }
+}
+
+/* --- Fix topActions wrapping on small screens --- */
+@media (max-width: 360px) {
+  .topActions { width: 100%; justify-content: flex-start; }
+  .topActions .btnSmall { flex: 1; text-align: center; }
+}
+
+/* --- Breathing exercise sizing on small screens --- */
+@media (max-width: 380px) {
+  .breathe { width: 120px; height: 120px; }
+  .spiralStage { width: 180px !important; height: 180px !important; }
+  #spiral { width: 150px !important; height: 150px !important; }
+}
+
+/* --- Ensure long words don't cause horizontal overflow --- */
+.dsScriptText,
+.fpConvoBody,
+.fpBoundaryBox,
+.pdScText,
+.ttSectionText,
+.nrmDesc,
+.nrmChallengeText,
+.hrAbuseItem,
+.alcMythExplain,
+.note,
+.p,
+.rbOutput,
+.ssItem,
+.biBody {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* --- Safe area insets for notched devices --- */
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: calc(60px + env(safe-area-inset-bottom));
+    padding-left: calc(14px + env(safe-area-inset-left));
+    padding-right: calc(14px + env(safe-area-inset-right));
+  }
+}
+
 </style>
 
 </head>
@@ -4485,13 +4664,13 @@ function initEyeGrid(){
   // Pre-defined positions: spread around perimeter in 3 rows, avoiding center & bottom
   const POSITIONS = [
     // Top row
-    {x:8,  y:6},  {x:22, y:4},  {x:38, y:7},  {x:55, y:4},  {x:70, y:6},  {x:84, y:5},
+    {x:5,  y:4},  {x:20, y:3},  {x:36, y:6},  {x:52, y:3},  {x:66, y:5},  {x:78, y:4},
     // Upper-mid row (sides only, avoiding center where knob is)
-    {x:4,  y:22}, {x:16, y:26}, {x:78, y:24}, {x:90, y:20},
+    {x:3,  y:20}, {x:15, y:24}, {x:68, y:22}, {x:78, y:18},
     // Mid row (far sides only)
-    {x:2,  y:42}, {x:88, y:40}, {x:5,  y:58}, {x:86, y:55},
+    {x:2,  y:40}, {x:74, y:38}, {x:3,  y:56}, {x:72, y:53},
     // Lower-mid row (sides only, above message area)
-    {x:8,  y:72}, {x:20, y:76}, {x:76, y:74},
+    {x:5,  y:70}, {x:18, y:74}, {x:64, y:72},
   ];
   WORDS.forEach((w, i) => {
     const el = document.createElement('div');
@@ -8096,7 +8275,7 @@ if(id==="B_bac_awareness"){
       {p:"10%",f:"rgba(21,255,200,.70)",b:"rgba(21,255,200,.30)",bg:"rgba(21,255,200,.06)",tb:"rgba(21,255,200,.15)",tbd:"rgba(21,255,200,.40)",tc:"var(--sb-mint)",tt:"Consent possible",l:"Sober",d:"<b>Sober:</b> Clear judgment, full awareness of surroundings and partner. This is where consent is most reliable. All signals can be read and given clearly."},
       {p:"30%",f:"rgba(180,220,80,.70)",b:"rgba(180,220,80,.30)",bg:"rgba(180,220,80,.06)",tb:"rgba(180,220,80,.15)",tbd:"rgba(180,220,80,.40)",tc:"rgba(200,240,100,.95)",tt:"Consent possible \u2014 with care",l:"Buzzed",d:"<b>Buzzed:</b> Slightly lowered inhibitions, relaxed. Judgment mostly intact but subtle cues harder to read. Consent is still possible, but check-ins matter more."},
       {p:"55%",f:"rgba(255,200,60,.75)",b:"rgba(255,200,60,.30)",bg:"rgba(255,200,60,.06)",tb:"rgba(255,200,60,.15)",tbd:"rgba(255,200,60,.40)",tc:"rgba(255,220,100,.95)",tt:"Gray zone \u2014 real caution needed",l:"Tipsy",d:"<b>Tipsy:</b> Judgment noticeably impaired. More impulsive, louder, less coordinated. Decisions made here may not reflect sober preferences. <b>This is where things start getting risky.</b> Slow down. Ask clearly. Watch for hesitation."},
-      {p:"78%",f:"rgba(255,120,60,.80)",b:"rgba(255,100,60,.35)",bg:"rgba(255,100,60,.06)",tb:"rgba(255,100,60,.15)",tbd:"rgba(255,100,60,.40)",tc:"rgba(255,160,120,.95)",tt:"Consent is unreliable",l:"Drunk",d:"<b>Drunk:</b> Slurred speech, stumbling, difficulty with basic tasks. Emotional volatility, poor decision-making. A &ldquo;yes&rdquo; at this level may not be a real yes &mdash; they may not fully understand what they&rsquo;re agreeing to."},
+      {p:"78%",f:"rgba(255,120,60,.80)",b:"rgba(255,100,60,.35)",bg:"rgba(255,100,60,.06)",tb:"rgba(255,100,60,.15)",tbd:"rgba(255,100,60,.40)",tc:"rgba(255,160,120,.95)",tt:"Consent cannot be trusted",l:"Drunk",d:"<b>Drunk:</b> Slurred speech, stumbling, difficulty with basic tasks. Emotional volatility, severely impaired judgment. A &ldquo;yes&rdquo; at this level is not meaningful &mdash; they do not have the clarity to understand what they&rsquo;re agreeing to. Do not proceed."},
       {p:"100%",f:"rgba(200,50,30,.80)",b:"rgba(200,50,30,.40)",bg:"rgba(200,50,30,.06)",tb:"rgba(200,50,30,.20)",tbd:"rgba(200,50,30,.50)",tc:"rgba(255,140,120,.95)",tt:"Consent is not possible",l:"Incapacitated",d:"<b>Incapacitated:</b> Passed out, in and out of consciousness, unable to walk or speak coherently, vomiting. <b>A person in this state cannot consent &mdash; period.</b> Any sexual activity with an incapacitated person is assault."}
     ];
     slider.addEventListener("input",function(){var v=parseInt(slider.value),o=L[v];fill.style.width=o.p;fill.style.background=o.f;zone.style.borderColor=o.b;zone.style.background=o.bg;tag.style.background=o.tb;tag.style.borderColor=o.tbd;tag.style.color=o.tc;tag.textContent=o.tt;desc.innerHTML=o.d;label.textContent=o.l;});
@@ -11091,10 +11270,10 @@ const REJ_STEPS = ['Check-In','Myth vs Truth','What "No" Means','Why It Happens'
 
 let rState = null;
 function getRState(){
-  if(!rState) rState = {step:0,feeling:null,noRevealed:false,scenarioIdx:0,scenarioAnswered:false,journalTab:0,affirmIdx:0,savedAffirms:[]};
+  if(!rState) rState = {step:0,feeling:null,noRevealed:false,scenarioIdx:0,scenarioAnswered:false,scenarioChosen:-1,scenarioAnswers:{},journalTab:0,affirmIdx:0,savedAffirms:[]};
   return rState;
 }
-function resetRState(){ rState = {step:0,feeling:null,noRevealed:false,scenarioIdx:0,scenarioAnswered:false,scenarioChosen:-1,journalTab:0,affirmIdx:0,savedAffirms:[]}; }
+function resetRState(){ rState = {step:0,feeling:null,noRevealed:false,scenarioIdx:0,scenarioAnswered:false,scenarioChosen:-1,scenarioAnswers:{},journalTab:0,affirmIdx:0,savedAffirms:[]}; }
 
 function rejWC(s){ return s&&s.trim() ? s.trim().split(/\s+/).length : 0; }
 
@@ -11184,7 +11363,7 @@ function rejectionScreen(){
         <span style="font-size:12px;color:var(--muted)">Situation ${rs.scenarioIdx+1} of ${REJ_SCENARIOS.length}</span>
         ${rs.scenarioAnswered&&rs.scenarioIdx<REJ_SCENARIOS.length-1?`<button class="btn btnSmall" data-rejnextscenario style="width:auto">Next →</button>`:rs.scenarioAnswered?`<button class="btn btnSmall btnPrimary" data-rejnext style="width:auto">Continue →</button>`:''}
       </div>
-      <div class="rejNavRow" style="margin-top:8px"><button class="btn" data-rejback>← Back</button></div>`;
+      <div class="rejNavRow" style="margin-top:8px">${rs.scenarioIdx > 0 ? `<button class="btn" data-rejprevscenario>← Previous Question</button>` : `<button class="btn" data-rejback>← Back</button>`}</div>`;
   } else if(s===6){
     const tabs = REJ_JOURNAL.map((p,i)=>`<button class="rejJTab${i===rs.journalTab?' on':''}" data-rejjtab="${i}">${p.tab}</button>`).join('');
     const panels = REJ_JOURNAL.map((p,i)=>{
@@ -11273,11 +11452,35 @@ function rejectionScreen(){
       if(rState.scenarioAnswered) return;
       rState.scenarioAnswered=true;
       rState.scenarioChosen=parseInt(btn.dataset.rejopt);
+      rState.scenarioAnswers[rState.scenarioIdx]=rState.scenarioChosen;
       rejectionScreen();
     };
   });
   el.querySelectorAll('[data-rejnextscenario]').forEach(b=>{
-    b.onclick=()=>{ rState.scenarioIdx++; rState.scenarioAnswered=false; rState.scenarioChosen=-1; rejectionScreen(); };
+    b.onclick=()=>{
+      rState.scenarioIdx++;
+      if(rState.scenarioAnswers[rState.scenarioIdx] !== undefined){
+        rState.scenarioAnswered=true;
+        rState.scenarioChosen=rState.scenarioAnswers[rState.scenarioIdx];
+      } else {
+        rState.scenarioAnswered=false;
+        rState.scenarioChosen=-1;
+      }
+      rejectionScreen();
+    };
+  });
+  el.querySelectorAll('[data-rejprevscenario]').forEach(b=>{
+    b.onclick=()=>{
+      rState.scenarioIdx=Math.max(0, rState.scenarioIdx-1);
+      if(rState.scenarioAnswers[rState.scenarioIdx] !== undefined){
+        rState.scenarioAnswered=true;
+        rState.scenarioChosen=rState.scenarioAnswers[rState.scenarioIdx];
+      } else {
+        rState.scenarioAnswered=false;
+        rState.scenarioChosen=-1;
+      }
+      rejectionScreen();
+    };
   });
   el.querySelectorAll('[data-rejjtab]').forEach(t=>{
     t.onclick=()=>{ rState.journalTab=parseInt(t.dataset.rejjtab); rejectionScreen(); };
@@ -12026,6 +12229,10 @@ function myRender() {
         : `<button class="btn btnPrimary" data-myquiznext="1" style="margin-top:10px;">Next Question →</button>`)
       : '';
 
+    const prevBtn = qi > 0
+      ? `<button class="btn" data-myquizprev="1">← Previous Question</button>`
+      : `<button class="btn" data-myaction="back">← Back</button>`;
+
     innerHTML = `
       <div class="p"><b>Question ${qi+1} of ${MY_QUIZ.length}</b></div>
       <div class="note" style="background:rgba(255,255,255,.04); border-color:rgba(209,254,255,.25); font-size:15px; font-weight:800; color:var(--sb-light); margin-bottom:12px;">${q.q}</div>
@@ -12033,7 +12240,7 @@ function myRender() {
       ${feedback}
       ${nextBtn}
       <div class="dsNavRow" style="margin-top:12px;">
-        <button class="btn" data-myaction="back">← Back</button>
+        ${prevBtn}
       </div>
     `;
   } else {
@@ -12110,6 +12317,12 @@ function myRender() {
   screen.querySelectorAll('[data-myquiznext]').forEach(btn => {
     btn.onclick = () => {
       myState.quizIdx = Math.min(MY_QUIZ.length - 1, myState.quizIdx + 1);
+      myRender();
+    };
+  });
+  screen.querySelectorAll('[data-myquizprev]').forEach(btn => {
+    btn.onclick = () => {
+      myState.quizIdx = Math.max(0, myState.quizIdx - 1);
       myRender();
     };
   });
@@ -12196,8 +12409,8 @@ const HR_QUIZ = [
 ];
 
 const HR_RESOURCES = [
-  { icon: '💬', name: 'loveisrespect.org', desc: 'National teen dating abuse helpline — text LOVEIS to 22522 or call 1-866-331-9474', url: 'https://www.loveisrespect.org' },
   { icon: '🌐', name: 'SafeBAE', desc: 'Resources for students on healthy relationships and consent', url: 'https://www.safebae.org' },
+  { icon: '💬', name: 'loveisrespect.org', desc: 'National teen dating abuse helpline — text LOVEIS to 22522 or call 1-866-331-9474', url: 'https://www.loveisrespect.org' },
   { icon: '🏠', name: 'National DV Hotline', desc: '1-800-799-7233 — 24/7 support for domestic violence survivors', url: 'https://www.thehotline.org' },
   { icon: '🏳️‍🌈', name: 'Trevor Lifeline', desc: 'For LGBTQ+ youth — 1-866-488-7386', url: 'https://www.thetrevorproject.org' },
   { icon: '📞', name: 'Crisis Text Line', desc: 'Text HOME to 741741 to reach a crisis counselor', url: 'https://www.crisistextline.org' },
@@ -12577,6 +12790,10 @@ function hrRender() {
         : `<button class="btn btnPrimary" data-hrquiznext="1" style="margin-top:10px;width:100%;">Next Question →</button>`)
       : '';
 
+    const prevBtn = qi > 0
+      ? `<button class="btn" data-hrquizprev="1">← Previous Question</button>`
+      : `<button class="btn" data-hraction="back">← Back</button>`;
+
     innerHTML = `
       <div class="p"><b>Question ${qi + 1} of ${HR_QUIZ.length}</b></div>
       <div class="note" style="background:rgba(255,255,255,.04); border-color:rgba(209,254,255,.25); font-size:15px; font-weight:800; color:var(--sb-light); margin-bottom:12px;">${q.q}</div>
@@ -12584,7 +12801,7 @@ function hrRender() {
       ${feedback}
       ${nextBtn}
       <div class="dsNavRow" style="margin-top:12px;">
-        <button class="btn" data-hraction="back">← Back</button>
+        ${prevBtn}
       </div>
     `;
   } else {
@@ -12708,6 +12925,12 @@ function hrRender() {
   screen.querySelectorAll('[data-hrquiznext]').forEach(btn => {
     btn.onclick = () => {
       hrState.quizIdx = Math.min(HR_QUIZ.length - 1, hrState.quizIdx + 1);
+      hrRender();
+    };
+  });
+  screen.querySelectorAll('[data-hrquizprev]').forEach(btn => {
+    btn.onclick = () => {
+      hrState.quizIdx = Math.max(0, hrState.quizIdx - 1);
       hrRender();
     };
   });
@@ -13102,6 +13325,10 @@ function rcRender() {
         : `<button class="btn btnPrimary" data-rcquiznext="1" style="margin-top:10px;width:100%;">Next Question →</button>`)
       : '';
 
+    const prevBtn = qi > 0
+      ? `<button class="btn" data-rcquizprev="1">← Previous Question</button>`
+      : `<button class="btn" data-rcaction="back">← Back</button>`;
+
     innerHTML = `
       <div class="p"><b>Question ${qi + 1} of ${RC_QUIZ.length}</b></div>
       <div class="note" style="background:rgba(255,255,255,.04); border-color:rgba(209,254,255,.25); font-size:15px; font-weight:800; color:var(--sb-light); margin-bottom:12px;">${q.q}</div>
@@ -13109,7 +13336,7 @@ function rcRender() {
       ${feedback}
       ${nextBtn}
       <div class="dsNavRow" style="margin-top:12px;">
-        <button class="btn" data-rcaction="back">← Back</button>
+        ${prevBtn}
       </div>
     `;
   } else {
@@ -13211,6 +13438,12 @@ function rcRender() {
   screen.querySelectorAll('[data-rcquiznext]').forEach(btn => {
     btn.onclick = () => {
       rcState.quizIdx = Math.min(RC_QUIZ.length - 1, rcState.quizIdx + 1);
+      rcRender();
+    };
+  });
+  screen.querySelectorAll('[data-rcquizprev]').forEach(btn => {
+    btn.onclick = () => {
+      rcState.quizIdx = Math.max(0, rcState.quizIdx - 1);
       rcRender();
     };
   });
@@ -13544,6 +13777,10 @@ function consentRender() {
         : `<button class="btn btnPrimary" data-conquiznext="1" style="margin-top:10px;width:100%;">Next Question →</button>`)
       : '';
 
+    const prevBtn = qi > 0
+      ? `<button class="btn" data-conquizprev="1">← Previous Question</button>`
+      : `<button class="btn" data-conaction="back">← Back</button>`;
+
     innerHTML = `
       <div class="p"><b>Question ${qi + 1} of ${CON_QUIZ.length}</b></div>
       <div class="note" style="background:rgba(255,255,255,.04); border-color:rgba(209,254,255,.25); font-size:15px; font-weight:800; color:var(--sb-light); margin-bottom:12px;">${q.q}</div>
@@ -13551,7 +13788,7 @@ function consentRender() {
       ${feedback}
       ${nextBtn}
       <div class="dsNavRow" style="margin-top:12px;">
-        <button class="btn" data-conaction="back">← Back</button>
+        ${prevBtn}
       </div>
     `;
   } else {
@@ -13628,6 +13865,12 @@ function consentRender() {
       consentRender();
     };
   });
+  screen.querySelectorAll('[data-conquizprev]').forEach(btn => {
+    btn.onclick = () => {
+      conState.quizIdx = Math.max(0, conState.quizIdx - 1);
+      consentRender();
+    };
+  });
 
   // Back to next steps from resources
   screen.querySelectorAll('[data-action="nextSteps"]').forEach(el => {
@@ -13693,9 +13936,9 @@ const SARD_QUIZ = [
 ];
 
 const SARD_RESOURCES = [
+  { icon: '🌐', name: 'SafeBAE', desc: 'Resources for student survivors', url: 'https://safebae.org/' },
   { icon: '🆘', name: 'RAINN', desc: 'National Sexual Assault Hotline: 1-800-656-4673', url: 'https://rainn.org/' },
   { icon: '💬', name: 'Crisis Text Line', desc: 'Text HOME to 741741', url: 'https://www.crisistextline.org/' },
-  { icon: '🌐', name: 'SafeBAE', desc: 'Resources for student survivors', url: 'https://safebae.org/' },
   { icon: '📞', name: '988 Lifeline', desc: 'Call or text 988 for mental health support', url: 'https://988lifeline.org/' },
 ];
 
@@ -14129,6 +14372,10 @@ function sardRender() {
         : `<button class="btn btnPrimary" data-sardquiznext="1" style="margin-top:10px;width:100%;">Next Question →</button>`)
       : '';
 
+    const prevBtn = qi > 0
+      ? `<button class="btn" data-sardquizprev="1">← Previous Question</button>`
+      : `<button class="btn" data-sardaction="back">← Back</button>`;
+
     innerHTML = `
       <div class="p"><b>Question ${qi + 1} of ${SARD_QUIZ.length}</b></div>
       <div class="note" style="background:rgba(255,255,255,.04); border-color:rgba(209,254,255,.25); font-size:15px; font-weight:800; color:var(--sb-light); margin-bottom:12px;">${q.q}</div>
@@ -14136,7 +14383,7 @@ function sardRender() {
       ${feedback}
       ${nextBtn}
       <div class="dsNavRow" style="margin-top:12px;">
-        <button class="btn" data-sardaction="back">← Back</button>
+        ${prevBtn}
       </div>
     `;
   } else {
@@ -14203,6 +14450,12 @@ function sardRender() {
   screen.querySelectorAll('[data-sardquiznext]').forEach(btn => {
     btn.onclick = () => {
       sardState.quizIdx = Math.min(SARD_QUIZ.length - 1, sardState.quizIdx + 1);
+      sardRender();
+    };
+  });
+  screen.querySelectorAll('[data-sardquizprev]').forEach(btn => {
+    btn.onclick = () => {
+      sardState.quizIdx = Math.max(0, sardState.quizIdx - 1);
       sardRender();
     };
   });
