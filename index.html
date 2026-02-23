@@ -923,6 +923,13 @@
     @media (prefers-reduced-motion: reduce){
       .breatheCore, .breatheRing, .breatheHalo, .breatheDot{ animation: none; }
     }
+    /* Paused state — applied until user presses Start */
+    .breatheWrap.paused .breatheCore,
+    .breatheWrap.paused .breatheRing,
+    .breatheWrap.paused .breatheHalo,
+    .breatheWrap.paused .breatheDot {
+      animation-play-state: paused;
+    }
 
 
 
@@ -3813,16 +3820,126 @@
   width: 100%;
   font-family: inherit;
   -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
 }
-.emotionCard:hover {
-  background: rgba(21,255,200,.14);
-  border-color: rgba(21,255,200,.55);
-  box-shadow: 0 0 12px rgba(21,255,200,.28);
-  transform: translateY(-2px);
+.emotionCard::before {
+  content: \'\';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  opacity: 0;
+  transition: opacity .2s ease;
+  pointer-events: none;
 }
+.emotionCard:hover { transform: translateY(-2px); }
+.emotionCard:hover::before { opacity: 1; }
 .emotionCard:active { transform: translateY(0); }
+
+/* Per-emotion color themes */
+.emotionCard[data-action="guilt"] { border-color: rgba(150,200,255,.20); }
+.emotionCard[data-action="guilt"]::before { background: rgba(100,160,255,.10); box-shadow: inset 0 0 0 1px rgba(100,160,255,.45); }
+.emotionCard[data-action="guilt"]:hover { box-shadow: 0 0 14px rgba(100,160,255,.22); }
+
+.emotionCard[data-action="defensive"] { border-color: rgba(255,160,80,.20); }
+.emotionCard[data-action="defensive"]::before { background: rgba(255,140,60,.10); box-shadow: inset 0 0 0 1px rgba(255,140,60,.45); }
+.emotionCard[data-action="defensive"]:hover { box-shadow: 0 0 14px rgba(255,140,60,.22); }
+
+.emotionCard[data-action="confused"] { border-color: rgba(180,180,255,.20); }
+.emotionCard[data-action="confused"]::before { background: rgba(160,160,255,.08); box-shadow: inset 0 0 0 1px rgba(160,160,255,.40); }
+.emotionCard[data-action="confused"]:hover { box-shadow: 0 0 14px rgba(160,160,255,.22); }
+
+.emotionCard[data-action="ashamed"] { border-color: rgba(200,100,200,.20); }
+.emotionCard[data-action="ashamed"]::before { background: rgba(180,80,180,.10); box-shadow: inset 0 0 0 1px rgba(180,80,180,.40); }
+.emotionCard[data-action="ashamed"]:hover { box-shadow: 0 0 14px rgba(180,80,180,.22); }
+
+.emotionCard[data-action="anxious"] { border-color: rgba(255,200,80,.22); }
+.emotionCard[data-action="anxious"]::before { background: rgba(255,190,60,.08); box-shadow: inset 0 0 0 1px rgba(255,190,60,.45); }
+.emotionCard[data-action="anxious"]:hover { box-shadow: 0 0 14px rgba(255,190,60,.22); }
+
+.emotionCard[data-action="angry"] { border-color: rgba(255,80,60,.22); }
+.emotionCard[data-action="angry"]::before { background: rgba(255,60,40,.08); box-shadow: inset 0 0 0 1px rgba(255,80,60,.45); }
+.emotionCard[data-action="angry"]:hover { box-shadow: 0 0 14px rgba(255,80,60,.22); }
+
+.emotionCard[data-action="numb"] { border-color: rgba(180,180,200,.18); }
+.emotionCard[data-action="numb"]::before { background: rgba(160,160,180,.06); box-shadow: inset 0 0 0 1px rgba(160,160,180,.38); }
+.emotionCard[data-action="numb"]:hover { box-shadow: 0 0 14px rgba(160,160,180,.18); }
+
+.emotionCard[data-action="sad"] { border-color: rgba(100,160,220,.20); }
+.emotionCard[data-action="sad"]::before { background: rgba(80,140,200,.08); box-shadow: inset 0 0 0 1px rgba(80,140,200,.42); }
+.emotionCard[data-action="sad"]:hover { box-shadow: 0 0 14px rgba(80,140,200,.22); }
+
+.emotionCard[data-action="embarrassed"] { border-color: rgba(255,140,160,.20); }
+.emotionCard[data-action="embarrassed"]::before { background: rgba(255,120,140,.08); box-shadow: inset 0 0 0 1px rgba(255,120,140,.42); }
+.emotionCard[data-action="embarrassed"]:hover { box-shadow: 0 0 14px rgba(255,120,140,.22); }
+
+.emotionCard[data-action="okay"] { border-color: rgba(21,255,200,.22); }
+.emotionCard[data-action="okay"]::before { background: rgba(21,255,200,.07); box-shadow: inset 0 0 0 1px rgba(21,255,200,.45); }
+.emotionCard[data-action="okay"]:hover { box-shadow: 0 0 14px rgba(21,255,200,.22); }
 .emotionEmoji { font-size: 34px; line-height: 1; display: block; }
 .emotionLabel { font-size: 13px; font-weight: 800; color: var(--sb-light); display: block; line-height: 1.3; }
+    /* ===== CRISIS BANNER ===== */
+    .crisisBanner{
+      background: rgba(255,80,80,.10);
+      border: 1px solid rgba(255,80,80,.35);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12.5px;
+      color: rgba(255,200,200,.92);
+      line-height: 1.4;
+    }
+    .crisisBanner a {
+      color: rgba(255,180,180,1);
+      font-weight: 900;
+      text-decoration: underline;
+      white-space: nowrap;
+    }
+    .crisisBanner button{
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: rgba(255,180,180,.70);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .crisisBanner button:hover{ background: rgba(255,255,255,.06); }
+
+    /* ===== BREATHE FLOAT BUTTON ===== */
+    #breatheFloatBtn{
+      position: fixed;
+      bottom: 24px;
+      right: 18px;
+      z-index: 800;
+      appearance: none;
+      border: 1px solid rgba(21,255,200,.40);
+      background: rgba(29,65,78,.95);
+      color: var(--sb-mint);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 4px 20px rgba(0,0,0,.40), 0 0 12px rgba(21,255,200,.10);
+      transition: all .2s;
+      letter-spacing: .2px;
+      display: none;
+    }
+    #breatheFloatBtn:hover{
+      background: rgba(21,255,200,.15);
+      box-shadow: 0 4px 24px rgba(0,0,0,.50), 0 0 20px rgba(21,255,200,.20);
+      transform: translateY(-1px);
+    }
+    #breatheFloatBtn.visible{ display: block; }
+
 /* ===== ALCOHOL / SUBSTANCE DEEP DIVE ===== */
 .alcProgress{display:flex;gap:4px;margin:10px 0 16px;}.alcDot{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.10);transition:background .3s ease;}.alcDot.active{background:rgba(255,160,80,.85);box-shadow:0 0 6px rgba(255,160,80,.5);}.alcDot.done{background:rgba(255,160,80,.40);}
 .alcScenarioGrid{display:grid;gap:9px;margin:12px 0;}.alcScenarioBtn{appearance:none;border:1px solid rgba(255,180,100,.22);background:rgba(255,140,60,.06);color:var(--text);border-radius:14px;padding:14px 16px;cursor:pointer;text-align:left;font-family:inherit;font-weight:700;width:100%;display:flex;align-items:center;gap:12px;transition:transform .06s ease,background .16s ease,border-color .16s ease,box-shadow .16s ease;}.alcScenarioBtn:hover{background:rgba(255,160,80,.14);border-color:rgba(255,160,80,.50);box-shadow:0 0 10px rgba(255,160,80,.18);transform:translateY(-1px);}.alcScenarioBtn:active{transform:translateY(1px);}.alcScenarioIcon{font-size:20px;width:28px;text-align:center;flex-shrink:0;}.alcScenarioText{flex:1;min-width:0;}.alcScenarioLabel{font-size:14px;font-weight:850;color:var(--sb-light);display:block;}.alcScenarioSub{font-size:12px;color:var(--muted);margin-top:2px;display:block;line-height:1.3;}
@@ -3862,11 +3979,21 @@
       <div class="topActions">
         <button class="btn btnSmall btnDanger" data-action="quickExit" title="Leave this page immediately" style="font-weight:900; letter-spacing:.2px;">⚡ Exit</button>
         <button class="btn btnSmall" data-action="needResources" title="Skip to resources &amp; next steps" style="font-size:11px; padding:8px 10px; background:rgba(21,255,200,.10); border-color:rgba(21,255,200,.30); color:var(--sb-mint); font-weight:700; letter-spacing:.2px;">📋 Resources</button>
+        <button class="btn btnSmall" id="btnCrisis" onclick="toggleCrisisBanner()" title="Show crisis resources" style="font-size:11px; padding:8px 10px; background:rgba(255,80,80,.10); border-color:rgba(255,80,80,.30); color:rgba(255,180,180,.95); font-weight:700;">🆘 In crisis?</button>
         <button class="btn btnSmall" data-action="restart">↺ Restart</button>
       </div>
     </div>
 
+    <!-- Crisis banner (hidden by default) -->
+    <div class="crisisBanner" id="crisisBanner" style="display:none;">
+      <span>If you're in crisis, help is available now. <a href="https://988lifeline.org" target="_blank" rel="noopener">Call/text 988</a> · <a href="https://www.crisistextline.org" target="_blank" rel="noopener">Text HOME to 741741</a></span>
+      <button onclick="toggleCrisisBanner()" aria-label="Dismiss">✕</button>
+    </div>
+
     <div class="card" id="screen"></div>
+
+    <!-- Floating breathe button (shown after landing) -->
+    <button id="breatheFloatBtn" onclick="openGroundingFloat()" aria-label="Quick grounding exercise">🫧 Breathe</button>
 
     <div class="footer">
       <div>No Account. No Names. No Judgment. Just Unfiltered Answers.</div>
@@ -3896,7 +4023,28 @@
 const state = { entry:null, scenario:null, emotion:null, path:null, screenId:"landing", showWhyModal: true, history:[] };
 const screen = document.getElementById("screen");
 
-function go(id){ if(state.screenId !== id) state.history.push(state.screenId); state.screenId=id; render(); triggerTransition(); }
+function go(id){ if(state.screenId !== id) state.history.push(state.screenId); state.screenId=id; render(); triggerTransition(); updateFloatBtn(id); }
+
+let crisisBannerVisible = false;
+function toggleCrisisBanner(){
+  crisisBannerVisible = !crisisBannerVisible;
+  const banner = document.getElementById('crisisBanner');
+  if(banner) banner.style.display = crisisBannerVisible ? 'flex' : 'none';
+  const btn = document.getElementById('btnCrisis');
+  if(btn) btn.style.background = crisisBannerVisible ? 'rgba(255,80,80,.25)' : 'rgba(255,80,80,.10)';
+}
+
+// Show/hide floating breathe button based on screen
+function updateFloatBtn(screenId){
+  const btn = document.getElementById('breatheFloatBtn');
+  if(!btn) return;
+  const hideOn = ['landing','whyThisExists','grounding','pathMenu','about','decoy'];
+  btn.classList.toggle('visible', !hideOn.includes(screenId));
+}
+
+function openGroundingFloat(){
+  go('grounding');
+}
 function goBack(){ if(state.history.length){ state.screenId=state.history.pop(); render(); triggerTransition(); } }
 function triggerTransition(){
   screen.classList.remove('pageTransition');
@@ -4721,21 +4869,25 @@ function fogFeature(){
       <div id="fogMount"></div>
 
       <div class="h1">Confused / Unsure</div>
-      <div class="p">Give it a second. Let the fog clear.</div>
+      <div class="p">Confusion here is common. But it's worth unpacking what exactly is unclear.</div>
 
-      <ul style="
-        margin: 10px 0 14px 18px;
-        line-height:1.55;
-        color: rgba(209,254,255,.92);
-        font-size:14px;
-      ">
-        <li>Confusion usually means something important wasn’t clear.</li>
-        <li>Silence, freezing, “I guess,” or going along ≠ consent.</li>
-        <li>If you’re not sure, the safest move is to pause and check in.</li>
-      </ul>
+      <div style="display:flex; flex-direction:column; gap:10px; margin:14px 0;">
+        <div style="padding:12px 14px; border-radius:12px; border:1px solid rgba(160,160,255,.22); background:rgba(160,160,255,.06); font-size:13.5px; color:var(--sb-light); line-height:1.55;">
+          <b>Confused about what happened?</b><br>
+          <span style="color:var(--muted);">Memory gaps, mixed signals, or a night that's hard to reconstruct. Uncertainty doesn't remove responsibility — it means sitting with it honestly, not filling gaps with the version that makes you feel better.</span>
+        </div>
+        <div style="padding:12px 14px; border-radius:12px; border:1px solid rgba(160,160,255,.22); background:rgba(160,160,255,.06); font-size:13.5px; color:var(--sb-light); line-height:1.55;">
+          <b>Confused about whether it was okay?</b><br>
+          <span style="color:var(--muted);">Was there a clear, enthusiastic yes at each step? Not silence, going along, or "I guess." If you're not sure — the answer was probably no.</span>
+        </div>
+        <div style="padding:12px 14px; border-radius:12px; border:1px solid rgba(160,160,255,.22); background:rgba(160,160,255,.06); font-size:13.5px; color:var(--sb-light); line-height:1.55;">
+          <b>Confused about why it matters?</b><br>
+          <span style="color:var(--muted);">That confusion often comes from myths about consent. Consent isn't just the absence of a "no." It's the presence of a genuine, ongoing "yes."</span>
+        </div>
+      </div>
 
       <div class="note">
-        <b>Quick reset:</b> What do you actually know vs. what did you assume?
+        <b>Ask yourself:</b> What do I actually <em>know</em> happened vs. what am I assuming? The gap between those two things is worth paying attention to.
       </div>
 
       <div class="grid">
@@ -4744,7 +4896,7 @@ function fogFeature(){
       </div>
 
       <div style="margin-top:12px; font-size:12px; opacity:.62;">
-        Clear consent should feel clear.
+        Clear consent should feel clear. If it doesn't — that's information.
       </div>
     </div>
   `;
@@ -6191,7 +6343,7 @@ function groundingMarkup(){
         <div class="expandoArrow">▾</div>
       </summary>
       <div class="expandoBody">
-        ${breatheWidget()}
+        <div id="gtBreatheWrap">${breatheWidget()}</div>
 
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:10px;">
           <button class="btn btnSmall btnPrimary" type="button" id="gtBreathStart">Start 5 breaths</button>
@@ -6282,6 +6434,9 @@ function initGrounding(){
   const breathReset = document.getElementById("gtBreathReset");
   const breathCount = document.getElementById("gtBreathCount");
   const breathHint  = document.getElementById("gtBreathHint");
+  const breatheWrap = document.querySelector("#gtBreatheWrap .breatheWrap");
+  // Start paused — circle only animates after user presses Start
+  if(breatheWrap) breatheWrap.classList.add("paused");
 
   const affirmSelect= document.getElementById("gtAffirmSelect");
   const affirmCustom= document.getElementById("gtAffirmCustom");
@@ -6449,6 +6604,8 @@ function initGrounding(){
     // Each cycle = ~10s (4s in, 6s out), but we count breaths simply on a timer.
     let remaining = 5 - stateLocal.breaths;
     if(remaining <= 0) return;
+    // Start the animation
+    if(breatheWrap) breatheWrap.classList.remove("paused");
     breathStart.disabled = true;
     breathReset.disabled = true;
 
@@ -6464,6 +6621,7 @@ function initGrounding(){
           clearInterval(__groundBreathTimer);
           __groundBreathTimer = null;
           breathReset.disabled = false;
+          if(breatheWrap) breatheWrap.classList.add("paused");
         }
       }
     }, 1000);
@@ -6474,6 +6632,8 @@ function initGrounding(){
     stateLocal.breaths = 0;
     if(breathStart) breathStart.disabled = false;
     if(breathReset) breathReset.disabled = false;
+    // Pause the animation again
+    if(breatheWrap) breatheWrap.classList.add("paused");
     updateBreathUI();
   };
 
@@ -6509,6 +6669,7 @@ function render(){
     entryDeescalate: 2,
     topScenario: 2,
     A_freeze_whatItMeans: 3,
+    A_freeze_mostCommon: 3,
     A_freeze_impact: 4,
     B_drinking_basics: 3,
     B_drinking_rule: 4,
@@ -6527,7 +6688,17 @@ function render(){
     D_pressure: 3,
     E_age_power: 3,
     F_digital: 3,
+    F_digital_overview: 3,
+    F_shared: 3,
+    F_saved: 3,
+    F_pressured: 3,
+    F_posted: 3,
+    F_blackmail: 3,
     G_coercion: 3,
+    G_verbal_no: 3,
+    G_stopped_restarted: 3,
+    G_persuaded: 3,
+    G_nonverbal: 3,
     H_relationship: 3,
     H_relationship_ongoing: 3,
     I_not_sure_wanted: 3,
@@ -6652,7 +6823,7 @@ function render(){
           Why this exists
         </button>
         <button class="btn btnSmall" data-action="pathMenu" style="border-radius:14px; width:100%; padding:12px 14px; font-weight:850;">
-          Jump to pathways
+          Jump to pathways (demo only)
         </button>
       </div>
     `
@@ -7689,22 +7860,27 @@ function render(){
   if(id==="topScenario"){
     screen.innerHTML = backBtn() + card(
       "Which feels closest to what happened?",
-      ["Pick one. No details needed."],
+      ["Pick the one that fits best. You don\'t need to explain."],
       null,
-      grid(
-        btn("They froze or got quiet","s1") +
-        btn("They pulled away","s2") +
-        btn("We were drinking","s3") +
-        btn("I’m not sure they really wanted it","s4") +
-        btn("They were asleep or half-asleep","s12") +
-        btn("They seemed upset or distant afterwards","s5") +
-        btn("I kept persuading or pressuring them","s7") +
-        btn("There was an age or power difference","s8") +
-        btn("Something happened digitally (photos/messages)","s9") +
-        btn("I ignored a clear ‘no’","s10") +
-        btn("We were in a relationship and I assumed consent","s11") +
-        btn("I’m still not sure what happened","s6")
-      )
+      `<div style="display:flex; flex-direction:column; gap:6px; margin-top:14px;">
+        <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.6px; color:rgba(209,254,255,.42); margin:4px 0 2px; padding-left:4px;">Reading the moment</div>
+        <button class="btn" data-action="s1" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">They froze or got quiet</button>
+        <button class="btn" data-action="s2" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">They pulled away</button>
+        <button class="btn" data-action="s12" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">They were asleep or half-asleep</button>
+        <button class="btn" data-action="s5" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">They seemed upset or distant afterward</button>
+        <button class="btn" data-action="s4" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">I\'m not sure they really wanted it</button>
+        <div style="height:1px; background:rgba(209,254,255,.10); margin:4px 0;"></div>
+        <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.6px; color:rgba(209,254,255,.42); margin:2px 0; padding-left:4px;">Pressure or circumstances</div>
+        <button class="btn" data-action="s3" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">We were drinking or using substances</button>
+        <button class="btn" data-action="s7" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">I kept persuading or pressuring them</button>
+        <button class="btn" data-action="s8" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">There was an age or power difference</button>
+        <button class="btn" data-action="s11" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">We were in a relationship and I assumed consent</button>
+        <div style="height:1px; background:rgba(209,254,255,.10); margin:4px 0;"></div>
+        <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.6px; color:rgba(209,254,255,.42); margin:2px 0; padding-left:4px;">Other</div>
+        <button class="btn" data-action="s10" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">I ignored a clear \'no\'</button>
+        <button class="btn" data-action="s9" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">Something happened digitally (photos/messages)</button>
+        <button class="btn" data-action="s6" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px; opacity:.80;">I\'m still not sure what happened</button>
+      </div>`
     );
     actions.s1=()=>routeScenario("freeze");
     actions.s2=()=>routeScenario("pulled_away");
@@ -7721,38 +7897,135 @@ function render(){
     return;
   }
 
-  // ===== Existing Path A (Freeze) =====
+  // ===== Path A (Freeze) — Expanded Module =====
+
+  // Step progress helper for the freeze module
+  var freezeDots = function(step) {
+    var steps = ['what-it-means','most-common','impact'];
+    return '<div class="alcProgress" style="margin:10px 0 14px;">' +
+      steps.map(function(_,i){
+        return '<div class="alcDot ' + (i < step ? 'done' : '') + ' ' + (i === step ? 'active' : '') + '"></div>';
+      }).join('') +
+    '</div>';
+  };
+
   if(id==="A_freeze_whatItMeans"){
-    screen.innerHTML = backBtn() + card(
-      "🧊 When someone freezes…",
-      [
-        "Sometimes people go quiet, stiff, or unresponsive when they feel overwhelmed or unsafe. That can be a <b>freeze response</b>.",
-        "Freezing does <b>not</b> mean “yes.” If you notice freezing, the safest move is to <b>pause and check in</b>."
-      ],
-      `<details style="margin-top:4px;">
-        <summary style="cursor:pointer; font-weight:900; color: var(--sb-light);">Learn More About Why This Happens</summary>
-        <div style="margin-top:8px; color: var(--muted); line-height:1.45;">
-          When people sense threat or overwhelm, the nervous system can shift into automatic survival states (often described as <b>fight</b>, <b>flight</b>, or <b>freeze</b>). Freeze can look like going quiet, becoming still, or feeling “stuck.” It can happen even when someone wants to speak up — it’s not always a conscious choice.
-          <br><br>
-          Some researchers also describe a more intense form of freezing (sometimes called <b>tonic immobility</b>) where the body becomes temporarily unable to move or respond. The key takeaway: if you notice freezing, it’s a signal to <b>stop</b>, <b>check in</b>, and prioritize safety.
+    screen.innerHTML = backBtn() + `
+      <div class="dsHeader">
+        <div class="dsEyebrow">BAE Check &mdash; Understanding Freeze</div>
+        <div class="h1">&#x1F9CA; When Someone Freezes</div>
+        <div class="p" style="margin:0;">Understanding why this happens &mdash; and what it means.</div>
+      </div>
+      ${freezeDots(0)}
+      <div class="dsPanel">
+        <div class="p" style="margin-top:4px;">
+          Sometimes people go quiet, stiff, or unresponsive when they feel overwhelmed or unsafe. This is called a <b>freeze response</b> &mdash; and it&rsquo;s one of the most common reactions to threat or danger.
         </div>
-      </details>`,
-      grid(btn("Continue","A1","btn btnPrimary"))
-    );
-    actions.A1=()=>go("A_freeze_impact");
+        <div class="p">
+          It looks like: going very still, not speaking, feeling &ldquo;stuck,&rdquo; or being unable to push someone away even when you want to. <b>This is not a choice &mdash; it&rsquo;s the nervous system taking over.</b>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px; margin:12px 0;">
+          <div style="border:1px solid rgba(255,160,80,.30); background:rgba(255,120,40,.06); border-radius:14px; padding:14px;">
+            <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,180,100,.85); margin-bottom:6px;">&#x1F534; Amygdala &mdash; Threat Response Centre</div>
+            <div style="font-size:13px; color:var(--muted); line-height:1.5;">When danger is sensed, the amygdala triggers red-alert and releases adrenalin and cortisol. It acts in milliseconds &mdash; far faster than conscious thought. <b>It doesn&rsquo;t ask permission.</b></div>
+          </div>
+          <div style="border:1px solid rgba(209,254,255,.18); background:rgba(0,0,0,.18); border-radius:14px; padding:14px;">
+            <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.60); margin-bottom:6px;">&#x1F535; Pre-Frontal Cortex (PFC) &mdash; Thinking Brain</div>
+            <div style="font-size:13px; color:var(--muted); line-height:1.5;">Responsible for rational decisions, planning, and language. <b>It goes offline during a threat response</b> &mdash; because careful thinking is too slow when survival is at stake. This is why someone who froze couldn&rsquo;t just say no or push away.</div>
+          </div>
+        </div>
+
+        <div class="note" style="border-color:rgba(209,254,255,.30);">
+          <b>Think of it like this:</b> Have you ever swerved a car before you consciously decided to? That&rsquo;s the same system &mdash; the threat response acted before the thinking brain could. In a frightening situation, the body does the same thing.
+        </div>
+
+        <div style="border:1px solid rgba(21,255,200,.22); background:rgba(21,255,200,.06); border-radius:14px; padding:14px 16px; margin:12px 0 0;">
+          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(21,255,200,.8); margin-bottom:8px;">The core truth</div>
+          <div style="font-size:15px; font-weight:900; color:var(--sb-light); line-height:1.4;">Freezing does <em>not</em> mean yes.</div>
+          <div style="font-size:13px; color:var(--muted); margin-top:8px; line-height:1.55;">If you noticed freezing, the right move is always: <b>pause, name what you noticed, and check in.</b> Silence is not consent.</div>
+        </div>
+
+        <div class="dsNavRow" style="margin-top:14px;">
+          <button class="btn btnPrimary" data-action="A_freeze_mostCommon">Why freezing is so common &rarr;</button>
+        </div>
+      </div>
+    `;
+    actions.A_freeze_mostCommon = () => go("A_freeze_mostCommon");
     return;
   }
+
+  if(id==="A_freeze_mostCommon"){
+    screen.innerHTML = backBtn() + `
+      <div class="dsHeader">
+        <div class="dsEyebrow">BAE Check &mdash; Understanding Freeze</div>
+        <div class="h1">Why Freezing Is So Common</div>
+      </div>
+      ${freezeDots(1)}
+      <div class="dsPanel">
+        <div class="p">Most people expect themselves (or others) to react to an assault by fighting back or running away. But research consistently shows the opposite: <b>freeze, appease, and flop are the most common responses to sexual assault</b>.</div>
+
+        <div style="border:1px solid rgba(21,255,200,.22); background:rgba(21,255,200,.06); border-radius:14px; padding:14px 16px; margin:12px 0;">
+          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(21,255,200,.8); margin-bottom:8px;">What the research says</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.6; display:flex; flex-direction:column; gap:8px;">
+            <div style="padding:8px 10px; border-radius:8px; background:rgba(0,0,0,.18); border-left:3px solid rgba(21,255,200,.40);">People who <b>fight or flee</b> during a sexual assault are statistically <b>more likely to sustain physical injuries</b>.</div>
+            <div style="padding:8px 10px; border-radius:8px; background:rgba(0,0,0,.18); border-left:3px solid rgba(21,255,200,.40);">Freezing can cause the assault to end sooner in some cases &mdash; which is why the nervous system may choose it.</div>
+            <div style="padding:8px 10px; border-radius:8px; background:rgba(0,0,0,.18); border-left:3px solid rgba(21,255,200,.40);">Tonic immobility &mdash; a state of complete physical paralysis &mdash; affects a significant number of survivors and is entirely involuntary.</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid rgba(255,100,100,.25); background:rgba(255,80,80,.06); border-radius:14px; padding:14px 16px; margin:12px 0;">
+          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,160,140,.85); margin-bottom:8px;">The self-blame trap</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.55;">After the threat passes, the thinking brain comes back online &mdash; and it often starts judging the choices made during the survival response. This is where thoughts like <em>&ldquo;why didn&rsquo;t I just say no?&rdquo;</em> or <em>&ldquo;why didn&rsquo;t I push them away?&rdquo;</em> come from. These questions are unfair. The thinking brain was not in charge. The nervous system was doing its best to keep you safe.</div>
+        </div>
+
+        <div class="note" style="font-size:13px; border-color:rgba(209,254,255,.30);">
+          Victim-blaming exists partly because many people don&rsquo;t understand that fight and flight are not the default responses. Expecting someone to have &ldquo;just said no&rdquo; ignores how human survival actually works.
+        </div>
+
+        <div class="dsNavRow" style="margin-top:14px;">
+          <button class="btn btnPrimary" data-action="A_freeze_impact">What this means for you &rarr;</button>
+        </div>
+      </div>
+    `;
+    actions.A_freeze_impact = () => go("A_freeze_impact");
+    return;
+  }
+
   if(id==="A_freeze_impact"){
-    screen.innerHTML = backBtn() + card(
-      "Impact matters — even without intent.",
-      [
-        "If someone froze and things continued, they may have felt unsafe, pressured, or overwhelmed.",
-        "<b>Even if you didn’t intend harm</b>, continuing when someone freezes can leave them feeling violated.",
-        "What matters now is what you do next: slow down, take responsibility, and learn skills that prevent harm."
-      ],
-      null,
-      grid(btn("Continue","toEmotion","btn btnPrimary"))
-    );
+    screen.innerHTML = backBtn() + `
+      <div class="dsHeader">
+        <div class="dsEyebrow">BAE Check &mdash; Understanding Freeze</div>
+        <div class="h1">Impact Matters &mdash; Even Without Intent</div>
+      </div>
+      ${freezeDots(2)}
+      <div class="dsPanel">
+        <div class="p">Now that you understand why freezing happens, here&rsquo;s what it means for the situation you&rsquo;re reflecting on.</div>
+
+        <div style="display:flex; flex-direction:column; gap:10px; margin:12px 0 16px;">
+          <div style="border:1px solid rgba(255,160,80,.30); background:rgba(255,120,40,.06); border-radius:14px; padding:14px;">
+            <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,180,100,.85); margin-bottom:6px;">Freeze &ne; Yes</div>
+            <div style="font-size:13px; color:var(--muted); line-height:1.55;">A person who froze could not freely choose to engage. Their nervous system had taken over. A frozen person cannot give meaningful consent &mdash; full stop.</div>
+          </div>
+          <div style="border:1px solid rgba(209,254,255,.18); background:rgba(0,0,0,.18); border-radius:14px; padding:14px;">
+            <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.60); margin-bottom:6px;">If things continued after you noticed it</div>
+            <div style="font-size:13px; color:var(--muted); line-height:1.55;">Even if you didn&rsquo;t intend harm, continuing when someone freezes can leave them feeling violated, overwhelmed, or unsafe. Their experience of what happened is valid regardless of your intent.</div>
+          </div>
+          <div style="border:1px solid rgba(21,255,200,.22); background:rgba(21,255,200,.06); border-radius:14px; padding:14px;">
+            <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(21,255,200,.8); margin-bottom:6px;">What the signal should have been</div>
+            <div style="font-size:13px; color:var(--muted); line-height:1.55;">Going still, going quiet, becoming unresponsive &mdash; these are signals to <b>stop and check in</b>. Saying something like &ldquo;Are you okay? Do you want to keep going?&rdquo; gives the person a chance to re-engage if they want to, or to feel safe enough to say no.</div>
+          </div>
+        </div>
+
+        <div class="note" style="font-size:13px; font-weight:800; border-color:rgba(21,255,200,.50);">
+          What matters now is what you do next: slow down, take responsibility for the impact, and build habits that prevent harm going forward.
+        </div>
+
+        <div class="dsNavRow" style="margin-top:14px;">
+          <button class="btn btnPrimary" data-action="toEmotion">Continue &rarr;</button>
+        </div>
+      </div>
+    `;
     actions.toEmotion=()=>go("emotion");
     return;
   }
@@ -8089,34 +8362,101 @@ if(id==="B_drinking_rule"){
   go("B_safety_plan");
   return;
 }
-  // ===== Existing Path C (Pulled away) =====
+  // ===== Path C (Pulled away) — Expanded =====
   if(id==="C_pulledAway_signal"){
-    screen.innerHTML = backBtn() + card(
-      "Pulling away is information.",
-      [
-        "Consent can be withdrawn at any time.",
-        "Nonverbal signals — like pulling away, going silent, or freezing — are reasons to <b>stop</b> and <b>check in</b>, not to keep going."
-      ],
-      `<details style="margin-top:4px;">
-        <summary style="cursor:pointer; font-weight:900; color: var(--sb-light);">Learn More About Why This Happens</summary>
-        <div style="margin-top:8px; color: var(--muted); line-height:1.45;">
-          People don’t always say “no” out loud. Sometimes they pull away, go quiet, tense up, or disengage because they feel unsure, overwhelmed, or unsafe.
-          <br><br>
-          The practical rule is simple: if you notice withdrawal, pause immediately and ask a clear check-in — then respect the answer (including silence or hesitation).
+    screen.innerHTML = backBtn() + `
+      <div class="dsHeader">
+        <div class="dsEyebrow">BAE Check &mdash; Reading the Moment</div>
+        <div class="h1">&#x21A9;&#xFE0F; Pulling away is information.</div>
+        <div class="p" style="margin:0;">Nonverbal signals count. Here&rsquo;s why &mdash; and what they mean.</div>
+      </div>
+      <div class="dsPanel">
+        <div class="p" style="margin-top:4px;">
+          Not everyone says &ldquo;no&rdquo; out loud. Some people pull away, go still, or disengage because they feel unsure, uncomfortable, or unsafe &mdash; and their body communicates what their words don&rsquo;t.
+          <b>This is not ambiguous. It is a signal.</b>
         </div>
-      </details>`,
-      grid(btn("Continue","C1","btn btnPrimary"))
-    );
+
+        <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.6px; color:rgba(209,254,255,.45); margin:14px 0 8px;">What &ldquo;pulling away&rdquo; can look like</div>
+        <div style="display:flex; flex-direction:column; gap:7px; margin-bottom:14px;">
+          <div style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--muted); padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(21,255,200,.03); line-height:1.5;"><span style="flex-shrink:0;">&#x21A9;&#xFE0F;</span><span><b>Turning or shifting their body away</b> &mdash; Physically orienting away from you, even slightly, is the body saying <em>I want distance.</em></span></div>
+          <div style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--muted); padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(21,255,200,.03); line-height:1.5;"><span style="flex-shrink:0;">&#x1F91A;</span><span><b>Removing or redirecting your hands</b> &mdash; Lifting your hand off them, pushing it aside, or moving it somewhere neutral. This is a no in action.</span></div>
+          <div style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--muted); padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(21,255,200,.03); line-height:1.5;"><span style="flex-shrink:0;">&#x1F636;</span><span><b>Going very quiet or still</b> &mdash; If they were engaged and suddenly go silent, flat, or expressionless, something changed. That change matters.</span></div>
+          <div style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--muted); padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(21,255,200,.03); line-height:1.5;"><span style="flex-shrink:0;">&#x1FAE5;</span><span><b>Checking out mentally</b> &mdash; Eyes distant, responses short, body present but person absent. Dissociation is a protective response, not enthusiasm.</span></div>
+          <div style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--muted); padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(21,255,200,.03); line-height:1.5;"><span style="flex-shrink:0;">&#x1F4AA;</span><span><b>Tensing up</b> &mdash; A body that stiffens when touched is not a body welcoming touch. Tension is the nervous system saying <em>this doesn&rsquo;t feel safe.</em></span></div>
+        </div>
+
+        <div style="border:1px solid rgba(255,160,80,.30); background:rgba(255,120,40,.06); border-radius:14px; padding:14px; margin-bottom:12px;">
+          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,180,100,.85); margin-bottom:8px;">The rationalization that lets people keep going</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.55;">
+            <em>&ldquo;They could&rsquo;ve just been shifting position.&rdquo; &ldquo;They didn&rsquo;t say stop.&rdquo; &ldquo;Maybe they were just nervous.&rdquo;</em>
+            <br><br>
+            These thoughts feel reasonable in the moment &mdash; but they&rsquo;re all reasons to <b>check in</b>, not to keep going. If you noticed something and kept going anyway, that&rsquo;s the part worth sitting with.
+          </div>
+        </div>
+
+        <div style="border:1px solid rgba(21,255,200,.25); background:rgba(21,255,200,.06); border-radius:14px; padding:14px; margin-bottom:4px;">
+          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:var(--sb-mint); margin-bottom:8px;">Why they didn&rsquo;t just say &ldquo;no&rdquo;</div>
+          <div style="font-size:13px; color:var(--sb-light); line-height:1.55;">
+            Fear of your reaction. Not wanting to ruin the moment. Feeling frozen. Not having the words. Hoping it would stop on its own.
+            <br><br>
+            Verbal no is not the only valid no. A body that is pulling away, tensing, or going absent is communicating &mdash; and continuing when those signals are present is a consent violation, even if no word was ever spoken.
+          </div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <button class="btn btnPrimary" style="width:100%;" data-action="C1">What to do &rarr;</button>
+        </div>
+      </div>
+    `;
     actions.C1=()=>go("C_pulledAway_script");
     return;
   }
+
   if(id==="C_pulledAway_script"){
-    screen.innerHTML = backBtn() + card(
-      "What to do in the moment",
-      ["Pause. Take your hands/body back. Try a simple check-in:"],
-      "<b>Script:</b> “Hey — are you okay? Want to stop? We can stop anytime.”<br><br>Then wait. If they hesitate, go quiet, or pull away again: <b>stop</b>.",
-      grid(btn("Continue","toEmotion","btn btnPrimary"))
-    );
+    screen.innerHTML = backBtn() + `
+      <div class="dsHeader">
+        <div class="dsEyebrow">BAE Check &mdash; Reading the Moment</div>
+        <div class="h1">&#x1F6D1; What to do when you notice it</div>
+        <div class="p" style="margin:0;">In the moment, and going forward.</div>
+      </div>
+      <div class="dsPanel">
+
+        <div style="border:1px solid rgba(209,254,255,.18); background:rgba(0,0,0,.20); border-radius:14px; padding:14px; margin-bottom:12px;">
+          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.55); margin-bottom:10px;">In the moment &mdash; the three-step pause</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; align-items:flex-start; gap:12px; padding:10px 12px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(209,254,255,.10);"><span style="flex-shrink:0; width:22px; height:22px; border-radius:50%; background:rgba(21,255,200,.70); color:#041114; font-weight:900; font-size:12px; display:flex; align-items:center; justify-content:center;">1</span><span style="font-size:13px; color:var(--muted); line-height:1.5;"><b>Stop and take your hands/body back.</b> Don&rsquo;t wait to finish. Don&rsquo;t keep going while you think about it. Stop first.</span></div>
+            <div style="display:flex; align-items:flex-start; gap:12px; padding:10px 12px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(209,254,255,.10);"><span style="flex-shrink:0; width:22px; height:22px; border-radius:50%; background:rgba(21,255,200,.70); color:#041114; font-weight:900; font-size:12px; display:flex; align-items:center; justify-content:center;">2</span><span style="font-size:13px; color:var(--muted); line-height:1.5;"><b>Ask a clear, low-pressure check-in.</b> Not &ldquo;are you sure?&rdquo; (which pushes for yes). Just: <em>&ldquo;Hey &mdash; you okay? We can stop.&rdquo;</em></span></div>
+            <div style="display:flex; align-items:flex-start; gap:12px; padding:10px 12px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(209,254,255,.10);"><span style="flex-shrink:0; width:22px; height:22px; border-radius:50%; background:rgba(21,255,200,.70); color:#041114; font-weight:900; font-size:12px; display:flex; align-items:center; justify-content:center;">3</span><span style="font-size:13px; color:var(--muted); line-height:1.5;"><b>Wait. Really wait.</b> Give them silence to respond into. If they hesitate, go quiet, or pull away again &mdash; that&rsquo;s your answer. <b>Stop.</b></span></div>
+          </div>
+        </div>
+
+        <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.6px; color:rgba(209,254,255,.45); margin:12px 0 8px;">Scripts that actually work</div>
+        <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+          <div style="padding:10px 12px; border-radius:10px; border:1px solid rgba(21,255,200,.25); background:rgba(21,255,200,.08); font-size:13px; color:var(--muted); line-height:1.45;"><span style="font-weight:900; font-size:11px; text-transform:uppercase; letter-spacing:.4px; color:var(--sb-mint); display:block; margin-bottom:4px;">&#x2705; Use this</span>&ldquo;Hey &mdash; are you okay? We can totally stop.&rdquo;</div>
+          <div style="padding:10px 12px; border-radius:10px; border:1px solid rgba(21,255,200,.25); background:rgba(21,255,200,.08); font-size:13px; color:var(--muted); line-height:1.45;"><span style="font-weight:900; font-size:11px; text-transform:uppercase; letter-spacing:.4px; color:var(--sb-mint); display:block; margin-bottom:4px;">&#x2705; Use this</span>&ldquo;I want to make sure you&rsquo;re into this. Are you good?&rdquo;</div>
+          <div style="padding:10px 12px; border-radius:10px; border:1px solid rgba(255,100,80,.30); background:rgba(255,80,60,.06); font-size:13px; color:var(--muted); line-height:1.45;"><span style="font-weight:900; font-size:11px; text-transform:uppercase; letter-spacing:.4px; color:rgba(255,160,110,.85); display:block; margin-bottom:4px;">&#x274C; Avoid this</span>&ldquo;Are you sure? You seemed into it before.&rdquo; &mdash; This is pressure, not a check-in.</div>
+          <div style="padding:10px 12px; border-radius:10px; border:1px solid rgba(255,100,80,.30); background:rgba(255,80,60,.06); font-size:13px; color:var(--muted); line-height:1.45;"><span style="font-weight:900; font-size:11px; text-transform:uppercase; letter-spacing:.4px; color:rgba(255,160,110,.85); display:block; margin-bottom:4px;">&#x274C; Avoid this</span>&ldquo;Why did you pull away? Did I do something wrong?&rdquo; &mdash; Centers your feelings, not theirs.</div>
+        </div>
+
+        <div style="border:1px solid rgba(209,254,255,.14); background:rgba(0,0,0,.18); border-radius:14px; padding:14px; margin-bottom:12px;">
+          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.55); margin-bottom:8px;">If this already happened and you kept going</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.55;">
+            Noticing it now still matters. The next step isn&rsquo;t to explain or justify it to yourself &mdash; it&rsquo;s to sit with what the other person&rsquo;s experience was.
+            They may have felt unheard, unsafe, or like their signals didn&rsquo;t matter. <b>That&rsquo;s the impact, regardless of your intent.</b>
+            <br><br>
+            Accountability isn&rsquo;t about punishing yourself. It&rsquo;s about understanding what happened clearly enough that it doesn&rsquo;t happen again.
+          </div>
+        </div>
+
+        <div class="note" style="border-color:rgba(21,255,200,.45); background:rgba(21,255,200,.06); font-size:13px; line-height:1.5;">
+          <b>The rule going forward:</b> Consent isn&rsquo;t the absence of a &ldquo;no.&rdquo; It&rsquo;s the presence of an enthusiastic, ongoing yes &mdash; expressed in words <em>and</em> in how someone&rsquo;s body is showing up.
+        </div>
+
+        <div style="margin-top:14px;">
+          <button class="btn btnPrimary" style="width:100%;" data-action="toEmotion">Continue to reflection &rarr;</button>
+        </div>
+      </div>
+    `;
     actions.toEmotion=()=>go("emotion");
     return;
   }
@@ -8351,57 +8691,482 @@ if(id==="B_drinking_rule"){
     return;
   }
 
-  // ===== New Branch F (Digital) =====
+  // ===== New Branch F (Digital) — Entry =====
   if(id==="F_digital"){
+    screen.innerHTML = backBtn() + `
+      <div class="h1">📱 Something happened digitally</div>
+      <div class="p" style="margin-bottom:4px;">Digital consent is real consent. What specifically happened?</div>
+      <div class="note" style="margin-bottom:16px; font-size:13px;">
+        Choose the option that most closely fits. You can come back and explore others.
+      </div>
+      <div class="grid">
+        <button class="btn" data-action="F_shared" style="text-align:left; padding:14px 16px; border-radius:14px;">
+          <div style="font-weight:900; margin-bottom:2px;">📤 I shared or forwarded something</div>
+          <div style="font-size:12px; color:var(--muted); font-weight:500;">Sent, forwarded, or posted photos, videos, or messages without the person's permission</div>
+        </button>
+        <button class="btn" data-action="F_saved" style="text-align:left; padding:14px 16px; border-radius:14px;">
+          <div style="font-weight:900; margin-bottom:2px;">💾 I saved or screenshotted something</div>
+          <div style="font-size:12px; color:var(--muted); font-weight:500;">Saved intimate images or private messages that were shared with me in confidence</div>
+        </button>
+        <button class="btn" data-action="F_pressured" style="text-align:left; padding:14px 16px; border-radius:14px;">
+          <div style="font-weight:900; margin-bottom:2px;">💬 I pressured someone to send images</div>
+          <div style="font-size:12px; color:var(--muted); font-weight:500;">Asked repeatedly, guilted, threatened, or coerced someone into sending sexual content</div>
+        </button>
+        <button class="btn" data-action="F_posted" style="text-align:left; padding:14px 16px; border-radius:14px;">
+          <div style="font-weight:900; margin-bottom:2px;">🌐 I posted about someone's sexual behavior</div>
+          <div style="font-size:12px; color:var(--muted); font-weight:500;">Shared details about someone's sexual activity or body publicly — with or without images</div>
+        </button>
+        <button class="btn" data-action="F_blackmail" style="text-align:left; padding:14px 16px; border-radius:14px;">
+          <div style="font-weight:900; margin-bottom:2px;">⚠️ I used images or info as leverage</div>
+          <div style="font-size:12px; color:var(--muted); font-weight:500;">Threatened to share, or actually shared, intimate content to get something or hurt someone</div>
+        </button>
+      </div>
+      <div style="margin-top:14px; font-size:12px; color:var(--muted); text-align:center; line-height:1.5;">
+        Not sure which fits? <button class="btn btnSmall" data-action="F_digital_overview" style="display:inline; width:auto; padding:4px 10px; font-size:12px; margin-left:4px;">Read an overview first</button>
+      </div>
+    `;
+    actions.F_shared   = () => go("F_shared");
+    actions.F_saved    = () => go("F_saved");
+    actions.F_pressured = () => go("F_pressured");
+    actions.F_posted   = () => go("F_posted");
+    actions.F_blackmail = () => go("F_blackmail");
+    actions.F_digital_overview = () => go("F_digital_overview");
+    return;
+  }
+
+  // ===== F_digital_overview =====
+  if(id==="F_digital_overview"){
     screen.innerHTML = backBtn() + card(
       "Digital consent matters too",
       [
-        "Sharing photos, screenshots, or private messages without permission can cause serious harm.",
-        "Pressuring someone to send images or respond sexually is also a consent issue.",
-        "Digital harm is still harm — even if no one was physically present."
+        "Just because something happened on a screen doesn't mean it's less serious. Digital harm is real harm — and in many cases, it's <em>permanent</em>.",
+        "Once an image or message is out of your hands, you've lost all control over it. It can be screenshot, forwarded, posted publicly, or used against someone indefinitely. The harm compounds every time it's viewed or shared.",
+        "Consent applies to digital content the same way it applies to physical contact. If someone shared something with you privately, that was an act of trust — not an invitation to pass it on.",
       ],
-      `<details style="margin-top:4px;">
-        <summary style="cursor:pointer; font-weight:900; color: var(--sb-light);">
-          Learn More About Why This Matters
-        </summary>
-        <div style="margin-top:8px; color: var(--muted); line-height:1.45;">
-          Digital interactions can feel casual or fast-moving, but consent still applies.
-          Screenshots, forwarding messages, or saving intimate content without permission
-          can violate trust and privacy.
-          <br><br>
-          Prevention rule: never assume digital access equals digital permission.
-        </div>
-      </details>`,
-      grid(btn("Continue","toEmotion","btn btnPrimary"))
+      `<div style="margin:10px 0 14px; background:rgba(21,255,200,.07); border:1px solid rgba(21,255,200,.22); border-radius:12px; padding:12px 14px; font-size:12.5px; color:var(--muted); line-height:1.5;">
+        <b style="color:var(--sb-light);">⚖️ A note on the law:</b><br>
+        Sharing intimate images without consent is illegal in most U.S. states and many countries — and when minors are involved, it can also be treated as distribution of child sexual abuse material (CSAM), regardless of intent. This isn't meant to scare you — it's information you need to make good decisions about what to do next.
+      </div>`,
+      grid(btn("← Back to choose what happened","F_digital") + btn("Continue to resources","toEmotion","btn btnPrimary"))
     );
-    actions.toEmotion=()=>go("emotion");
+    actions.toEmotion = () => go("emotion");
+    actions.F_digital = () => go("F_digital");
     return;
   }
 
-  // ===== New Branch G (Coercion) =====
+  // ===== F_shared — Sharing or forwarding =====
+  if(id==="F_shared"){
+    screen.innerHTML = backBtn() + `
+      <div class="h1">📤 Sharing without permission</div>
+      <div class="p">Forwarding, posting, or sending someone's intimate images or private messages — even once, even to one person — is a serious violation of their privacy and trust.</div>
+
+      <div style="background:rgba(0,0,0,.2); border:1px solid rgba(209,254,255,.12); border-radius:14px; padding:14px 16px; margin:12px 0;">
+        <div style="font-weight:900; font-size:13px; color:var(--sb-light); margin-bottom:8px;">Why this is so harmful</div>
+        <div style="font-size:13px; color:var(--muted); line-height:1.5; display:flex; flex-direction:column; gap:6px;">
+          <div>🔁 <b style="color:var(--sb-light);">It can never be fully undone.</b> Once shared, you can't control who sees it, saves it, or shares it further. The person loses control permanently.</div>
+          <div>😔 <b style="color:var(--sb-light);">The harm compounds.</b> Every new person who sees it is another violation — and the affected person often has no way of knowing how far it spread.</div>
+          <div>🏫 <b style="color:var(--sb-light);">It follows people.</b> Images or messages shared among peers can cause lasting damage to someone's reputation, relationships, mental health, and sense of safety.</div>
+          <div>⚖️ <b style="color:var(--sb-light);">It may be illegal.</b> Non-consensual intimate image sharing (sometimes called "revenge porn") is illegal in most U.S. states. When minors are involved, it can constitute a federal crime.</div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-bottom:14px;">
+        <b>Accountability looks like:</b><br>
+        Deleting the content from your own device. Reaching out to anyone you sent it to and asking them to delete it immediately (without explaining or involving the affected person further). Not seeking out the content again. If the affected person is someone you know — depending on your relationship — considering whether a sincere, pressure-free apology is appropriate. Not expecting forgiveness.
+      </div>
+
+      <details style="margin-bottom:14px;">
+        <summary style="cursor:pointer; font-weight:900; color:var(--sb-light); font-size:13px;">🤔 "But I didn't think it was a big deal at the time..."</summary>
+        <div style="margin-top:8px; color:var(--muted); font-size:13px; line-height:1.5;">
+          A lot of people share content without thinking it through — especially in group chats where it can feel casual or normalized. The intent doesn't change the impact. What matters now is what you do with this understanding going forward.
+          <br><br>
+          If you shared something in a moment of anger (like after a breakup), that's sometimes called "revenge porn" — and the motivation matters for understanding why you did it, even though the harm to the other person is the same regardless.
+        </div>
+      </details>
+
+      ${grid(btn("Continue","toEmotion","btn btnPrimary"))}
+    `;
+    actions.toEmotion = () => go("emotion");
+    return;
+  }
+
+  // ===== F_saved — Saving or screenshotting =====
+  if(id==="F_saved"){
+    screen.innerHTML = backBtn() + `
+      <div class="h1">💾 Saving without permission</div>
+      <div class="p">If someone sent you intimate images or private messages — and you saved or screenshotted them without their knowledge or consent — that's a violation of the trust they placed in you, even if you haven't shared them with anyone.</div>
+
+      <div style="background:rgba(0,0,0,.2); border:1px solid rgba(209,254,255,.12); border-radius:14px; padding:14px 16px; margin:12px 0;">
+        <div style="font-weight:900; font-size:13px; color:var(--sb-light); margin-bottom:8px;">What makes saving harmful</div>
+        <div style="font-size:13px; color:var(--muted); line-height:1.5; display:flex; flex-direction:column; gap:6px;">
+          <div>🔒 <b style="color:var(--sb-light);">It removes their control.</b> When someone sends you something in a moment of intimacy or trust, they're not handing you permanent ownership of it. Saving it without asking crosses that boundary.</div>
+          <div>⏳ <b style="color:var(--sb-light);">It creates future risk.</b> You now have something that could be shared, leaked, or discovered — even accidentally. Their safety is now at risk in a way they didn't agree to.</div>
+          <div>📵 <b style="color:var(--sb-light);">Many platforms have explicit rules against this</b> — and in some places, even possessing intimate images of a minor is a crime, regardless of how they were received.</div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-bottom:14px;">
+        <b>Accountability looks like:</b><br>
+        Deleting it now — not archiving it, not moving it somewhere else. If you're unsure whether what you have of a minor qualifies as something serious, you can contact the <a class="link" href="https://www.missingkids.org/gethelpnow/cybertipline" target="_blank" rel="noopener">NCMEC CyberTipline</a> anonymously. Going forward: if you want to save something someone sends you, ask first.
+      </div>
+
+      <details style="margin-bottom:14px;">
+        <summary style="cursor:pointer; font-weight:900; color:var(--sb-light); font-size:13px;">🤔 "They sent it to me — doesn't that mean it's mine?"</summary>
+        <div style="margin-top:8px; color:var(--muted); font-size:13px; line-height:1.5;">
+          Receiving something doesn't transfer ownership. Think of it like being told a secret — someone sharing it with you doesn't give you the right to tell everyone else, or to keep a recording of it. The same logic applies here.
+        </div>
+      </details>
+
+      ${grid(btn("Continue","toEmotion","btn btnPrimary"))}
+    `;
+    actions.toEmotion = () => go("emotion");
+    return;
+  }
+
+  // ===== F_pressured — Pressuring someone to send images =====
+  if(id==="F_pressured"){
+    screen.innerHTML = backBtn() + `
+      <div class="h1">💬 Pressuring someone to send images</div>
+      <div class="p">Asking someone repeatedly, guilting them, threatening consequences, or making them feel like they "owe" you — these are all forms of coercion. An image sent under pressure is not consent.</div>
+
+      <div style="background:rgba(0,0,0,.2); border:1px solid rgba(209,254,255,.12); border-radius:14px; padding:14px 16px; margin:12px 0;">
+        <div style="font-weight:900; font-size:13px; color:var(--sb-light); margin-bottom:10px;">What pressure can look like — even when it doesn't feel like pressure to you</div>
+        <div style="font-size:13px; color:var(--muted); line-height:1.5; display:flex; flex-direction:column; gap:8px;">
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06);">
+            <b style="color:var(--sb-light);">Persistence:</b> "Come on, just this once." "Why not?" "You always do this." Asking more than once after a no — or a hesitation — is pressure.
+          </div>
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06);">
+            <b style="color:var(--sb-light);">Guilt:</b> "I thought you trusted me." "Other people do this." "Fine, I guess you don't care about us." Making someone feel bad for having a limit.
+          </div>
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06);">
+            <b style="color:var(--sb-light);">Threats:</b> "I'll break up with you." "Everyone will think you're a prude." "Then I'll just find someone who will." Even subtle threats carry real weight.
+          </div>
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06);">
+            <b style="color:var(--sb-light);">Conditional affection:</b> Withholding attention, affection, or the relationship itself as leverage.
+          </div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-bottom:14px;">
+        <b>Accountability looks like:</b><br>
+        Accepting that you used pressure — even if it didn't feel like it at the time. Not reaching out to ask again. Deleting any content you did receive under those circumstances, and not viewing or sharing it. Reflecting seriously on whether this pattern shows up in other areas of how you treat people.
+      </div>
+
+      <details style="margin-bottom:14px;">
+        <summary style="cursor:pointer; font-weight:900; color:var(--sb-light); font-size:13px;">🤔 "I didn't think of it as pressure — I was just being persistent..."</summary>
+        <div style="margin-top:8px; color:var(--muted); font-size:13px; line-height:1.5;">
+          Persistence that continues after someone declines — or hesitates — is pressure, regardless of the intent. The other person's experience of being asked repeatedly is what matters here, not your read of the tone.
+          <br><br>
+          Many people were taught that pursuing someone who says no is romantic or shows how much you care. That framing is harmful. Real desire is freely given — not extracted through repeated asking.
+        </div>
+      </details>
+
+      ${grid(btn("Continue","toEmotion","btn btnPrimary"))}
+    `;
+    actions.toEmotion = () => go("emotion");
+    return;
+  }
+
+  // ===== F_posted — Posting about someone's sexual behavior =====
+  if(id==="F_posted"){
+    screen.innerHTML = backBtn() + `
+      <div class="h1">🌐 Posting about someone's sexual behavior</div>
+      <div class="p">Sharing details about someone's sexual activity, body, or intimate behavior publicly — even without images — is a form of sexual harm. It can be just as devastating as sharing photos.</div>
+
+      <div style="background:rgba(0,0,0,.2); border:1px solid rgba(209,254,255,.12); border-radius:14px; padding:14px 16px; margin:12px 0;">
+        <div style="font-weight:900; font-size:13px; color:var(--sb-light); margin-bottom:8px;">Why words can be just as harmful as images</div>
+        <div style="font-size:13px; color:var(--muted); line-height:1.5; display:flex; flex-direction:column; gap:6px;">
+          <div>🗣️ <b style="color:var(--sb-light);">Sexual reputation harm is real.</b> Publicly labeling someone based on their sexual behavior — or sharing what happened between you — can affect how an entire peer group treats them. This kind of social harm can be severe and long-lasting.</div>
+          <div>🔍 <b style="color:var(--sb-light);">The internet is permanent.</b> Posts, comments, and even DMs can be screenshotted and spread far beyond the original audience.</div>
+          <div>😞 <b style="color:var(--sb-light);">It removes their agency.</b> The person you shared about never agreed to have their private life made public. That decision was taken from them.</div>
+          <div>⚖️ <b style="color:var(--sb-light);">In some cases, this can constitute defamation or harassment</b> depending on what was said and how it was shared.</div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-bottom:14px;">
+        <b>Accountability looks like:</b><br>
+        Deleting the post, comment, or message if it's still accessible. Not re-sharing or talking about it further. Resisting the urge to explain yourself publicly (this often makes things worse). Reflecting on what motivated you — anger, entertainment, wanting social status — and whether that motivation is something you want to act on again.
+      </div>
+
+      <details style="margin-bottom:14px;">
+        <summary style="cursor:pointer; font-weight:900; color:var(--sb-light); font-size:13px;">🤔 "It was just a comment / it was true / everyone knew anyway..."</summary>
+        <div style="margin-top:8px; color:var(--muted); font-size:13px; line-height:1.5;">
+          Whether it was true, whether others already knew, whether it was "just" a comment — none of that changes that you chose to amplify it publicly without their consent. The question is: did they choose to make this information public? If not, that choice belonged to them, not you.
+        </div>
+      </details>
+
+      ${grid(btn("Continue","toEmotion","btn btnPrimary"))}
+    `;
+    actions.toEmotion = () => go("emotion");
+    return;
+  }
+
+  // ===== F_blackmail — Using images as leverage =====
+  if(id==="F_blackmail"){
+    screen.innerHTML = backBtn() + `
+      <div class="h1">⚠️ Using images or info as leverage</div>
+      <div class="note" style="background:rgba(255,80,80,.08); border-color:rgba(255,80,80,.35); margin-bottom:14px; font-size:13px;">
+        This is called <b>sextortion</b> — and it is a serious crime in most places, including under federal law in the United States. If this applies to you, it's important to understand the full weight of what happened.
+      </div>
+      <div class="p">Threatening to share — or actually sharing — intimate images or private information to get something, cause harm, or control someone's behavior is one of the most severe forms of digital abuse.</div>
+
+      <div style="background:rgba(0,0,0,.2); border:1px solid rgba(209,254,255,.12); border-radius:14px; padding:14px 16px; margin:12px 0;">
+        <div style="font-weight:900; font-size:13px; color:var(--sb-light); margin-bottom:8px;">What makes this different from other digital harm</div>
+        <div style="font-size:13px; color:var(--muted); line-height:1.5; display:flex; flex-direction:column; gap:6px;">
+          <div>🔒 <b style="color:var(--sb-light);">It's coercive by design.</b> The goal is to make someone comply through fear. That's not just a consent violation — it's a form of abuse and a criminal act.</div>
+          <div>💔 <b style="color:var(--sb-light);">The psychological harm is severe.</b> Victims of sextortion report extreme anxiety, depression, social withdrawal, and in some cases, suicidal crisis. This is a life-altering harm.</div>
+          <div>⚖️ <b style="color:var(--sb-light);">This is criminal.</b> Extortion, blackmail, and non-consensual intimate image sharing are illegal. Federal law in the U.S. specifically criminalizes sextortion when minors are involved.</div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-bottom:14px;">
+        <b>Accountability looks like:</b><br>
+        Stopping immediately. Deleting the content. Not contacting the person further. Understanding that the harm you've caused is serious and that genuine accountability may require difficult steps — including, depending on the situation, coming forward to an appropriate adult, counselor, or legal resource. <b>This isn't something you should try to navigate alone.</b>
+      </div>
+
+      <div style="background:rgba(21,255,200,.06); border:1px solid rgba(21,255,200,.2); border-radius:12px; padding:12px 14px; margin-bottom:14px; font-size:13px; color:var(--muted); line-height:1.5;">
+        <b style="color:var(--sb-light);">If the person affected is in crisis:</b><br>
+        The <a class="link" href="https://www.thorn.org" target="_blank" rel="noopener">Thorn</a> helpline and the <a class="link" href="https://cyberbullying.org" target="_blank" rel="noopener">Cyberbullying Research Center</a> both support survivors of sextortion and image-based abuse. The <a class="link" href="https://www.stopncii.org" target="_blank" rel="noopener">StopNCII</a> platform can help prevent further spread of intimate images without the images needing to be viewed by anyone.
+      </div>
+
+      ${grid(btn("Continue","toEmotion","btn btnPrimary"))}
+    `;
+    actions.toEmotion = () => go("emotion");
+    return;
+  }
+
+  // ===== Branch G (Coercion) — Entry =====
   if(id==="G_coercion"){
-    screen.innerHTML = backBtn() + card(
-      "Ignoring a clear ‘no’",
-      [
-        "If someone said no, stop means stop.",
-        "Continuing after a clear no is crossing a boundary — even if it was brief, even if you felt confused, even if you were ‘caught up.’",
-        "Accountability here means acknowledging impact, stopping immediately in the future, and taking active steps to change behavior."
-      ],
-      `<details style="margin-top:4px;">
-        <summary style="cursor:pointer; font-weight:900; color: var(--sb-light);">Learn More About Why This Happens</summary>
-        <div style="margin-top:8px; color: var(--muted); line-height:1.45;">
-          People sometimes override “no” because of entitlement, panic, arousal, peer norms, or the belief that they can change someone’s mind.
-          <br><br>
-          The prevention takeaway is direct: “no” ends the moment. If you struggle with stopping, that’s a sign you need stronger skills, boundaries, and accountability supports — not more persuasion.
-        </div>
-      </details>`,
-      grid(btn("Continue","toEmotion","btn btnPrimary"))
-    );
-    actions.toEmotion=()=>go("emotion");
+    screen.innerHTML = backBtn() + `
+      <div class="h1">🛑 Ignoring a clear 'no'</div>
+      <div class="p">A no — spoken clearly — ends the moment. That's not a rule that bends for context, mood, or history. What matters now is understanding exactly what happened, so you can be honest with yourself about it.</div>
+      <div class="note" style="margin-bottom:16px; font-size:13px;">
+        Before you continue: notice if part of you is already looking for a reason this doesn't fully apply to your situation. That pull toward minimizing is worth paying attention to.
+      </div>
+      <div style="font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); margin-bottom:10px;">What happened more specifically?</div>
+      <div class="grid">
+        <button class="btn" data-action="G_verbal_no" style="text-align:left; padding:14px 16px; border-radius:14px;">
+          <div style="font-weight:900; margin-bottom:2px;">🗣️ They said no — and I kept going</div>
+          <div style="font-size:12px; color:var(--muted); font-weight:500;">I heard a verbal no and continued anyway, even briefly</div>
+        </button>
+        <button class="btn" data-action="G_stopped_restarted" style="text-align:left; padding:14px 16px; border-radius:14px;">
+          <div style="font-weight:900; margin-bottom:2px;">🔄 I stopped — but then started again</div>
+          <div style="font-size:12px; color:var(--muted); font-weight:500;">I paused when they said no, but re-initiated shortly after without a new yes</div>
+        </button>
+        <button class="btn" data-action="G_persuaded" style="text-align:left; padding:14px 16px; border-radius:14px;">
+          <div style="font-weight:900; margin-bottom:2px;">💬 I kept pushing until they gave in</div>
+          <div style="font-size:12px; color:var(--muted); font-weight:500;">They said no, I negotiated or pressured, and they eventually stopped resisting</div>
+        </button>
+        <button class="btn" data-action="G_nonverbal" style="text-align:left; padding:14px 16px; border-radius:14px;">
+          <div style="font-weight:900; margin-bottom:2px;">😶 Their body was saying no — I ignored it</div>
+          <div style="font-size:12px; color:var(--muted); font-weight:500;">No verbal no, but they were tense, silent, pulling away, or clearly not present</div>
+        </button>
+      </div>
+      <div style="margin-top:14px; padding-top:14px; border-top:1px solid rgba(209,254,255,.10);">
+        <button class="btn" data-action="G_skip_to_emotion" style="width:100%; text-align:center; color:var(--muted); font-size:13px; font-weight:700; padding:12px;">
+          I’m not sure — continue →
+        </button>
+      </div>
+    `;
+    actions.G_verbal_no         = () => go("G_verbal_no");
+    actions.G_stopped_restarted = () => go("G_stopped_restarted");
+    actions.G_persuaded         = () => go("G_persuaded");
+    actions.G_nonverbal         = () => go("G_nonverbal");
+    actions.G_skip_to_emotion   = () => go("emotion");
     return;
   }
 
-  // ===== New Branch H =====
+  // ===== G_verbal_no — Heard a verbal no and continued =====
+  if(id==="G_verbal_no"){
+    screen.innerHTML = backBtn() + `
+      <div class="h1">🗣️ Continuing after a verbal no</div>
+      <div class="p">Hearing someone say no — and continuing — is sexual assault. That framing may feel harsh, but it's the accurate one. This screen isn't here to make you spiral; it's here to make sure you understand the full weight of what you're sitting with.</div>
+
+      <div style="background:rgba(0,0,0,.2); border:1px solid rgba(209,254,255,.12); border-radius:14px; padding:14px 16px; margin:12px 0;">
+        <div style="font-weight:900; font-size:13px; color:var(--sb-light); margin-bottom:10px;">What you probably told yourself in the moment</div>
+        <div style="display:flex; flex-direction:column; gap:8px; font-size:13px; color:var(--muted); line-height:1.5;">
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.2);">
+            <b style="color:var(--sb-light);">"They didn't really mean it."</b> — This is one of the most common rationalizations. But a no doesn't require a second explanation to be real.
+          </div>
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.2);">
+            <b style="color:var(--sb-light);">"They were into it before."</b> — Prior consent doesn't carry forward. Consent is given moment to moment and can be withdrawn at any point.
+          </div>
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.2);">
+            <b style="color:var(--sb-light);">"I was too caught up to stop."</b> — Being aroused doesn't override someone else's right to stop. The ability to stop is a skill — and it can be built.
+          </div>
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.2);">
+            <b style="color:var(--sb-light);">"It was only for a second."</b> — Duration doesn't determine whether a line was crossed. It was crossed the moment you continued after the no.
+          </div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-bottom:14px;">
+        <b>What accountability looks like here:</b><br>
+        Owning what happened without qualifying it. Not reaching out to the person to explain or seek reassurance — that centers your needs, not theirs. Telling a trusted adult, counselor, or therapist what happened; this isn't something to process alone. Building the actual skill of stopping — which is covered in the next steps.
+      </div>
+
+      <details style="margin-bottom:14px;">
+        <summary style="cursor:pointer; font-weight:900; color:var(--sb-light); font-size:13px;">⚖️ On the legal dimension</summary>
+        <div style="margin-top:8px; color:var(--muted); font-size:13px; line-height:1.55;">
+          Continuing sexual activity after a no is legally defined as sexual assault in most U.S. states and many countries. This doesn't mean you'll be prosecuted — most cases aren't — but it's important that you understand what this is, not a softer version of it. That understanding is part of taking it seriously.
+        </div>
+      </details>
+
+      <details style="margin-bottom:14px;">
+        <summary style="cursor:pointer; font-weight:900; color:var(--sb-light); font-size:13px;">🧠 Why stopping in the moment is hard — and how to get better at it</summary>
+        <div style="margin-top:8px; color:var(--muted); font-size:13px; line-height:1.55;">
+          Arousal narrows focus and can make it genuinely harder to register and respond to signals. That's real. But "harder" is not the same as "impossible" — and it's not an excuse, it's a starting point for skill-building.<br><br>
+          The skill is practicing pause: building the mental habit of checking in <em>before</em> you're deep in a moment, so the check-in is automatic rather than effortful. It also means accepting that stopping — even when it's frustrating — is non-negotiable, and rehearsing that value when the stakes are low so it's available when they're high.
+        </div>
+      </details>
+
+      <div class="grid" style="margin-top:4px;"><button class="btn btnPrimary" data-action="toEmotion">Continue →</button></div>
+    `;
+    actions.toEmotion = () => go("emotion");
+    return;
+  }
+
+  // ===== G_stopped_restarted — Stopped then re-initiated =====
+  if(id==="G_stopped_restarted"){
+    screen.innerHTML = backBtn() + `
+      <div class="h1">🔄 Stopping — then starting again</div>
+      <div class="p">Stopping when someone says no and then re-initiating without a new, clear yes is still a consent violation. The pause doesn't reset things. Their no was still in effect.</div>
+
+      <div style="background:rgba(0,0,0,.2); border:1px solid rgba(209,254,255,.12); border-radius:14px; padding:14px 16px; margin:12px 0;">
+        <div style="font-weight:900; font-size:13px; color:var(--sb-light); margin-bottom:10px;">Why this pattern is particularly important to understand</div>
+        <div style="display:flex; flex-direction:column; gap:8px; font-size:13px; color:var(--muted); line-height:1.5;">
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.2);">
+            <b style="color:var(--sb-light);">Stopping briefly can feel like compliance</b> — to you. But from the other person's perspective, the no is still there. If they didn't say "actually, yes" — silence or passivity after a pause is not a new yes.
+          </div>
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.2);">
+            <b style="color:var(--sb-light);">Re-initiating is a test.</b> Whether or not you framed it that way, re-starting after a no communicates: "I'm going to try again and see if the no still holds." That puts pressure on the other person to re-assert a boundary they already set — which is a burden they shouldn't have to carry.
+          </div>
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.2);">
+            <b style="color:var(--sb-light);">This pattern can become a habit.</b> If re-initiating has "worked" before — if the person eventually went along with it — that creates a learned behavior that erodes someone's ability to feel like their no is real and permanent.
+          </div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-bottom:14px;">
+        <b>What accountability looks like here:</b><br>
+        Understanding that stopping is only half of it — the other half is not re-initiating until you have an enthusiastic, unambiguous yes. In practice: when someone says no, the answer is to fully disengage and give them space. Not to wait a few minutes and try again. The next move is theirs, not yours.
+      </div>
+
+      <details style="margin-bottom:14px;">
+        <summary style="cursor:pointer; font-weight:900; color:var(--sb-light); font-size:13px;">🤔 "But they eventually said yes..."</summary>
+        <div style="margin-top:8px; color:var(--muted); font-size:13px; line-height:1.55;">
+          A yes that comes after repeated no's — after you re-initiated and the person felt pressure to comply — is not freely given consent. It's capitulation. Someone saying "fine" or going along because they felt they had no other option is not the same as someone genuinely wanting to continue.<br><br>
+          This is one of the hardest things to sit with, because from the outside it looked like a yes. But intent and experience are two different things, and the other person's experience is what matters here.
+        </div>
+      </details>
+
+      <div class="grid" style="margin-top:4px;"><button class="btn btnPrimary" data-action="toEmotion">Continue →</button></div>
+    `;
+    actions.toEmotion = () => go("emotion");
+    return;
+  }
+
+  // ===== G_persuaded — Negotiated until they gave in =====
+  if(id==="G_persuaded"){
+    screen.innerHTML = backBtn() + `
+      <div class="h1">💬 Pushing until they gave in</div>
+      <div class="p">When someone says no and you argue, negotiate, guilt, or wear them down until they stop resisting — that's coercion. What you received at the end was not consent; it was exhaustion or fear.</div>
+
+      <div style="background:rgba(0,0,0,.2); border:1px solid rgba(209,254,255,.12); border-radius:14px; padding:14px 16px; margin:12px 0;">
+        <div style="font-weight:900; font-size:13px; color:var(--sb-light); margin-bottom:10px;">What persuasion can look like — even when it doesn't feel like coercion</div>
+        <div style="display:flex; flex-direction:column; gap:8px; font-size:13px; color:var(--muted); line-height:1.5;">
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.2);">
+            <b style="color:var(--sb-light);">Asking "why not?"</b> — Treating their no as the beginning of a negotiation they need to justify. They don't owe you a reason.
+          </div>
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.2);">
+            <b style="color:var(--sb-light);">Making them feel guilty</b> — "I thought you trusted me." "After everything." "I've been so patient." Framing their boundary as a betrayal.
+          </div>
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.2);">
+            <b style="color:var(--sb-light);">Wearing them down</b> — Asking the same question multiple times, in different ways, until they run out of energy to keep saying no.
+          </div>
+          <div style="padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.2);">
+            <b style="color:var(--sb-light);">Minimizing</b> — "It's not a big deal." "It'll only take a second." "You're overthinking it." Treating their hesitation as irrational rather than valid.
+          </div>
+        </div>
+      </div>
+
+      <div style="background:rgba(21,255,200,.06); border:1px solid rgba(21,255,200,.2); border-radius:12px; padding:12px 14px; margin-bottom:14px; font-size:13px; color:var(--muted); line-height:1.5;">
+        <b style="color:var(--sb-light);">Why this matters beyond this one moment:</b><br>
+        Coercive patterns don't usually stay isolated. If negotiating past a no has "worked" — if the person eventually gave in — it reinforces a behavior that you're likely to repeat. That pattern can define how you relate to people in intimate situations for years if it goes unexamined.
+      </div>
+
+      <div class="note" style="margin-bottom:14px;">
+        <b>What accountability looks like here:</b><br>
+        Recognizing that persuasion after a no is not a gray area — it's coercion. Stopping the pattern entirely: when someone says no, that closes the conversation. Not arguing, not guilt-tripping, not re-framing the question. If this has been a consistent pattern, speaking to a counselor or therapist about it — seriously, not as a platitude — is the right next step.
+      </div>
+
+      <details style="margin-bottom:14px;">
+        <summary style="cursor:pointer; font-weight:900; color:var(--sb-light); font-size:13px;">🤔 "I genuinely thought they wanted to — they just needed convincing..."</summary>
+        <div style="margin-top:8px; color:var(--muted); font-size:13px; line-height:1.55;">
+          This belief — that someone's no is actually a hesitant yes waiting to be unlocked — is one of the most harmful myths about sex and consent. It comes from movies, music, and peer culture that romanticize persistence. But in reality, someone who wants to say yes doesn't need to be convinced. The need to convince someone is a signal that the answer is no — not that you need better arguments.
+        </div>
+      </details>
+
+      <div class="grid" style="margin-top:4px;"><button class="btn btnPrimary" data-action="toEmotion">Continue →</button></div>
+    `;
+    actions.toEmotion = () => go("emotion");
+    return;
+  }
+
+  // ===== G_nonverbal — Body language said no =====
+  if(id==="G_nonverbal"){
+    screen.innerHTML = backBtn() + `
+      <div class="h1">😶 When the no wasn't said out loud</div>
+      <div class="p">Consent isn't only communicated through words. A person who is tense, silent, pulling away, going still, or clearly not present is communicating something — and continuing when those signals are present is a consent violation, even if no verbal no was ever spoken.</div>
+
+      <div style="background:rgba(0,0,0,.2); border:1px solid rgba(209,254,255,.12); border-radius:14px; padding:14px 16px; margin:12px 0;">
+        <div style="font-weight:900; font-size:13px; color:var(--sb-light); margin-bottom:10px;">Non-verbal signals that mean stop</div>
+        <div style="display:flex; flex-direction:column; gap:7px; font-size:13px; color:var(--muted); line-height:1.5;">
+          <div style="display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04);">
+            <span style="flex-shrink:0;">🧊</span>
+            <span><b style="color:var(--sb-light);">Going still or tense</b> — A body that stiffens or freezes is not a body that's participating. This is a fear response, not enthusiasm.</span>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04);">
+            <span style="flex-shrink:0;">👐</span>
+            <span><b style="color:var(--sb-light);">Pulling away or pushing hands off</b> — Physical distancing or redirecting touch is a no in action.</span>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04);">
+            <span style="flex-shrink:0;">😶</span>
+            <span><b style="color:var(--sb-light);">Going quiet or dissociating</b> — Someone who was engaged and suddenly goes silent, looks away, or seems "elsewhere" is signaling discomfort.</span>
+          </div>
+          <div style="display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.04);">
+            <span style="flex-shrink:0;">😬</span>
+            <span><b style="color:var(--sb-light);">"Going along" without engagement</b> — Passive compliance — just lying there, not reciprocating, letting it happen — is not the same as wanting it.</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:rgba(21,255,200,.06); border:1px solid rgba(21,255,200,.2); border-radius:12px; padding:12px 14px; margin-bottom:14px; font-size:13px; color:var(--muted); line-height:1.5;">
+        <b style="color:var(--sb-light);">Why people don't always say no out loud:</b><br>
+        Saying no in the moment is genuinely hard — especially with someone you know, someone you're afraid of upsetting, or when you feel frozen by anxiety or shock. Many people go silent or go still because they don't feel safe enough to speak, or because their body's threat response has taken over. The absence of a verbal no is <em>not</em> a yes.
+      </div>
+
+      <div class="note" style="margin-bottom:14px;">
+        <b>What accountability looks like here:</b><br>
+        Accepting that you were reading for a green light rather than watching for amber or red. Building the habit of treating uncertainty as a stop — not a continue. The rule going forward: if you're not seeing active, enthusiastic participation, pause and check in. Actively. Out loud. "Is this okay?" costs nothing. Continuing without it can cost everything.
+      </div>
+
+      <details style="margin-bottom:14px;">
+        <summary style="cursor:pointer; font-weight:900; color:var(--sb-light); font-size:13px;">🤔 "How was I supposed to know if they didn't say anything?"</summary>
+        <div style="margin-top:8px; color:var(--muted); font-size:13px; line-height:1.55;">
+          This is a real question, and it deserves a real answer: you ask. You check in. You slow down when something feels off instead of hoping it isn't.<br><br>
+          "I can't read minds" is sometimes true — but it's often used to avoid noticing signals that were there. The signals listed above are not subtle. A body going rigid or still, someone pulling away, someone going silent when they were engaged moments ago — these are noticeable if you're paying attention.<br><br>
+          The standard isn't perfection. It's genuine attention and a willingness to stop when you're uncertain.
+        </div>
+      </details>
+
+      <div class="grid" style="margin-top:4px;"><button class="btn btnPrimary" data-action="toEmotion">Continue →</button></div>
+    `;
+    actions.toEmotion = () => go("emotion");
+    return;
+  }
+
+    // ===== New Branch H =====
   if(id==="H_relationship" || id==="H_relationship_ongoing"){
     screen.innerHTML = backBtn() + `
       <div class="h1">Assuming consent in a relationship</div>
@@ -10002,7 +10767,7 @@ if(state.emotion==="okay"){
       ["Jump directly into a pathway (for demo)."],
       null,
       grid(
-        btn("Freeze","jumpFreeze","btn btnPrimary") +
+        btn("Freeze","jumpFreeze") +
         btn("Pulled away","jumpPull") +
         btn("Drinking","jumpDrink") +
         btn("Pressure","jumpPressure") +
@@ -10013,7 +10778,7 @@ if(state.emotion==="okay"){
         btn("Not sure they wanted it","jumpWanted") +
         btn("Upset afterward","jumpUpset") +
         btn("Still not sure","jumpNotSure") +
-        `<button class="btn" data-action="jumpFriend" style="border-color:rgba(255,200,80,.35);background:rgba(255,200,80,.07);font-weight:900;">👥 My friend did something</button>` +
+        btn("My friend did something","jumpFriend") +
         btn("Back to start","landing")
       )
     );
