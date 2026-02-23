@@ -4206,13 +4206,13 @@ let rainWindowCleanup = null;
 
 function rainWindowMarkup(){
   return `
-    <div class="note"><b>Tap the rain.</b> This is what it feels like when something mattered.</div>
+    <div class="note"><b>Tap the rain</b> if you want. This is what it feels like when something mattered.</div>
     <div class="rainWrap" id="rainWrap">
       <canvas id="rainCanvas" class="rainCanvas"></canvas>
       <div class="rainGlass" id="rainGlass"></div>
       <div class="rainMsg" id="rainMsg"></div>
     </div>
-    <div id="rainContinue" style="margin-top:12px;opacity:0;pointer-events:none;transition:opacity .6s ease;">
+    <div id="rainContinue" style="margin-top:12px;opacity:1;pointer-events:auto;transition:opacity .6s ease;">
       <button class="btn btnPrimary" data-action="nextSteps" style="width:100%;">Continue →</button>
     </div>
   `;
@@ -4436,7 +4436,7 @@ let eyeGridCleanup = null;
 
 function eyeGridMarkup(){
   return `
-    <div class="note"><b>Turn it down.</b> Drag the knob counterclockwise to quiet the noise.</div>
+    <div class="note"><b>Turn it down</b> if you want. Drag the knob counterclockwise to quiet the noise.</div>
     <div class="crowdKnobWrap" id="crowdKnobWrap">
       <div class="crowdWords" id="crowdWords"></div>
       <div class="crowdKnobArea">
@@ -4449,7 +4449,7 @@ function eyeGridMarkup(){
       </div>
       <div class="crowdMsg" id="crowdMsg"></div>
     </div>
-    <div id="eyeContinue" style="margin-top:12px;opacity:0;pointer-events:none;transition:opacity .6s ease;">
+    <div id="eyeContinue" style="margin-top:12px;opacity:1;pointer-events:auto;transition:opacity .6s ease;">
       <button class="btn btnPrimary" data-action="nextSteps" style="width:100%;">Continue →</button>
     </div>
   `;
@@ -4623,12 +4623,8 @@ function initEyeGrid(){
       } else if(vol <= 50){
         msgEl.textContent = "Most of this noise lives in your head, not the room.";
         msgEl.classList.add('show');
-        const cont = document.getElementById('eyeContinue');
-        if(cont){ cont.style.opacity='0'; cont.style.pointerEvents='none'; }
       } else {
         msgEl.classList.remove('show');
-        const cont = document.getElementById('eyeContinue');
-        if(cont){ cont.style.opacity='0'; cont.style.pointerEvents='none'; }
       }
     } else if(milestoneShown.has(50)){
       if(vol <= 50){
