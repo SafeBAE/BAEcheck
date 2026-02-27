@@ -17,7 +17,7 @@
   <title>Vibe Check — Reflection & Accountability</title>
   <style>
     :root{
-      /* SafeBAE palette */
+      /* SafeBAE Color Palettee */
       --sb-light:#D1FEFF;
       --sb-teal:#13848F;
       --sb-mint:#15FFC8;
@@ -1575,6 +1575,177 @@
       color: var(--muted);
       font-size: 12px;
       line-height:1.35;
+    }
+
+    /* ===== REUSABLE UTILITY CLASSES ===== */
+
+    /* Eyebrow: small uppercase label above headings or sections */
+    .eyebrow{
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: rgba(209,254,255,.68);
+      margin-bottom: 10px;
+    }
+    .eyebrow--mint{ color: rgba(21,255,200,.8); }
+    .eyebrow--warn{ color: rgba(255,180,100,.85); }
+    .eyebrow--danger{ color: rgba(255,160,140,.85); }
+    .eyebrow--muted{ color: rgba(209,254,255,.58); }
+
+    /* Callout boxes: bordered info panels */
+    .callout{
+      border: 1px solid rgba(21,255,200,.22);
+      background: rgba(21,255,200,.06);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin: 12px 0;
+    }
+    .callout .eyebrow{ margin-bottom: 8px; }
+    .callout__body{
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .callout__headline{
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--sb-light);
+      line-height: 1.4;
+    }
+
+    /* Warning box: orange/amber accent */
+    .warningBox{
+      border: 1px solid rgba(255,160,80,.30);
+      background: rgba(255,120,40,.06);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .warningBox .eyebrow{ color: rgba(255,180,100,.85); margin-bottom: 6px; }
+    .warningBox .callout__body{ font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* Danger box: red accent */
+    .dangerBox{
+      border: 1px solid rgba(255,100,100,.25);
+      background: rgba(255,80,80,.06);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin: 12px 0;
+    }
+    .dangerBox .eyebrow{ color: rgba(255,160,140,.85); margin-bottom: 8px; }
+    .dangerBox .callout__body{ font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+    /* Info box: neutral/gray accent */
+    .infoBox{
+      border: 1px solid rgba(209,254,255,.18);
+      background: rgba(0,0,0,.18);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .infoBox .eyebrow{ color: rgba(209,254,255,.72); margin-bottom: 6px; }
+    .infoBox .callout__body{ font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* Choice button: selection card for scenario/option lists */
+    .choiceButton{
+      text-align: left;
+      padding: 13px 15px;
+      font-size: 14px;
+      font-weight: 800;
+      border-radius: 12px;
+    }
+    .choiceButton__label{ font-weight: 900; margin-bottom: 3px; }
+    .choiceButton__sub{ font-size: 12px; color: rgba(209,254,255,.6); line-height: 1.4; }
+
+    /* List item with left accent */
+    .listItem{
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: rgba(0,0,0,.18);
+      border-left: 3px solid rgba(21,255,200,.40);
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Section divider */
+    .sectionDivider{
+      height: 1px;
+      background: rgba(209,254,255,.10);
+      margin: 6px 0;
+    }
+
+    /* Stack: vertical flex column with consistent gap */
+    .stack{ display: flex; flex-direction: column; gap: 10px; }
+    .stack--tight{ display: flex; flex-direction: column; gap: 6px; }
+    .stack--loose{ display: flex; flex-direction: column; gap: 18px; }
+
+    /* Spacing utilities — layout scale: 6/10/14/18/24px */
+    .mt-0{ margin-top: 0; }
+    .mt-xs{ margin-top: 6px; }
+    .mt-sm{ margin-top: 10px; }
+    .mt-md{ margin-top: 14px; }
+    .mt-lg{ margin-top: 18px; }
+    .mt-xl{ margin-top: 24px; }
+    .mb-0{ margin-bottom: 0; }
+    .mb-xs{ margin-bottom: 6px; }
+    .mb-sm{ margin-bottom: 10px; }
+    .mb-md{ margin-bottom: 14px; }
+    .mb-lg{ margin-bottom: 18px; }
+    .mb-xl{ margin-bottom: 24px; }
+
+    /* ===== TOP ACTION BAR — Unified Control Bar ===== */
+    .topActions .btn.btnSmall{
+      font-size: 12px;
+      padding: 8px 12px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    /* Quick Exit (danger/escape) */
+    .btnQuickExit{
+      background: rgba(255,80,80,.12) !important;
+      border-color: rgba(255,100,100,.35) !important;
+      color: rgba(255,200,200,.95) !important;
+      font-weight: 900 !important;
+    }
+    .btnQuickExit:hover{
+      background: rgba(255,80,80,.22) !important;
+      border-color: rgba(255,100,100,.55) !important;
+      box-shadow: 0 0 10px rgba(255,80,80,.25) !important;
+      color: #fff !important;
+    }
+    /* Resources (secondary/mint) */
+    .btnResources{
+      background: rgba(21,255,200,.10);
+      border-color: rgba(21,255,200,.30);
+      color: var(--sb-mint);
+    }
+    .btnResources:hover{
+      background: rgba(21,255,200,.18);
+      border-color: rgba(21,255,200,.50);
+    }
+    /* Crisis (alert/red) */
+    .btnCrisis{
+      background: rgba(255,80,80,.10);
+      border-color: rgba(255,80,80,.30);
+      color: rgba(255,180,180,.95);
+    }
+    .btnCrisis:hover{
+      background: rgba(255,80,80,.20);
+      border-color: rgba(255,80,80,.45);
+    }
+    /* Restart (quiet/neutral) */
+    .btnQuiet{
+      background: rgba(255,255,255,.04);
+      border-color: var(--border);
+      color: var(--muted);
+    }
+    .btnQuiet:hover{
+      background: rgba(255,255,255,.08);
+      color: var(--text);
     }
 
     /* ===== MALE YOUTH MODULE ===== */
@@ -5156,10 +5327,10 @@ details.expando summary:focus-visible {
         </div>
       </div>
       <div class="topActions">
-        <button class="btn btnSmall btnDanger" data-action="quickExit" title="Leave this page immediately" style="font-weight:900; letter-spacing:.2px;"><i class="ph-bold ph-sign-out"></i> Exit</button>
-        <button class="btn btnSmall" data-action="needResources" title="Skip to resources &amp; next steps" style="font-size:11px; padding:8px 10px; background:rgba(21,255,200,.10); border-color:rgba(21,255,200,.30); color:var(--sb-mint); font-weight:700; letter-spacing:.2px;"><i class="ph-bold ph-list-bullets"></i> Resources</button>
-        <button class="btn btnSmall" id="btnCrisis" onclick="toggleCrisisBanner()" title="Show crisis resources" style="font-size:11px; padding:8px 10px; background:rgba(255,80,80,.10); border-color:rgba(255,80,80,.30); color:rgba(255,180,180,.95); font-weight:700;"><i class="ph-bold ph-first-aid"></i> In crisis?</button>
-        <button class="btn btnSmall" data-action="restart"><i class="ph-bold ph-arrow-counter-clockwise"></i> Restart</button>
+        <button class="btn btnSmall btnQuickExit" data-action="quickExit" title="Leave this page immediately"><i class="ph-bold ph-sign-out"></i> Quick Exit</button>
+        <button class="btn btnSmall btnResources" data-action="needResources" title="Skip to resources &amp; next steps"><i class="ph-bold ph-list-bullets"></i> Resources</button>
+        <button class="btn btnSmall btnCrisis" id="btnCrisis" onclick="toggleCrisisBanner()" title="Show crisis resources"><i class="ph-bold ph-first-aid"></i> In crisis?</button>
+        <button class="btn btnSmall btnQuiet" data-action="restart"><i class="ph-bold ph-arrow-counter-clockwise"></i> Restart</button>
       </div>
     </div>
 
@@ -5210,7 +5381,7 @@ function toggleCrisisBanner(){
   const banner = document.getElementById('crisisBanner');
   if(banner) banner.style.display = crisisBannerVisible ? 'flex' : 'none';
   const btn = document.getElementById('btnCrisis');
-  if(btn) btn.style.background = crisisBannerVisible ? 'rgba(255,80,80,.25)' : 'rgba(255,80,80,.10)';
+  if(btn) btn.style.background = crisisBannerVisible ? 'rgba(255,80,80,.25)' : '';
 }
 
 // Show/hide floating breathe button based on screen
@@ -5221,8 +5392,85 @@ function updateFloatBtn(screenId){
   btn.classList.toggle('visible', !hideOn.includes(screenId));
 }
 
+let __floatBreathTimer = null;
+
 function openGroundingFloat(){
-  go('grounding');
+  closeModal(); // ensure one at a time
+  if(__floatBreathTimer){ clearInterval(__floatBreathTimer); __floatBreathTimer = null; }
+
+  const breathHtml = `
+    <div id="floatBreatheWrap">${breatheWidget()}</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:10px;">
+      <button class="btn btnSmall btnPrimary" type="button" id="floatBreathStart">Start 5 breaths</button>
+      <button class="btn btnSmall" type="button" id="floatBreathReset">Reset</button>
+      <span id="floatBreathCount" style="font-size:12px;color:rgba(209,254,255,.75);font-weight:900;padding:6px 10px;border-radius:999px;border:1px solid rgba(209,254,255,.16);background:rgba(0,0,0,.14);">0 / 5</span>
+    </div>
+    <div id="floatBreathHint" style="text-align:center;margin-top:10px;font-size:12px;color:var(--muted);line-height:1.35;">
+      Inhale as the circle grows. Exhale as it shrinks.
+    </div>
+  `;
+
+  openModal('<i class="ph-bold ph-wind"></i> Breathing', breathHtml);
+
+  // Wire up breath controls inside the modal
+  const breatheWrap = document.querySelector("#floatBreatheWrap .breatheWrap");
+  const breathStart = document.getElementById("floatBreathStart");
+  const breathReset = document.getElementById("floatBreathReset");
+  const breathCount = document.getElementById("floatBreathCount");
+  const breathHint  = document.getElementById("floatBreathHint");
+  let breaths = 0;
+
+  // Start paused
+  if(breatheWrap) breatheWrap.classList.add("paused");
+
+  function updateUI(){
+    if(breathCount) breathCount.textContent = breaths + " / 5";
+    if(breathHint) breathHint.textContent = breaths >= 5
+      ? "Nice. Five breaths done."
+      : "Inhale as the circle grows. Exhale as it shrinks.";
+  }
+
+  if(breathStart) breathStart.addEventListener("click", ()=>{
+    if(__floatBreathTimer) return;
+    let remaining = 5 - breaths;
+    if(remaining <= 0) return;
+    if(breatheWrap) breatheWrap.classList.remove("paused");
+    breathStart.disabled = true;
+    breathReset.disabled = true;
+
+    let tick = 0;
+    __floatBreathTimer = setInterval(()=>{
+      tick += 1;
+      if(tick % 10 === 0){
+        breaths = Math.min(5, breaths + 1);
+        updateUI();
+        remaining = 5 - breaths;
+        if(remaining <= 0){
+          clearInterval(__floatBreathTimer);
+          __floatBreathTimer = null;
+          breathReset.disabled = false;
+          if(breatheWrap) breatheWrap.classList.add("paused");
+        }
+      }
+    }, 1000);
+  });
+
+  if(breathReset) breathReset.addEventListener("click", ()=>{
+    if(__floatBreathTimer){ clearInterval(__floatBreathTimer); __floatBreathTimer = null; }
+    breaths = 0;
+    if(breathStart) breathStart.disabled = false;
+    if(breathReset) breathReset.disabled = false;
+    if(breatheWrap) breatheWrap.classList.add("paused");
+    updateUI();
+  });
+
+  // Clean up timer when modal closes
+  const origClose = closeModal;
+  closeModal = function(){
+    if(__floatBreathTimer){ clearInterval(__floatBreathTimer); __floatBreathTimer = null; }
+    closeModal = origClose;
+    origClose();
+  };
 }
 function goBack(){ if(state.history.length){ state.screenId=state.history.pop(); render(); triggerTransition(); } }
 function triggerTransition(){
@@ -5259,6 +5507,15 @@ const actions = {
   },
   needResources: ()=>go("nextSteps"),
   goBack: ()=>goBack(),
+
+  // Parent landing pages (always available for tool back-navigation)
+  learn: ()=>go("learn"),
+  prevent: ()=>go("prevent"),
+  repair: ()=>go("repair"),
+  shiftThinking: ()=>go("shiftThinking"),
+  grounding: ()=>go("grounding"),
+  support: ()=>go("support"),
+  nextSteps: ()=>go("nextSteps"),
 
   // Repair page: "What if they don't forgive me?" explainer
   openForgiveModal: ()=>openModal(
@@ -5334,7 +5591,33 @@ window.addEventListener("keydown", (e)=>{
   if(e.key === "Escape") closeModal();
 });
 
-function backBtn(){ return `<button class="btn btnBack" data-action="${state.history.length ? 'goBack' : 'nextSteps'}">&#8592; Back</button>`; }
+// Multi-step tool/module IDs that have their own internal back navigation
+const _toolScreenIds = new Set([
+  'consentModule','sardModule','boundaryFlags','angerFunnel','thoughtRecord',
+  'rejection','digitalSafety','maleYouth','healthyRelationships','rapeCulture'
+]);
+// Parent landing pages where tools live
+const _parentScreenIds = new Set([
+  'learn','shiftThinking','prevent','repair','grounding','support','nextSteps'
+]);
+
+function _findToolParent(){
+  // Walk history backward to find the parent landing page
+  for(let i = state.history.length - 1; i >= 0; i--){
+    if(_parentScreenIds.has(state.history[i])) return state.history[i];
+  }
+  return 'nextSteps'; // fallback
+}
+
+function backBtn(){
+  // If we're inside a multi-step tool, top back goes to parent module page
+  if(_toolScreenIds.has(state.screenId)){
+    const parent = _findToolParent();
+    return `<button class="btn btnBack" data-action="${parent}">&#8592; Back to menu</button>`;
+  }
+  // Default: go back in history, or nextSteps if no history
+  return `<button class="btn btnBack" data-action="${state.history.length ? 'goBack' : 'nextSteps'}">&#8592; Back</button>`;
+}
 
 function card(h1, ps=[], note=null, content=""){
   return `
@@ -5440,10 +5723,10 @@ function personalNoteHtml(text){
 
 function emotionBoosts(emotion){
   const boosts = {
-    angry: ["shiftThinking"],
-    defensive: ["shiftThinking"],
-    guilt: ["repair"],
-    ashamed: ["shiftThinking"],
+    angry: ["grounding","shiftThinking"],
+    defensive: ["grounding","shiftThinking"],
+    guilt: ["grounding","repair"],
+    ashamed: ["grounding","shiftThinking","support"],
     anxious: ["grounding","support"],
     sad: ["support"],
     confused: ["learn"],
@@ -5454,10 +5737,26 @@ function emotionBoosts(emotion){
   return boosts[emotion] || [];
 }
 
+function entryRecommendations(entry){
+  switch(entry){
+    case 'accused':
+    case 'accidental_assault':
+      return ['repair','support'];
+    case 'friend_pathway':
+      return ['support'];
+    default:
+      return [];
+  }
+}
+
 function mergedRecommendations(scenario, emotion){
   const baseRecs = scenario ? scenarioRecommendations(scenario) : ["learn","prevent"];
+  const entryRecs = state.entry ? entryRecommendations(state.entry) : [];
   const eboosts = emotion ? emotionBoosts(emotion) : [];
   const merged = [...baseRecs];
+  for(const tool of entryRecs){
+    if(!merged.includes(tool) && merged.length < 4) merged.push(tool);
+  }
   for(const tool of eboosts){
     if(!merged.includes(tool) && merged.length < 4) merged.push(tool);
   }
@@ -8774,8 +9073,8 @@ function render(){
         "It will help you slow down and think it through clearly."
       ],
       null,
-      `<div style="margin:14px 0 6px;">
-        <div style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.4px;color:rgba(209,254,255,.68);margin-bottom:10px;">When you heard about this accusation, what did you feel?<br><span style="font-weight:600;text-transform:none;letter-spacing:0;">Tap all that apply.</span></div>
+      `<div class="mt-lg mb-sm">
+        <div class="eyebrow" style="margin-bottom:10px;">When you heard about this accusation, what did you feel?<br><span style="font-weight:600;text-transform:none;letter-spacing:0;">Tap all that apply.</span></div>
         <div class="accFeelingGrid" id="accFeelings">
           <button class="accFeeling" data-f="shocked">😳 Shocked</button>
           <button class="accFeeling" data-f="angry">😠 Angry</button>
@@ -8835,8 +9134,8 @@ function render(){
       "Two people. One moment.",
       ["The same event can be experienced completely differently by two people — without either one lying."],
       null,
-      `<div style="margin:14px 0;">
-        <div style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.4px;color:rgba(209,254,255,.68);margin-bottom:12px;">Tap each card to flip it.</div>
+      `<div class="mt-lg">
+        <div class="eyebrow mb-md">Tap each card to flip it.</div>
         <div class="accFlipRow">
           <div class="accFlipCard" id="flip1">
             <div class="accFlipInner">
@@ -9128,23 +9427,23 @@ function render(){
       "That's a valid place to be.",
       [],
       null,
-      `<div style="margin:6px 0 14px;">
-        <div class="p" style="color:var(--muted);line-height:1.5;margin-bottom:10px;">
+      `<div class="mt-sm mb-lg">
+        <div class="p" style="margin-bottom:10px;">
           Believing something didn't happen the way it's being described isn't the same as not caring. You're still here — still trying to understand it — and that matters.
         </div>
-        <div class="note" style="margin-bottom:14px;">
+        <div class="note mb-lg">
           <b>One thing worth sitting with:</b><br>
           Two people can experience the exact same moment very differently — and both experiences can be real at the same time. That doesn't make you guilty. It does mean the other person's discomfort was genuine to them, even if your intent was different.
         </div>
-        <div style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:rgba(209,254,255,.68);margin-bottom:12px;">What feels most true for you right now?</div>
-        <div style="display:grid;gap:10px;">
-          <button class="btn" data-action="sd_wantinfo" style="padding:14px 16px;border-radius:14px;text-align:left;">
-            <div style="font-weight:900;margin-bottom:3px;">📋 I want to know what my practical options are</div>
-            <div style="font-size:12px;color:rgba(209,254,255,.6);line-height:1.4;">What to do, what not to do, who to talk to</div>
+        <div class="eyebrow mb-md">What feels most true for you right now?</div>
+        <div class="grid">
+          <button class="btn choiceButton" data-action="sd_wantinfo" style="border-radius:14px;">
+            <div class="choiceButton__label">📋 I want to know what my practical options are</div>
+            <div class="choiceButton__sub">What to do, what not to do, who to talk to</div>
           </button>
-          <button class="btn" data-action="sd_stillopen" style="padding:14px 16px;border-radius:14px;text-align:left;">
-            <div style="font-weight:900;margin-bottom:3px;">🌫️ Part of me wonders if I'm missing something</div>
-            <div style="font-size:12px;color:rgba(209,254,255,.6);line-height:1.4;">I'm open to looking at this more carefully</div>
+          <button class="btn choiceButton" data-action="sd_stillopen" style="border-radius:14px;">
+            <div class="choiceButton__label">🌫️ Part of me wonders if I'm missing something</div>
+            <div class="choiceButton__sub">I'm open to looking at this more carefully</div>
           </button>
         </div>
       </div>`
@@ -9202,7 +9501,7 @@ function render(){
           <b>Regardless of what happened or how this resolves —</b><br>
           Is there anything about how I communicate, read signals, or show up in relationships that I want to be more aware of going forward?
         </div>
-        <div style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:rgba(209,254,255,.68);margin-bottom:10px;">You don't have to write anything. But if something comes to mind:</div>
+        <div class="eyebrow mb-md">You don't have to write anything. But if something comes to mind:</div>
         <textarea id="accCommitInput" style="width:100%;background:rgba(0,0,0,.2);border:1px solid rgba(209,254,255,.18);border-radius:12px;padding:12px;color:var(--text);font-size:14px;font-family:inherit;resize:none;min-height:80px;line-height:1.5;" maxlength="200" placeholder="One thing I want to be more aware of…"></textarea>
         <div id="accCommitCounter" class="charCounter">0 / 200</div>
         <div style="margin-top:12px;display:grid;gap:10px;">
@@ -9253,24 +9552,24 @@ function render(){
       "Which feels closest to what happened?",
       ["Pick the one that fits best. You don\'t need to explain."],
       null,
-      `<div style="display:flex; flex-direction:column; gap:6px; margin-top:14px;">
-        <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.6px; color:rgba(209,254,255,.58); margin:4px 0 2px; padding-left:4px;">Reading the moment</div>
-        <button class="btn" data-action="s1" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">They froze or got quiet</button>
-        <button class="btn" data-action="s2" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">They pulled away</button>
-        <button class="btn" data-action="s12" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">They were asleep or half-asleep</button>
-        <button class="btn" data-action="s5" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">They seemed upset or distant afterward</button>
-        <button class="btn" data-action="s4" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">I\'m not sure they really wanted it</button>
-        <div style="height:1px; background:rgba(209,254,255,.10); margin:4px 0;"></div>
-        <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.6px; color:rgba(209,254,255,.58); margin:2px 0; padding-left:4px;">Pressure or circumstances</div>
-        <button class="btn" data-action="s3" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">We were drinking or using substances</button>
-        <button class="btn" data-action="s7" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">I kept persuading or pressuring them</button>
-        <button class="btn" data-action="s8" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">There was an age or power difference</button>
-        <button class="btn" data-action="s11" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">We were in a relationship and I assumed consent</button>
-        <div style="height:1px; background:rgba(209,254,255,.10); margin:4px 0;"></div>
-        <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.6px; color:rgba(209,254,255,.58); margin:2px 0; padding-left:4px;">Other</div>
-        <button class="btn" data-action="s10" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">I ignored a clear \'no\'</button>
-        <button class="btn" data-action="s9" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px;">Something happened digitally (photos/messages)</button>
-        <button class="btn" data-action="s6" style="text-align:left; padding:13px 15px; font-size:14px; font-weight:800; border-radius:12px; opacity:.80;">I\'m still not sure what happened</button>
+      `<div class="stack--tight mt-lg">
+        <div class="eyebrow eyebrow--muted" style="padding-left:4px;">Reading the moment</div>
+        <button class="btn choiceButton" data-action="s1">They froze or got quiet</button>
+        <button class="btn choiceButton" data-action="s2">They pulled away</button>
+        <button class="btn choiceButton" data-action="s12">They were asleep or half-asleep</button>
+        <button class="btn choiceButton" data-action="s5">They seemed upset or distant afterward</button>
+        <button class="btn choiceButton" data-action="s4">I\'m not sure they really wanted it</button>
+        <div class="sectionDivider"></div>
+        <div class="eyebrow eyebrow--muted" style="padding-left:4px;">Pressure or circumstances</div>
+        <button class="btn choiceButton" data-action="s3">We were drinking or using substances</button>
+        <button class="btn choiceButton" data-action="s7">I kept persuading or pressuring them</button>
+        <button class="btn choiceButton" data-action="s8">There was an age or power difference</button>
+        <button class="btn choiceButton" data-action="s11">We were in a relationship and I assumed consent</button>
+        <div class="sectionDivider"></div>
+        <div class="eyebrow eyebrow--muted" style="padding-left:4px;">Other</div>
+        <button class="btn choiceButton" data-action="s10">I ignored a clear \'no\'</button>
+        <button class="btn choiceButton" data-action="s9">Something happened digitally (photos/messages)</button>
+        <button class="btn choiceButton" data-action="s6" style="opacity:.80;">I\'m still not sure what happened</button>
       </div>`
     );
     actions.s1=()=>routeScenario("freeze");
@@ -9319,14 +9618,14 @@ function render(){
           It looks like: going very still, not speaking, feeling &ldquo;stuck,&rdquo; or being unable to push someone away even when you want to. <b>This is not a choice &mdash; it&rsquo;s the nervous system taking over.</b>
         </div>
 
-        <div style="display:flex; flex-direction:column; gap:10px; margin:12px 0;">
-          <div style="border:1px solid rgba(255,160,80,.30); background:rgba(255,120,40,.06); border-radius:14px; padding:14px;">
-            <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,180,100,.85); margin-bottom:6px;">&#x1F534; Amygdala &mdash; Threat Response Centre</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.5;">When danger is sensed, the amygdala triggers red-alert and releases adrenalin and cortisol. It acts in milliseconds &mdash; far faster than conscious thought. <b>It doesn&rsquo;t ask permission.</b></div>
+        <div class="stack mt-md mb-0">
+          <div class="warningBox">
+            <div class="eyebrow">&#x1F534; Amygdala &mdash; Threat Response Centre</div>
+            <div class="callout__body">When danger is sensed, the amygdala triggers red-alert and releases adrenalin and cortisol. It acts in milliseconds &mdash; far faster than conscious thought. <b>It doesn&rsquo;t ask permission.</b></div>
           </div>
-          <div style="border:1px solid rgba(209,254,255,.18); background:rgba(0,0,0,.18); border-radius:14px; padding:14px;">
-            <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.72); margin-bottom:6px;">&#x1F535; Pre-Frontal Cortex (PFC) &mdash; Thinking Brain</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.5;">Responsible for rational decisions, planning, and language. <b>It goes offline during a threat response</b> &mdash; because careful thinking is too slow when survival is at stake. This is why someone who froze couldn&rsquo;t just say no or push away.</div>
+          <div class="infoBox">
+            <div class="eyebrow">&#x1F535; Pre-Frontal Cortex (PFC) &mdash; Thinking Brain</div>
+            <div class="callout__body">Responsible for rational decisions, planning, and language. <b>It goes offline during a threat response</b> &mdash; because careful thinking is too slow when survival is at stake. This is why someone who froze couldn&rsquo;t just say no or push away.</div>
           </div>
         </div>
 
@@ -9334,10 +9633,10 @@ function render(){
           <b>Think of it like this:</b> Have you ever swerved a car before you consciously decided to? That&rsquo;s the same system &mdash; the threat response acted before the thinking brain could. In a frightening situation, the body does the same thing.
         </div>
 
-        <div style="border:1px solid rgba(21,255,200,.22); background:rgba(21,255,200,.06); border-radius:14px; padding:14px 16px; margin:12px 0 0;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(21,255,200,.8); margin-bottom:8px;">The core truth</div>
-          <div style="font-size:15px; font-weight:900; color:var(--sb-light); line-height:1.4;">Freezing does <em>not</em> mean yes.</div>
-          <div style="font-size:13px; color:var(--muted); margin-top:8px; line-height:1.55;">If you noticed freezing, the right move is always: <b>pause, name what you noticed, and check in.</b> Silence is not consent.</div>
+        <div class="callout" style="margin-bottom:0;">
+          <div class="eyebrow eyebrow--mint">The core truth</div>
+          <div class="callout__headline">Freezing does <em>not</em> mean yes.</div>
+          <div class="callout__body mt-sm">If you noticed freezing, the right move is always: <b>pause, name what you noticed, and check in.</b> Silence is not consent.</div>
         </div>
 
         <div class="dsNavRow" style="margin-top:14px;">
@@ -9359,18 +9658,18 @@ function render(){
       <div class="dsPanel">
         <div class="p">Most people expect themselves (or others) to react to an assault by fighting back or running away. But research consistently shows the opposite: <b>freeze, appease, and flop are the most common responses to sexual assault</b>.</div>
 
-        <div style="border:1px solid rgba(21,255,200,.22); background:rgba(21,255,200,.06); border-radius:14px; padding:14px 16px; margin:12px 0;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(21,255,200,.8); margin-bottom:8px;">What the research says</div>
-          <div style="font-size:13px; color:var(--muted); line-height:1.6; display:flex; flex-direction:column; gap:8px;">
-            <div style="padding:8px 10px; border-radius:8px; background:rgba(0,0,0,.18); border-left:3px solid rgba(21,255,200,.40);">People who <b>fight or flee</b> during a sexual assault are statistically <b>more likely to sustain physical injuries</b>.</div>
-            <div style="padding:8px 10px; border-radius:8px; background:rgba(0,0,0,.18); border-left:3px solid rgba(21,255,200,.40);">Freezing can cause the assault to end sooner in some cases &mdash; which is why the nervous system may choose it.</div>
-            <div style="padding:8px 10px; border-radius:8px; background:rgba(0,0,0,.18); border-left:3px solid rgba(21,255,200,.40);">Tonic immobility &mdash; a state of complete physical paralysis &mdash; affects a significant number of survivors and is entirely involuntary.</div>
+        <div class="callout">
+          <div class="eyebrow eyebrow--mint">What the research says</div>
+          <div class="stack" style="gap:8px;">
+            <div class="listItem">People who <b>fight or flee</b> during a sexual assault are statistically <b>more likely to sustain physical injuries</b>.</div>
+            <div class="listItem">Freezing can cause the assault to end sooner in some cases &mdash; which is why the nervous system may choose it.</div>
+            <div class="listItem">Tonic immobility &mdash; a state of complete physical paralysis &mdash; affects a significant number of survivors and is entirely involuntary.</div>
           </div>
         </div>
 
-        <div style="border:1px solid rgba(255,100,100,.25); background:rgba(255,80,80,.06); border-radius:14px; padding:14px 16px; margin:12px 0;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,160,140,.85); margin-bottom:8px;">The self-blame trap</div>
-          <div style="font-size:13px; color:var(--muted); line-height:1.55;">After the threat passes, the thinking brain comes back online &mdash; and it often starts judging the choices made during the survival response. This is where thoughts like <em>&ldquo;why didn&rsquo;t I just say no?&rdquo;</em> or <em>&ldquo;why didn&rsquo;t I push them away?&rdquo;</em> come from. These questions are unfair. The thinking brain was not in charge. The nervous system was doing its best to keep you safe.</div>
+        <div class="dangerBox">
+          <div class="eyebrow">The self-blame trap</div>
+          <div class="callout__body">After the threat passes, the thinking brain comes back online &mdash; and it often starts judging the choices made during the survival response. This is where thoughts like <em>&ldquo;why didn&rsquo;t I just say no?&rdquo;</em> or <em>&ldquo;why didn&rsquo;t I push them away?&rdquo;</em> come from. These questions are unfair. The thinking brain was not in charge. The nervous system was doing its best to keep you safe.</div>
         </div>
 
         <div class="note" style="font-size:13px; border-color:rgba(209,254,255,.30);">
@@ -9396,18 +9695,18 @@ function render(){
       <div class="dsPanel">
         <div class="p">Now that you understand why freezing happens, here&rsquo;s what it means for the situation you&rsquo;re reflecting on.</div>
 
-        <div style="display:flex; flex-direction:column; gap:10px; margin:12px 0 16px;">
-          <div style="border:1px solid rgba(255,160,80,.30); background:rgba(255,120,40,.06); border-radius:14px; padding:14px;">
-            <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,180,100,.85); margin-bottom:6px;">Freeze &ne; Yes</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.55;">A person who froze could not freely choose to engage. Their nervous system had taken over. A frozen person cannot give meaningful consent &mdash; full stop.</div>
+        <div class="stack mt-md mb-lg">
+          <div class="warningBox">
+            <div class="eyebrow">Freeze &ne; Yes</div>
+            <div class="callout__body">A person who froze could not freely choose to engage. Their nervous system had taken over. A frozen person cannot give meaningful consent &mdash; full stop.</div>
           </div>
-          <div style="border:1px solid rgba(209,254,255,.18); background:rgba(0,0,0,.18); border-radius:14px; padding:14px;">
-            <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.72); margin-bottom:6px;">If things continued after you noticed it</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.55;">Even if you didn&rsquo;t intend harm, continuing when someone freezes can leave them feeling violated, overwhelmed, or unsafe. Their experience of what happened is valid regardless of your intent.</div>
+          <div class="infoBox">
+            <div class="eyebrow">If things continued after you noticed it</div>
+            <div class="callout__body">Even if you didn&rsquo;t intend harm, continuing when someone freezes can leave them feeling violated, overwhelmed, or unsafe. Their experience of what happened is valid regardless of your intent.</div>
           </div>
-          <div style="border:1px solid rgba(21,255,200,.22); background:rgba(21,255,200,.06); border-radius:14px; padding:14px;">
-            <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(21,255,200,.8); margin-bottom:6px;">What the signal should have been</div>
-            <div style="font-size:13px; color:var(--muted); line-height:1.55;">Going still, going quiet, becoming unresponsive &mdash; these are signals to <b>stop and check in</b>. Saying something like &ldquo;Are you okay? Do you want to keep going?&rdquo; gives the person a chance to re-engage if they want to, or to feel safe enough to say no.</div>
+          <div class="callout" style="margin:0;">
+            <div class="eyebrow eyebrow--mint">What the signal should have been</div>
+            <div class="callout__body">Going still, going quiet, becoming unresponsive &mdash; these are signals to <b>stop and check in</b>. Saying something like &ldquo;Are you okay? Do you want to keep going?&rdquo; gives the person a chance to re-engage if they want to, or to feel safe enough to say no.</div>
           </div>
         </div>
 
@@ -9431,7 +9730,7 @@ if(id==="B_drinking_basics"){
   var pathwayNoteB = state.entry
     ? personalNoteHtml('It sounds like <b>' + entryLabel(state.entry) + '</b>. Understanding how alcohol changes the equation can help you see what was really at play.')
     : '';
-  screen.innerHTML = backBtn() + pathwayNoteB + '<div class="dsHeader"><div class="dsEyebrow" style="color:rgba(255,180,100,.85);">BAE Check &mdash; Alcohol &amp; Substances</div><div class="h1"><i class="ph-bold ph-beer-bottle"></i> Alcohol Changes Consent</div></div>' + adots(0) + '<div style="display:flex;flex-direction:column;gap:12px;"><div style="border:1px solid rgba(255,160,80,.30);background:rgba(255,120,40,.06);border-radius:16px;padding:16px;"><div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,180,100,.85);margin-bottom:10px;">The core principle</div><div style="font-size:15px;font-weight:900;color:var(--sb-light);line-height:1.4;margin-bottom:10px;">Consent requires the capacity to give it. Alcohol and drugs reduce that capacity &mdash; sometimes to zero.</div><div style="font-size:13px;color:var(--muted);line-height:1.55;">This isn&rsquo;t about counting drinks or drawing an exact line. It&rsquo;s about understanding that <b>impairment changes the equation</b> &mdash; and the more impaired someone is, the less able they are to freely agree to anything.</div></div><div style="border:1px solid rgba(209,254,255,.14);background:rgba(0,0,0,.16);border-radius:16px;padding:16px;"><div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:rgba(209,254,255,.68);margin-bottom:10px;">What the law generally says</div><div style="font-size:13px;color:var(--muted);line-height:1.55;">In most jurisdictions, a person who is <b>incapacitated</b> &mdash; unable to understand, communicate, or make decisions due to alcohol or drugs &mdash; <b>cannot legally consent</b> to sexual activity. This applies regardless of what happened before they became incapacitated, regardless of relationship status, and regardless of whether the other person was also drinking.</div><div style="margin-top:10px;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,100,60,.25);background:rgba(255,80,40,.06);font-size:12px;color:rgba(255,180,140,.90);line-height:1.45;"><b>Key:</b> &ldquo;Incapacitated&rdquo; and &ldquo;had a few drinks&rdquo; are not the same thing. But the gray zone between them is where most harm happens &mdash; and that gray zone is yours to navigate responsibly.</div></div><div style="border:1px solid rgba(209,254,255,.14);background:rgba(0,0,0,.16);border-radius:16px;padding:16px;"><div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:rgba(209,254,255,.68);margin-bottom:10px;">Why alcohol is different from other situations</div><div style="font-size:13px;color:var(--muted);line-height:1.55;">Alcohol doesn&rsquo;t just lower inhibitions &mdash; it <b>impairs judgment, distorts perception, slows processing, and reduces the ability to read social cues</b>. Both people may misread signals. But the person initiating sexual activity carries a higher responsibility to ensure clarity &mdash; not less.<br><br>Alcohol is the <b>most common substance involved in sexual assault</b>. Not because alcohol causes assault &mdash; but because it creates conditions where consent is murky, signals are missed, and people act on assumptions instead of clarity.</div></div></div><div class="grid" style="margin-top:16px;"><button class="btn btnPrimary" data-action="B_scenario">What was the situation? &rarr;</button></div>';
+  screen.innerHTML = backBtn() + pathwayNoteB + '<div class="dsHeader"><div class="dsEyebrow" style="color:rgba(255,180,100,.85);">BAE Check &mdash; Alcohol &amp; Substances</div><div class="h1"><i class="ph-bold ph-beer-bottle"></i> Alcohol Changes Consent</div></div>' + adots(0) + '<div class="stack--loose"><div class="warningBox" style="padding:16px;border-radius:16px;"><div class="eyebrow" style="margin-bottom:10px;">The core principle</div><div class="callout__headline mb-sm">Consent requires the capacity to give it. Alcohol and drugs reduce that capacity &mdash; sometimes to zero.</div><div class="callout__body">This isn&rsquo;t about counting drinks or drawing an exact line. It&rsquo;s about understanding that <b>impairment changes the equation</b> &mdash; and the more impaired someone is, the less able they are to freely agree to anything.</div></div><div class="infoBox" style="padding:16px;border-radius:16px;"><div class="eyebrow" style="margin-bottom:10px;">What the law generally says</div><div class="callout__body">In most jurisdictions, a person who is <b>incapacitated</b> &mdash; unable to understand, communicate, or make decisions due to alcohol or drugs &mdash; <b>cannot legally consent</b> to sexual activity. This applies regardless of what happened before they became incapacitated, regardless of relationship status, and regardless of whether the other person was also drinking.</div><div class="dangerBox" style="margin:10px 0 0;padding:10px 12px;border-radius:10px;font-size:12px;color:rgba(255,180,140,.90);line-height:1.45;"><b>Key:</b> &ldquo;Incapacitated&rdquo; and &ldquo;had a few drinks&rdquo; are not the same thing. But the gray zone between them is where most harm happens &mdash; and that gray zone is yours to navigate responsibly.</div></div><div class="infoBox" style="padding:16px;border-radius:16px;"><div class="eyebrow" style="margin-bottom:10px;">Why alcohol is different from other situations</div><div class="callout__body">Alcohol doesn&rsquo;t just lower inhibitions &mdash; it <b>impairs judgment, distorts perception, slows processing, and reduces the ability to read social cues</b>. Both people may misread signals. But the person initiating sexual activity carries a higher responsibility to ensure clarity &mdash; not less.<br><br>Alcohol is the <b>most common substance involved in sexual assault</b>. Not because alcohol causes assault &mdash; but because it creates conditions where consent is murky, signals are missed, and people act on assumptions instead of clarity.</div></div></div><div class="grid mt-lg"><button class="btn btnPrimary" data-action="B_scenario">What was the situation? &rarr;</button></div>';
   actions.B_scenario = function(){go("B_drinking_scenario");};
   return;
 }
@@ -9776,7 +10075,7 @@ if(id==="B_drinking_rule"){
           <b>This is not ambiguous. It is a signal.</b>
         </div>
 
-        <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.6px; color:rgba(209,254,255,.62); margin:14px 0 8px;">What &ldquo;pulling away&rdquo; can look like</div>
+        <div class="eyebrow eyebrow--muted" style="margin:14px 0 8px;">What &ldquo;pulling away&rdquo; can look like</div>
         <div style="display:flex; flex-direction:column; gap:7px; margin-bottom:14px;">
           <div style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--muted); padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(21,255,200,.03); line-height:1.5;"><span style="flex-shrink:0;">&#x21A9;&#xFE0F;</span><span><b>Turning or shifting their body away</b> &mdash; Physically orienting away from you, even slightly, is the body saying <em>I want distance.</em></span></div>
           <div style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--muted); padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(21,255,200,.03); line-height:1.5;"><span style="flex-shrink:0;">&#x1F91A;</span><span><b>Removing or redirecting your hands</b> &mdash; Lifting your hand off them, pushing it aside, or moving it somewhere neutral. This is a no in action.</span></div>
@@ -9785,17 +10084,17 @@ if(id==="B_drinking_rule"){
           <div style="display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--muted); padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(21,255,200,.03); line-height:1.5;"><span style="flex-shrink:0;">&#x1F4AA;</span><span><b>Tensing up</b> &mdash; A body that stiffens when touched is not a body welcoming touch. Tension is the nervous system saying <em>this doesn&rsquo;t feel safe.</em></span></div>
         </div>
 
-        <div style="border:1px solid rgba(255,160,80,.30); background:rgba(255,120,40,.06); border-radius:14px; padding:14px; margin-bottom:12px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,180,100,.85); margin-bottom:8px;">The rationalization that lets people keep going</div>
-          <div style="font-size:13px; color:var(--muted); line-height:1.55;">
+        <div class="warningBox" style="margin-bottom:12px;">
+          <div class="eyebrow">The rationalization that lets people keep going</div>
+          <div class="callout__body">
             <em>&ldquo;They could&rsquo;ve just been shifting position.&rdquo; &ldquo;They didn&rsquo;t say stop.&rdquo; &ldquo;Maybe they were just nervous.&rdquo;</em>
             <br><br>
             These thoughts feel reasonable in the moment &mdash; but they&rsquo;re all reasons to <b>check in</b>, not to keep going. If you noticed something and kept going anyway, that&rsquo;s the part worth sitting with.
           </div>
         </div>
 
-        <div style="border:1px solid rgba(21,255,200,.25); background:rgba(21,255,200,.06); border-radius:14px; padding:14px; margin-bottom:4px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:var(--sb-mint); margin-bottom:8px;">Why they didn&rsquo;t just say &ldquo;no&rdquo;</div>
+        <div class="callout" style="margin-bottom:4px;">
+          <div class="eyebrow eyebrow--mint">Why they didn&rsquo;t just say &ldquo;no&rdquo;</div>
           <div style="font-size:13px; color:var(--sb-light); line-height:1.55;">
             Fear of your reaction. Not wanting to ruin the moment. Feeling frozen. Not having the words. Hoping it would stop on its own.
             <br><br>
@@ -9821,8 +10120,8 @@ if(id==="B_drinking_rule"){
       </div>
       <div class="dsPanel">
 
-        <div style="border:1px solid rgba(209,254,255,.18); background:rgba(0,0,0,.20); border-radius:14px; padding:14px; margin-bottom:12px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.68); margin-bottom:10px;">In the moment &mdash; the three-step pause</div>
+        <div class="infoBox" style="margin-bottom:12px;">
+          <div class="eyebrow" style="margin-bottom:10px;">In the moment &mdash; the three-step pause</div>
           <div style="display:flex; flex-direction:column; gap:8px;">
             <div style="display:flex; align-items:flex-start; gap:12px; padding:10px 12px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(209,254,255,.10);"><span style="flex-shrink:0; width:22px; height:22px; border-radius:50%; background:rgba(21,255,200,.70); color:#041114; font-weight:900; font-size:12px; display:flex; align-items:center; justify-content:center;">1</span><span style="font-size:13px; color:var(--muted); line-height:1.5;"><b>Stop and take your hands/body back.</b> Don&rsquo;t wait to finish. Don&rsquo;t keep going while you think about it. Stop first.</span></div>
             <div style="display:flex; align-items:flex-start; gap:12px; padding:10px 12px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(209,254,255,.10);"><span style="flex-shrink:0; width:22px; height:22px; border-radius:50%; background:rgba(21,255,200,.70); color:#041114; font-weight:900; font-size:12px; display:flex; align-items:center; justify-content:center;">2</span><span style="font-size:13px; color:var(--muted); line-height:1.5;"><b>Ask a clear, low-pressure check-in.</b> Not &ldquo;are you sure?&rdquo; (which pushes for yes). Just: <em>&ldquo;Hey &mdash; you okay? We can stop.&rdquo;</em></span></div>
@@ -9830,7 +10129,7 @@ if(id==="B_drinking_rule"){
           </div>
         </div>
 
-        <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.6px; color:rgba(209,254,255,.62); margin:12px 0 8px;">Scripts that actually work</div>
+        <div class="eyebrow eyebrow--muted" style="margin:12px 0 8px;">Scripts that actually work</div>
         <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
           <div style="padding:10px 12px; border-radius:10px; border:1px solid rgba(21,255,200,.25); background:rgba(21,255,200,.08); font-size:13px; color:var(--muted); line-height:1.45;"><span style="font-weight:900; font-size:11px; text-transform:uppercase; letter-spacing:.4px; color:var(--sb-mint); display:block; margin-bottom:4px;">&#x2705; Use this</span>&ldquo;Hey &mdash; are you okay? We can totally stop.&rdquo;</div>
           <div style="padding:10px 12px; border-radius:10px; border:1px solid rgba(21,255,200,.25); background:rgba(21,255,200,.08); font-size:13px; color:var(--muted); line-height:1.45;"><span style="font-weight:900; font-size:11px; text-transform:uppercase; letter-spacing:.4px; color:var(--sb-mint); display:block; margin-bottom:4px;">&#x2705; Use this</span>&ldquo;I want to make sure you&rsquo;re into this. Are you good?&rdquo;</div>
@@ -9838,9 +10137,9 @@ if(id==="B_drinking_rule"){
           <div style="padding:10px 12px; border-radius:10px; border:1px solid rgba(255,100,80,.30); background:rgba(255,80,60,.06); font-size:13px; color:var(--muted); line-height:1.45;"><span style="font-weight:900; font-size:11px; text-transform:uppercase; letter-spacing:.4px; color:rgba(255,160,110,.85); display:block; margin-bottom:4px;">&#x274C; Avoid this</span>&ldquo;Why did you pull away? Did I do something wrong?&rdquo; &mdash; Centers your feelings, not theirs.</div>
         </div>
 
-        <div style="border:1px solid rgba(209,254,255,.14); background:rgba(0,0,0,.18); border-radius:14px; padding:14px; margin-bottom:12px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.68); margin-bottom:8px;">If this already happened and you kept going</div>
-          <div style="font-size:13px; color:var(--muted); line-height:1.55;">
+        <div class="infoBox" style="margin-bottom:12px;">
+          <div class="eyebrow">If this already happened and you kept going</div>
+          <div class="callout__body">
             Noticing it now still matters. The next step isn&rsquo;t to explain or justify it to yourself &mdash; it&rsquo;s to sit with what the other person&rsquo;s experience was.
             They may have felt unheard, unsafe, or like their signals didn&rsquo;t matter. <b>That&rsquo;s the impact, regardless of your intent.</b>
             <br><br>
@@ -9894,39 +10193,39 @@ if(id==="B_drinking_rule"){
       "When “fine” isn’t a yes",
       ["There’s a pattern that’s easy to miss because no single moment feels like pressure — but the pattern as a whole is."],
       null,
-      `<div style="display:flex; flex-direction:column; gap:10px; margin:4px 0 14px;">
+      `<div class="stack" style="margin:4px 0 14px;">
 
-        <div style="border:1px solid rgba(255,160,80,.30); background:rgba(255,120,40,.07); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,180,100,.85); margin-bottom:8px;">What this looks like</div>
-          <div style="font-size:13.5px; color:var(--muted); line-height:1.55;">
+        <div class="warningBox">
+          <div class="eyebrow">What this looks like</div>
+          <div class="callout__body" style="font-size:13.5px;">
             You ask. They hesitate, or say not right now, or change the subject.<br>
             You ask again — maybe a little later, maybe framed differently.<br>
-            Eventually they say <em>“fine”</em> or <em>“okay”</em> or just stop resisting.<br><br>
-            That’s not a yes. That’s someone giving up on saying no.
+            Eventually they say <em>"fine"</em> or <em>"okay"</em> or just stop resisting.<br><br>
+            That's not a yes. That's someone giving up on saying no.
           </div>
         </div>
 
-        <div style="border:1px solid rgba(209,254,255,.14); background:rgba(0,0,0,.16); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.68); margin-bottom:8px;">Why it doesn’t feel like pressure</div>
-          <div style="font-size:13.5px; color:var(--muted); line-height:1.55;">
-            Each ask can seem harmless on its own — you weren’t aggressive, you waited, you asked nicely. But the <em>pattern</em> of asking again after a hesitation or soft no changes the dynamic. It teaches the other person: resistance doesn’t end things, it just delays them.
+        <div class="infoBox">
+          <div class="eyebrow">Why it doesn't feel like pressure</div>
+          <div class="callout__body" style="font-size:13.5px;">
+            Each ask can seem harmless on its own — you weren't aggressive, you waited, you asked nicely. But the <em>pattern</em> of asking again after a hesitation or soft no changes the dynamic. It teaches the other person: resistance doesn't end things, it just delays them.
           </div>
         </div>
 
-        <div style="border:1px solid rgba(209,254,255,.14); background:rgba(0,0,0,.16); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.68); margin-bottom:8px;">What “fine” often sounds like</div>
-          <div style="font-size:13.5px; color:var(--muted); line-height:1.55; display:flex; flex-direction:column; gap:6px;">
-            <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(255,160,80,.50);">“Fine, if it means that much to you.”</div>
-            <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(255,160,80,.50);">“Okay, okay — just stop asking.”</div>
-            <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(255,160,80,.50);">“I guess.”</div>
-            <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(255,160,80,.50);">[Stops resisting without ever saying yes]</div>
+        <div class="infoBox">
+          <div class="eyebrow">What "fine" often sounds like</div>
+          <div class="stack--tight" style="font-size:13.5px; color:var(--muted); line-height:1.55;">
+            <div class="listItem" style="border-left-color:rgba(255,160,80,.50);">"Fine, if it means that much to you."</div>
+            <div class="listItem" style="border-left-color:rgba(255,160,80,.50);">"Okay, okay — just stop asking."</div>
+            <div class="listItem" style="border-left-color:rgba(255,160,80,.50);">"I guess."</div>
+            <div class="listItem" style="border-left-color:rgba(255,160,80,.50);">[Stops resisting without ever saying yes]</div>
           </div>
         </div>
 
-        <div style="border:1px solid rgba(21,255,200,.25); background:rgba(21,255,200,.06); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:var(--sb-mint); margin-bottom:8px;">The rule going forward</div>
+        <div class="callout" style="margin:0;">
+          <div class="eyebrow eyebrow--mint">The rule going forward</div>
           <div style="font-size:13.5px; color:var(--sb-light); line-height:1.55;">
-            One ask. If the answer is anything other than a clear, enthusiastic yes — stop. Don’t rephrase it. Don’t wait and try again. A real yes doesn’t need to be extracted.
+            One ask. If the answer is anything other than a clear, enthusiastic yes — stop. Don't rephrase it. Don't wait and try again. A real yes doesn't need to be extracted.
           </div>
         </div>
       </div>
@@ -10755,35 +11054,35 @@ if(id==="B_drinking_rule"){
       "They told you. That matters.",
       ["When someone says directly that they were hurt or uncomfortable, they're doing something hard. That deserves a direct response."],
       null,
-      `<div style="display:flex; flex-direction:column; gap:10px; margin:4px 0 14px;">
+      `<div class="stack" style="margin:4px 0 14px;">
 
-        <div style="border:1px solid rgba(255,160,80,.30); background:rgba(255,120,40,.07); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,180,100,.85); margin-bottom:8px;">What you've been given</div>
-          <div style="font-size:13.5px; color:var(--muted); line-height:1.55;">
+        <div class="warningBox">
+          <div class="eyebrow">What you've been given</div>
+          <div class="callout__body" style="font-size:13.5px;">
             A lot of people in this situation never get told directly — they find out through silence, distance, or a third party. You were told. That's information you can actually work with.<br><br>
             The instinct is sometimes to explain, justify, or defend. That's understandable. But the most important thing to do with a direct statement of harm is to <em>receive it</em> before anything else.
           </div>
         </div>
 
-        <div style="border:1px solid rgba(209,254,255,.14); background:rgba(0,0,0,.16); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.68); margin-bottom:8px;">Receiving vs. deflecting</div>
-          <div style="font-size:13.5px; color:var(--muted); line-height:1.55; display:flex; flex-direction:column; gap:8px;">
+        <div class="infoBox">
+          <div class="eyebrow">Receiving vs. deflecting</div>
+          <div class="stack" style="font-size:13.5px; color:var(--muted); line-height:1.55; gap:8px;">
             <div>
-              <div style="font-size:11px; font-weight:700; color:rgba(255,100,80,.80); text-transform:uppercase; letter-spacing:.4px; margin-bottom:4px;">Deflecting sounds like</div>
-              <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(255,100,80,.40); font-style:italic;">"But I didn't mean it that way."</div>
-              <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(255,100,80,.40); font-style:italic; margin-top:4px;">"You seemed okay at the time."</div>
-              <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(255,100,80,.40); font-style:italic; margin-top:4px;">"Why are you bringing this up now?"</div>
+              <div class="eyebrow eyebrow--danger" style="font-size:11px; font-weight:700; margin-bottom:4px;">Deflecting sounds like</div>
+              <div class="listItem" style="border-left-color:rgba(255,100,80,.40); font-style:italic;">"But I didn't mean it that way."</div>
+              <div class="listItem" style="border-left-color:rgba(255,100,80,.40); font-style:italic; margin-top:4px;">"You seemed okay at the time."</div>
+              <div class="listItem" style="border-left-color:rgba(255,100,80,.40); font-style:italic; margin-top:4px;">"Why are you bringing this up now?"</div>
             </div>
             <div>
-              <div style="font-size:11px; font-weight:700; color:rgba(21,255,200,.70); text-transform:uppercase; letter-spacing:.4px; margin-bottom:4px;">Receiving sounds like</div>
-              <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(21,255,200,.40); font-style:italic;">"Thank you for telling me. I'm sorry you experienced that."</div>
-              <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(21,255,200,.40); font-style:italic; margin-top:4px;">"I hear you. I want to understand."</div>
+              <div class="eyebrow eyebrow--mint" style="font-size:11px; font-weight:700; margin-bottom:4px;">Receiving sounds like</div>
+              <div class="listItem" style="font-style:italic;">"Thank you for telling me. I'm sorry you experienced that."</div>
+              <div class="listItem" style="font-style:italic; margin-top:4px;">"I hear you. I want to understand."</div>
             </div>
           </div>
         </div>
 
-        <div style="border:1px solid rgba(21,255,200,.25); background:rgba(21,255,200,.06); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:var(--sb-mint); margin-bottom:8px;">What comes next</div>
+        <div class="callout" style="margin:0;">
+          <div class="eyebrow eyebrow--mint">What comes next</div>
           <div style="font-size:13.5px; color:var(--sb-light); line-height:1.55;">
             Accountability doesn't require you to accept a version of events you genuinely disagree with. But it does require you to take their experience seriously first — before any explaining, context, or defense.<br><br>
             Your intent matters to you. Their experience is what happened to them. Both can be real at once.
@@ -10802,28 +11101,28 @@ if(id==="B_drinking_rule"){
       "Trust that feeling.",
       ["You're here because something in you noticed a gap between what they said and what you sensed. That's worth taking seriously."],
       null,
-      `<div style="display:flex; flex-direction:column; gap:10px; margin:4px 0 14px;">
+      `<div class="stack" style="margin:4px 0 14px;">
 
-        <div style="border:1px solid rgba(209,254,255,.14); background:rgba(0,0,0,.16); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.68); margin-bottom:8px;">Why "fine" doesn't always mean fine</div>
-          <div style="font-size:13.5px; color:var(--muted); line-height:1.55;">
+        <div class="infoBox">
+          <div class="eyebrow">Why "fine" doesn't always mean fine</div>
+          <div class="callout__body" style="font-size:13.5px;">
             People say "I'm fine" for a lot of reasons — to avoid conflict, to end an uncomfortable conversation, because they're still processing, or because they don't yet have words for what they're feeling.<br><br>
             A verbal "fine" and an emotional resolution are different things. One can exist without the other.
           </div>
         </div>
 
-        <div style="border:1px solid rgba(209,254,255,.14); background:rgba(0,0,0,.16); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.68); margin-bottom:8px;">Signals that something might still be unresolved</div>
-          <div style="font-size:13.5px; color:var(--muted); line-height:1.55; display:flex; flex-direction:column; gap:6px;">
-            <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.25);">They said fine quickly, without really engaging</div>
-            <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.25);">Things felt subtly different between you afterward</div>
-            <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.25);">You keep replaying it — your gut is flagging something</div>
-            <div style="padding:6px 10px; border-radius:8px; background:rgba(255,255,255,.04); border-left:3px solid rgba(209,254,255,.25);">They changed the subject and you never really talked it through</div>
+        <div class="infoBox">
+          <div class="eyebrow">Signals that something might still be unresolved</div>
+          <div class="stack--tight" style="font-size:13.5px; color:var(--muted); line-height:1.55;">
+            <div class="listItem" style="border-left-color:rgba(209,254,255,.25);">They said fine quickly, without really engaging</div>
+            <div class="listItem" style="border-left-color:rgba(209,254,255,.25);">Things felt subtly different between you afterward</div>
+            <div class="listItem" style="border-left-color:rgba(209,254,255,.25);">You keep replaying it — your gut is flagging something</div>
+            <div class="listItem" style="border-left-color:rgba(209,254,255,.25);">They changed the subject and you never really talked it through</div>
           </div>
         </div>
 
-        <div style="border:1px solid rgba(21,255,200,.25); background:rgba(21,255,200,.06); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:var(--sb-mint); margin-bottom:8px;">What to do with this</div>
+        <div class="callout" style="margin:0;">
+          <div class="eyebrow eyebrow--mint">What to do with this</div>
           <div style="font-size:13.5px; color:var(--sb-light); line-height:1.55;">
             The fact that you're asking the question is already accountability in action. If something feels unresolved, it's okay to gently open the door again.<br><br>
             A low-pressure check-in can sound like: <em>"Hey, I've been thinking about the other night. I want to make sure you're actually okay — not just 'fine.'"</em><br><br>
@@ -10879,32 +11178,32 @@ if(id==="B_drinking_rule"){
         "This is true even in an established relationship — ongoing intimacy doesn't create blanket permission."
       ],
       null,
-      `<div style="display:flex; flex-direction:column; gap:10px; margin:4px 0 14px;">
+      `<div class="stack" style="margin:4px 0 14px;">
 
-        <div style="border:1px solid rgba(255,160,80,.30); background:rgba(255,120,40,.07); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,180,100,.85); margin-bottom:8px;">The "we always do this" trap</div>
-          <div style="font-size:13.5px; color:var(--muted); line-height:1.55;">
+        <div class="warningBox">
+          <div class="eyebrow">The "we always do this" trap</div>
+          <div class="callout__body" style="font-size:13.5px;">
             In relationships, it's common to assume that past yeses carry forward — especially for things that have happened many times without objection. But consent needs to be present each time, not borrowed from history.<br><br>
             Even if a partner never explicitly said no to being woken this way, that's not the same as freely agreeing to it. They may have gone along, felt they couldn't object, or not known how to bring it up.
           </div>
         </div>
 
-        <div style="border:1px solid rgba(209,254,255,.14); background:rgba(0,0,0,.16); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.68); margin-bottom:8px;">Why "they didn't stop me" isn't a yes</div>
-          <div style="font-size:13.5px; color:var(--muted); line-height:1.55;">
+        <div class="infoBox">
+          <div class="eyebrow">Why "they didn't stop me" isn't a yes</div>
+          <div class="callout__body" style="font-size:13.5px;">
             Someone waking up to unwanted touch may freeze, go along to avoid conflict, or feel disoriented and unable to respond clearly. Not stopping you isn't the same as wanting it — it may just be the path of least resistance from a vulnerable state.
           </div>
         </div>
 
-        <div style="border:1px solid rgba(209,254,255,.14); background:rgba(0,0,0,.16); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:rgba(209,254,255,.68); margin-bottom:8px;">If this has happened more than once</div>
-          <div style="font-size:13.5px; color:var(--muted); line-height:1.55;">
+        <div class="infoBox">
+          <div class="eyebrow">If this has happened more than once</div>
+          <div class="callout__body" style="font-size:13.5px;">
             If this is a pattern in a relationship, the accountable move is to have an explicit conversation about it — not while it's happening, but at a calm, neutral moment. Ask directly whether your partner is okay with this, and make it safe for them to say no.
           </div>
         </div>
 
-        <div style="border:1px solid rgba(21,255,200,.25); background:rgba(21,255,200,.06); border-radius:14px; padding:14px;">
-          <div style="font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.5px; color:var(--sb-mint); margin-bottom:8px;">The standard going forward</div>
+        <div class="callout" style="margin:0;">
+          <div class="eyebrow eyebrow--mint">The standard going forward</div>
           <div style="font-size:13.5px; color:var(--sb-light); line-height:1.55;">
             If you want intimacy to be something that can happen while a partner is waking up, that agreement needs to be made explicitly — when you're both fully awake, clear, and able to say no freely. Without that conversation, the default is: wait until they're awake.
           </div>
@@ -11157,7 +11456,14 @@ if(id==="B_drinking_rule"){
   if(id==="emotionMessage"){
 
     if(state.emotion==="confused"){
-      screen.innerHTML = backBtn() + fogFeature();
+      let confusedContext = '';
+      if (state.entry && state.scenario) {
+        confusedContext = `
+          <div class="journeySummary" style="margin-top:14px;">
+            <b>Where you\u2019ve been so far:</b> You came in because <b>${entryLabel(state.entry)}</b>, and you looked at a situation involving <b>${scenarioLabel(state.scenario)}</b>. Confusion can feel disorienting \u2014 naming what\u2019s unclear is the first step through it.
+          </div>`;
+      }
+      screen.innerHTML = backBtn() + fogFeature() + confusedContext;
       setTimeout(startFog, 0);
       actions.replayFog = ()=>startFog();
       actions.nextSteps = ()=>go("nextSteps");
@@ -11269,18 +11575,24 @@ Use this moment to choose one thing you’ll carry forward. Not a rule to memori
     let personalContext = '';
     if (state.entry && state.scenario) {
       const emotionQualifier =
-        (state.emotion === 'guilt' || state.emotion === 'ashamed')
-          ? 'Sitting with that honestly takes real courage.'
-        : (state.emotion === 'defensive' || state.emotion === 'angry')
-          ? 'It\u2019s natural for your guard to come up \u2014 try to stay with it.'
-        : (state.emotion === 'confused' || state.emotion === 'numb')
-          ? 'When the situation is unclear, the feelings tend to be murky too. That\u2019s okay.'
+        (state.emotion === 'guilt')
+          ? 'Guilt like that takes courage to sit with \u2014 it means you\u2019re paying attention.'
+        : (state.emotion === 'ashamed')
+          ? 'Shame can make you want to shut down \u2014 staying present with it honestly takes real strength.'
+        : (state.emotion === 'defensive')
+          ? 'Defensiveness is your guard coming up \u2014 try to stay with it instead of letting it steer.'
+        : (state.emotion === 'angry')
+          ? 'Anger can be loud \u2014 let it settle before you decide what it\u2019s telling you.'
+        : (state.emotion === 'confused')
+          ? 'Confusion can feel disorienting \u2014 naming what\u2019s unclear is the first step through it.'
+        : (state.emotion === 'numb')
+          ? 'Numbness can be your brain\u2019s way of protecting you \u2014 the feelings may arrive later, and that\u2019s okay.'
         : (state.emotion === 'anxious')
-          ? 'It makes sense that your body is responding to all of this.'
+          ? 'Anxiety means your body is reacting to all of this \u2014 that response makes sense.'
         : (state.emotion === 'sad')
-          ? 'That heaviness is telling you something worth listening to.'
+          ? 'Sadness like this means your attention has shifted to someone else\u2019s experience \u2014 that matters.'
         : (state.emotion === 'embarrassed')
-          ? 'That raw, exposed feeling is hard \u2014 and it\u2019s completely normal.'
+          ? 'Embarrassment is that raw, exposed feeling \u2014 it\u2019s hard, and it\u2019s completely normal.'
         : 'However you\u2019re feeling about it, staying present with it matters.';
       personalContext = `
         <div class="journeySummary" style="margin-top:14px;">
@@ -11390,7 +11702,7 @@ if(state.emotion==="okay"){
 
 
   if(id==="grounding"){
-    screen.innerHTML = backBtn() + groundingMarkup();
+    screen.innerHTML = `<button class="btn btnBack" data-action="nextSteps">&#8592; Back</button>` + groundingMarkup();
     setTimeout(initGrounding, 0);
     actions.nextSteps = ()=>go("nextSteps");
     return;
@@ -11462,10 +11774,10 @@ if(state.emotion==="okay"){
           </span>
         </button>
 
-        <button class="nextBtn" data-action="grounding">
+        <button class="nextBtn" data-action="grounding"${recStyle('grounding')}>
           <span class="nextBtnIcon"><i class="ph-bold ph-wind"></i></span>
           <span class="nextBtnText">
-            <span class="nextBtnLabel">Ground / reset</span>
+            <span class="nextBtnLabel">Ground / reset${recBadge('grounding')}</span>
             <span class="nextBtnSub">5-4-3-2-1 and body-based calming</span>
           </span>
         </button>
@@ -11531,7 +11843,7 @@ if(state.emotion==="okay"){
       </div>
 
       <div class="grid" style="margin-top:16px;">
-        ${btn("Back","nextSteps")}
+        ${btn("Back","goBack")}
         ${btn("Finish","closing","btn btnPrimary")}
       </div>
     `;
@@ -11641,7 +11953,7 @@ if(state.emotion==="okay"){
       <div class="ttCards" id="ttCards"></div>
 
       <div class="grid" style="margin-top:16px;">
-        ${btn("Back","nextSteps")}
+        ${btn("Back","goBack")}
         ${btn("Finish","closing","btn btnPrimary")}
       </div>
     `;
@@ -11726,7 +12038,7 @@ if(state.emotion==="okay"){
 
   if(id==="shiftThinking"){
     const stIntro = subPageIntro("shiftThinking");
-    screen.innerHTML = backBtn() + `
+    screen.innerHTML = `<button class="btn btnBack" data-action="nextSteps">&#8592; Back</button>` + `
       <div class="h1">Shift Your Thinking</div>
       <div class="p">Interactive tools to help you reframe, reflect, and build self-awareness.</div>
       ${stIntro ? personalNoteHtml(stIntro) : ''}
@@ -11769,7 +12081,7 @@ if(state.emotion==="okay"){
       </div>
 
       <div class="grid" style="margin-top:4px;">
-        ${btn("Back","nextSteps")}
+        ${btn("Back","goBack")}
         ${btn("Finish","closing","btn btnPrimary")}
       </div>
     `;
@@ -11814,7 +12126,7 @@ if(state.emotion==="okay"){
         <div class="bsHint">Drag handle or use ← → keys</div>
 
         ${grid(
-          btn("Back","nextSteps") +
+          btn("Back","goBack") +
           btn("Finish","closing","btn btnPrimary")
         )}
       `
@@ -11828,7 +12140,7 @@ if(state.emotion==="okay"){
 
   if(id==="learn"){
   const learnIntro = subPageIntro("learn");
-  screen.innerHTML = backBtn() + `
+  screen.innerHTML = `<button class="btn btnBack" data-action="nextSteps">&#8592; Back</button>` + `
     ${learnIntro ? personalNoteHtml(learnIntro) : ''}
     <div class="p">Choose a topic to explore. Each one is an interactive guided module you can work through at your own pace.</div>
 
@@ -11878,7 +12190,7 @@ if(state.emotion==="okay"){
     </div>
 
     <div class="grid" style="margin-top:4px;">
-      ${btn("Back","nextSteps")}
+      ${btn("Back","goBack")}
       ${btn("Finish","closing","btn btnPrimary")}
     </div>
   `;
@@ -11898,7 +12210,7 @@ if(state.emotion==="okay"){
 
   if(id==="prevent"){
     const pvIntro = subPageIntro("prevent");
-    screen.innerHTML = backBtn() + `
+    screen.innerHTML = `<button class="btn btnBack" data-action="nextSteps">&#8592; Back</button>` + `
       <div class="h1">Prevent it from happening again</div>
       <div class="p">These tools can help you build real prevention skills \u2014 not just rules to memorize.</div>
       ${pvIntro ? personalNoteHtml(pvIntro) : ''}
@@ -11925,7 +12237,7 @@ if(state.emotion==="okay"){
         </button>
       </div>
 
-      ${grid(btn("Back","nextSteps") + btn("Finish","closing","btn btnPrimary"))}
+      ${grid(btn("Back","goBack") + btn("Finish","closing","btn btnPrimary"))}
     `;
 
     // ── Consent Road modal ──
@@ -12096,7 +12408,7 @@ if(state.emotion==="okay"){
   }
 
   if(id==="repair"){
-  screen.innerHTML = backBtn() + `
+  screen.innerHTML = `<button class="btn btnBack" data-action="nextSteps">&#8592; Back</button>` + `
     <div class="h1">Repair (if appropriate)</div>
     <div class="p">Accountability means taking responsibility and respecting boundaries — not earning forgiveness. If you reach out, keep it short, don’t ask for comfort, and allow space.</div>
 
@@ -12187,7 +12499,7 @@ if(state.emotion==="okay"){
 
     </div>
 
-    ${grid(btn("Back","nextSteps") + btn("Finish","closing","btn btnPrimary"))}
+    ${grid(btn("Back","goBack") + btn("Finish","closing","btn btnPrimary"))}
   `;
 
   function makeRepairToggle(panelId, headerId){
@@ -12271,7 +12583,7 @@ if(state.emotion==="okay"){
 
     if(id==="support"){
     const supIntro = subPageIntro("support");
-    screen.innerHTML = backBtn() + (supIntro ? personalNoteHtml(supIntro) : '') + card(
+    screen.innerHTML = `<button class="btn btnBack" data-action="nextSteps">&#8592; Back</button>` + (supIntro ? personalNoteHtml(supIntro) : '') + card(
       "Support options",
       [
         "If you want structured accountability learning, consider SafeBAE's training.",
@@ -12313,7 +12625,7 @@ if(state.emotion==="okay"){
         </a>
       </div>
       <div style="margin-top:14px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-        ${btn("Back","nextSteps")}
+        ${btn("Back","goBack")}
         ${btn("Finish","closing","btn btnPrimary")}
       </div>`
     );
@@ -12841,7 +13153,7 @@ function rejectionScreen(){
     b.onclick=()=>{ rState.step=Math.min(REJ_STEPS.length-1,rState.step+1); rState.scenarioAnswered=false; rState.scenarioChosen=-1; rejectionScreen(); };
   });
   el.querySelectorAll('[data-rejback]').forEach(b=>{
-    b.onclick=()=>{ if(rState.step>0){rState.step--;rejectionScreen();}else{go('nextSteps');} };
+    b.onclick=()=>{ if(rState.step>0){rState.step--;rejectionScreen();}else{goBack();} };
   });
   el.querySelectorAll('[data-rejrestart]').forEach(b=>{
     b.onclick=()=>{ resetRState(); rejectionScreen(); };
@@ -13841,10 +14153,7 @@ function hrRender() {
     `<div class="dsProgressDot${i < s ? ' done' : i === s ? ' active' : ''}"></div>`
   ).join('');
 
-  function backBtn() {
-    const action = s > 0 ? 'data-hraction="back"' : 'data-action="nextSteps"';
-    return `<button class="btn" ${action} style="padding:9px 14px;border-radius:999px;font-size:13px;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--border);margin-bottom:10px;width:auto;">← Back</button>`;
-  }
+  // Use the global backBtn() — top-left goes to parent module, bottom buttons handle step nav
 
   let innerHTML = '';
 
@@ -15249,7 +15558,7 @@ function consentRender() {
         consentRender();
       } else if (a === 'back') {
         if (conState.step === 0) {
-          go('nextSteps');
+          goBack();
         } else {
           conState.step = Math.max(0, conState.step - 1);
           consentRender();
@@ -15845,7 +16154,7 @@ function sardRender() {
         sardRender();
       } else if (a === 'back') {
         if (sardState.step === 0) {
-          go('nextSteps');
+          goBack();
         } else {
           sardState.step = Math.max(0, sardState.step - 1);
           sardRender();
@@ -16182,7 +16491,7 @@ function bfRender() {
         bfRender();
       } else if (a === 'back') {
         if (bfState.step === 0) {
-          go('nextSteps');
+          goBack();
         } else {
           bfState.step = Math.max(0, bfState.step - 1);
           bfRender();
@@ -16628,7 +16937,7 @@ function afRender() {
       if (a === 'start') { afState.step = 1; afState.scenarioIdx = 0; afState.answers = []; afState.revealed = false; afRender(); }
       else if (a === 'nextScenario') { afState.scenarioIdx++; afState.revealed = false; afRender(); }
       else if (a === 'results') { afState.step = 2; afRender(); }
-      else if (a === 'backToMenu') { go('nextSteps'); }
+      else if (a === 'backToMenu') { goBack(); }
       else if (a === 'restart') { afState = { step: 0, scenarioIdx: 0, answers: [], revealed: false }; afRender(); }
       else if (a === 'copy') {
         const { sorted, topEmo, promptEmo } = afGetProfile();
